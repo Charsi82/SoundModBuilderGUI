@@ -1,0 +1,434 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<content>
+	<item id="12_months_january" ru="Братец Январь"/>
+	<item id="12_months_march" ru="Братец Март"/>
+	<item id="ASnowGiant2022" ru="Garland Snow"/>
+	<item id="AUBOYNEAU" ru="Philippe Auboyneau"/>
+	<item id="Adi_Guntur" ru="Adi Guntur"/>
+	<item id="Akeno_Mashiro" ru="Akeno Misaki"/>
+	<item id="Android_TM4" ru="ЦМ-10А"/>
+	<item id="Anime_TM5" ru="Кейра"/>
+	<item id="Apraksin" ru="Фёдор Апраксин"/>
+	<item id="Aquaman_BDay22" ru="Хозяин семи морей"/>
+	<item id="Arleigh_Burke" ru="Arleigh Burke"/>
+	<item id="Ashigara" ru="Ashigara"/>
+	<item id="AshleyViolet" ru="Ashley Violet"/>
+	<item id="Auc1" ru="Theodor &quot;Trouble&quot; Murphy"/>
+	<item id="Auc2" ru="Пётр Градов"/>
+	<item id="Auc3_Havelock" ru="Havelock"/>
+	<item id="Aurelius_Darling_H2020" ru="Aurelius Darling"/>
+	<item id="Azur_Atago" ru="Atago"/>
+	<item id="Azur_Aurora" ru="Avrora"/>
+	<item id="Azur_Azuma" ru="Azuma"/>
+	<item id="Azur_Baltimore" ru="Baltimore"/>
+	<item id="Azur_Belfast" ru="Belfast"/>
+	<item id="Azur_Bismarck" ru="Bismarck"/>
+	<item id="Azur_Chapayev" ru="Chapayev"/>
+	<item id="Azur_Cleveland" ru="Cleveland"/>
+	<item id="Azur_Dunkerque" ru="Dunkerque"/>
+	<item id="Azur_Enterprise" ru="Enterprise"/>
+	<item id="Azur_Formidable" ru="Formidable"/>
+	<item id="Azur_Hipper" ru="Admiral Hipper"/>
+	<item id="Azur_Hood" ru="Hood"/>
+	<item id="Azur_Itsen" ru="Yat Sen"/>
+	<item id="Azur_JeanBart" ru="Jean Bart"/>
+	<item id="Azur_Kaga" ru="Kaga"/>
+	<item id="Azur_Littorio" ru="Littorio"/>
+	<item id="Azur_Montpelier" ru="Montpelier"/>
+	<item id="Azur_Nelson" ru="Nelson"/>
+	<item id="Azur_Neptune" ru="Neptune"/>
+	<item id="Azur_NewJersey" ru="New Jersey"/>
+	<item id="Azur_Prinz_Eugen" ru="Prinz Eugen"/>
+	<item id="Azur_Roon" ru="Roon"/>
+	<item id="Azur_Shokaku" ru="Shōkaku"/>
+	<item id="Azur_SovRussia" ru="Sovetskaya Rossiya"/>
+	<item id="Azur_StLouis" ru="Saint Louis"/>
+	<item id="Azur_Yukikaze" ru="Yukikaze"/>
+	<item id="Azur_Zara" ru="Zara"/>
+	<item id="BRITISH_PVE" ru="Adrian Griffiths"/>
+	<item id="Bajie" ru="Zhu Bajie"/>
+	<item id="Balao_Subtest" ru="Sam Fisher"/>
+	<item id="Battleship_Duck_High_FA2023" ru="У.Т.К.А."/>
+	<item id="Battleship_Duck_Low_FA2023" ru="Крякадако"/>
+	<item id="Bonus_otvinta" ru="Бонус"/>
+	<item id="Boris_Razor_H18" ru="Борис Вебер"/>
+	<item id="Boris_Razor_HW" ru="Борис Вебер"/>
+	<item id="Bruno_Battaglia" ru="Bruno Battaglia"/>
+	<item id="Bumblebee" ru="Бамблби"/>
+	<item id="CAPT" ru="Кэп"/>
+	<item id="CNBANNY" ru="Captain Bunny"/>
+	<item id="CNRABBIT" ru="Commander Rabbit"/>
+	<item id="COM_WWII_SA" ru="John Duncan Morefield"/>
+	<item id="CUNNINGHAM" ru="Andrew Cunningham"/>
+	<item id="CaoCao" ru="Cao Cao"/>
+	<item id="ChangeDual" ru="Chang'e"/>
+	<item id="Chernomor" ru="Черномор"/>
+	<item id="ChristophSchulz" ru="Christoph Schulz"/>
+	<item id="ComRichard" ru="ComRichard"/>
+	<item id="Commander_Akizuki_H2020" ru="Rattus Rogue"/>
+	<item id="Commander_Alaska_H2019" ru="Rick Diesel"/>
+	<item id="Commander_Amagi_H2020" ru="Doctor Linebelly"/>
+	<item id="Commander_Berserk_H2020" ru="Клыкорук"/>
+	<item id="Commander_CrabBattleship_H2020" ru="Пучеглаз"/>
+	<item id="Commander_Daring_PA" ru="Skullcap"/>
+	<item id="Commander_France_H2019" ru="Vagabond Strauss"/>
+	<item id="Commander_France_H2020" ru="Delphius Ora-cle"/>
+	<item id="Commander_Gearing_H2019" ru="James Ratten"/>
+	<item id="Commander_Gearing_PA" ru="Dr. Ecraseur"/>
+	<item id="Commander_Grozovoy_PA" ru="Иван Грозный"/>
+	<item id="Commander_Harugumo_PA" ru="David Vortex"/>
+	<item id="Commander_Henri_H2019" ru="David &quot;Vortex&quot; Jones"/>
+	<item id="Commander_Hindenburg_H2019" ru="Twilight Fury"/>
+	<item id="Commander_Hindenburg_H2020" ru="Katrina Hush Gareth"/>
+	<item id="Commander_Hsiang_Yang_PA" ru="Scarlet Fury"/>
+	<item id="Commander_Khabarovsk_H2019" ru="Dr. van Ecraseur"/>
+	<item id="Commander_Khabarovsk_PA" ru="Борис Труба"/>
+	<item id="Commander_Kleber_PA" ru="Octane Diesel"/>
+	<item id="Commander_MonsterCruiser_H2020" ru="Шипоспин"/>
+	<item id="Commander_Montana_H2019" ru="Skull Teufel"/>
+	<item id="Commander_Oland_H2020" ru="Aurelius Darling"/>
+	<item id="Commander_Shimakaze_H2019" ru="Борис Удильщик"/>
+	<item id="Commander_Shimakaze_PA" ru="Baron von Vagabond"/>
+	<item id="Commander_Smolensk_H2020" ru="Ich-Theo Billy"/>
+	<item id="Commander_Yamato_H2019" ru="Chernomor the Terrible"/>
+	<item id="Commander_Z_52_PA" ru="Rattenkönig"/>
+	<item id="Conspirologist" ru="Дункан Ч."/>
+	<item id="Cruiser_Duck_High_FA2023" ru="Фьюро"/>
+	<item id="Cruiser_Duck_Low_FA2023" ru="Луиджи МакКрякки"/>
+	<item id="DE_Ijichi" ru="Hikojirō Ijichi"/>
+	<item id="DE_Serebrennikov" ru="Пётр Серебренников"/>
+	<item id="DIEHARD_CAP" ru="Johannes Meck-Leyne"/>
+	<item id="Da_Rong" ru="Dà Róng"/>
+	<item id="Danka_Shchus" ru="Данька Щусь"/>
+	<item id="Dasha_EU" ru="Даша Перова"/>
+	<item id="Dasha_FR" ru="Даша Перова"/>
+	<item id="Dasha_GE" ru="Даша Перова"/>
+	<item id="Dasha_IT" ru="Даша Перова"/>
+	<item id="Dasha_JP" ru="Даша Перова"/>
+	<item id="Dasha_NED" ru="Даша Перова"/>
+	<item id="Dasha_PZ" ru="Даша Перова"/>
+	<item id="Dasha_RU" ru="Даша Перова"/>
+	<item id="Dasha_UK" ru="Даша Перова"/>
+	<item id="Dasha_US" ru="Даша Перова"/>
+	<item id="David_Jones_H18" ru="David Jones"/>
+	<item id="David_Jones_HW" ru="David Jones"/>
+	<item id="De_Jong" ru="Klaas Janssen"/>
+	<item id="De_Ruyter" ru="Michiel de Ruyter"/>
+	<item id="Destroyer_Duck_High_FA2023" ru="Дак Панчис"/>
+	<item id="Destroyer_Duck_Low_FA2023" ru="Дон де ла Дак"/>
+	<item id="Dobrojir_Drobodanovich" ru="Доброжир Дрободанович"/>
+	<item id="Doctor_Linebelly_H2020" ru="Doctor Linebelly"/>
+	<item id="Domenico_Folgore" ru="Domenico Folgore"/>
+	<item id="Dr_Frankenship_H18" ru="Victor F. Einstein"/>
+	<item id="Drozdov" ru="Валентин Дрозд"/>
+	<item id="Dubinin_Aria" ru="Виталий Дубинин"/>
+	<item id="Dunk_Capn" ru="Jack Dunkirk"/>
+	<item id="Dusty_Logh" ru="Dusty Attemborough"/>
+	<item id="Dzhabrailov" ru="Тимур Джабраилов"/>
+	<item id="Eastern_dragon_king" ru="Eastern Dragon King"/>
+	<item id="Edinburgh_space" ru="Triangulum"/>
+	<item id="EliteTournament22" ru="Da Lan"/>
+	<item id="Ermelinda_Jung" ru="Эрмелинда Юнг"/>
+	<item id="EvaValentine" ru="Eva Valentine"/>
+	<item id="FRANCECAPPREM" ru="Charles-Henri Honoré"/>
+	<item id="FRANCE_CAP" ru="Jean-Jacques Honoré"/>
+	<item id="FRANCISCO_FERREIRA" ru="Francisco Ferreira Filho"/>
+	<item id="FRAN_WWII_SA" ru="Fernand Lacroix"/>
+	<item id="FRENCH_PVE" ru="Léon Terraux"/>
+	<item id="FRE_Golden_Konung" ru="Golden Konung"/>
+	<item id="FRIEDRICHBONTE" ru="Friedrich Bonte"/>
+	<item id="FSnowGiant2022" ru="Félicien Leblanc"/>
+	<item id="FUBUKI_SHIRAKAMI" ru="Shirakami Fubuki"/>
+	<item id="Feuerputz" ru="Feuerputz"/>
+	<item id="Frankenship" ru="Victor F. Einstein"/>
+	<item id="Frederica_Logh" ru="Frederica Greenhill"/>
+	<item id="Fredrik_Henrik" ru="Fredrik Henrik af Chapman"/>
+	<item id="GERCAP" ru="Franz von Jütland"/>
+	<item id="GERCAPPREM" ru="Reinhard von Jütland"/>
+	<item id="GER_LilFish_OG" ru="LilFish OG"/>
+	<item id="GER_Pete_Earthling" ru="Pete Earthling"/>
+	<item id="GRZEGORZ" ru="Grzegorz Brzęczyszczykiewicz"/>
+	<item id="GReed" ru="Gareth Reed"/>
+	<item id="GStarr" ru="Starr"/>
+	<item id="Gamover_otvinta" ru="Гамовер"/>
+	<item id="Gluhschwanz" ru="Glühschwanz"/>
+	<item id="Gnidovsky" ru="Руперт Г."/>
+	<item id="Godzilla" ru="Годзилла"/>
+	<item id="Grand_Admiral_Padilla" ru="José Padilla López"/>
+	<item id="Gregory_Oldnick" ru="Черномор"/>
+	<item id="Grimlock" ru="Гримлок"/>
+	<item id="Gunzou" ru="Gunzo Chihaya"/>
+	<item id="H2019_BorisAngler" ru="Борис Удильщик"/>
+	<item id="H2019_Chernomor" ru="Chernomor the Terrible"/>
+	<item id="H2019_Cyborgotep" ru="Rick Diesel"/>
+	<item id="H2019_DavidVortexJones" ru="David &quot;Vortex&quot; Jones"/>
+	<item id="H2019_EcraseurSchubs" ru="Доктор ван Шубов"/>
+	<item id="H2019_Mephisteufel" ru="Skull Teufel"/>
+	<item id="HANNOVER_CAP" ru="Walter Wittenberg"/>
+	<item id="HFukuda" ru="Haruto Fukuda"/>
+	<item id="HORACEHOOD" ru="Horace Hood"/>
+	<item id="Haguro" ru="Haguro"/>
+	<item id="Halsey" ru="William F. Halsey Jr."/>
+	<item id="Hank_Bailey" ru="Hank Bailey"/>
+	<item id="Haruna" ru="Haruna"/>
+	<item id="Helsind" ru="Abraham V. Hellsinger"/>
+	<item id="Hiei" ru="Hiei"/>
+	<item id="Holstinin_Aria" ru="Владимир Холстинин"/>
+	<item id="Hot_Rod" ru="Хот Род"/>
+	<item id="Houyi" ru="Hou Yi"/>
+	<item id="Hrensberg" ru="Дик Х."/>
+	<item id="Hua_Hu" ru="Hua Hu"/>
+	<item id="Hua_Qing" ru="Hua Qing"/>
+	<item id="IJUINMATSUJI" ru="Matsuji Ijūin"/>
+	<item id="ISnowGiant2022" ru="Gelo Regali"/>
+	<item id="IkedaMamoru" ru="Ikeda Mamoru"/>
+	<item id="Iona" ru="Iona"/>
+	<item id="Isoroku" ru="Isoroku"/>
+	<item id="JAP_11010111101001" ru="11010111101001"/>
+	<item id="JAP_Queen_Bee" ru="Queen Bee"/>
+	<item id="JAP_WWII_SA" ru="Tomokazu Satomi"/>
+	<item id="JG_Mephisteufel_H18" ru="J.G. Mephisteufel"/>
+	<item id="JNoel" ru="Jeremie Noel"/>
+	<item id="JTaliya" ru="Taliya"/>
+	<item id="Jager_Campaign" ru="Felix von Paar"/>
+	<item id="JakeeyHermann" ru="Jakeey Hermann"/>
+	<item id="James_Conrad" ru="Джеймс Конрад"/>
+	<item id="James_Dgrease_H18" ru="James D. Breese"/>
+	<item id="James_Dgrease_HW" ru="James D. Breese"/>
+	<item id="Jenkins" ru="Leroy Jenkins"/>
+	<item id="Jorick_Aria" ru="Жорик"/>
+	<item id="KUZNETSOV" ru="Николай Кузнецов"/>
+	<item id="K_Type_Subtest" ru="Семён Рыбаков"/>
+	<item id="Kaguya" ru="Kaguya"/>
+	<item id="Kappa" ru="Kappa"/>
+	<item id="KeithBrown" ru="Keith Brown"/>
+	<item id="Kharitonov" ru="Александр Харитонов"/>
+	<item id="Kirishima" ru="Kirishima"/>
+	<item id="Kirishima_Bear" ru="Kirishima (Yotaroh)"/>
+	<item id="Kitakaze_space" ru="Andromeda"/>
+	<item id="Klaus_Teslau" ru="Klaus V. Teslau"/>
+	<item id="Klaus_Teslau_H18" ru="Klaus V. Teslau"/>
+	<item id="KobayashiSatoshi" ru="Kobayashi Satoshi"/>
+	<item id="Kong" ru="Конг"/>
+	<item id="Kongou" ru="Kongō"/>
+	<item id="Koshej" ru="Кощей Бессмертный"/>
+	<item id="Kouko_Nosa" ru="Kouko Nosa"/>
+	<item id="Ksanka_Shchus" ru="Ксанка Щусь"/>
+	<item id="LDonaldson" ru="Lewis Donaldson"/>
+	<item id="LUTJENS" ru="Günther Lütjens"/>
+	<item id="Lana_anime" ru="Лана"/>
+	<item id="Lazar_Kent" ru="Lazarus Centurio"/>
+	<item id="Lazar_Kent_H18" ru="Lazarus Centurio"/>
+	<item id="Leila_anime" ru="Айла"/>
+	<item id="Leo_Gradwell" ru="Leo Gradwell"/>
+	<item id="Leprechaun" ru="Seán McMurphy"/>
+	<item id="Liberty" ru="Statue of Liberty"/>
+	<item id="Lily_Thorne" ru="Лили Торн"/>
+	<item id="Lindworm" ru="Lindwurm"/>
+	<item id="LiuBei" ru="Liu Bei"/>
+	<item id="MAKAROV" ru="Степан Макаров"/>
+	<item id="MARINE_HOSHOU" ru="Houshou Marine"/>
+	<item id="MK_MT" ru="Максим Меткий"/>
+	<item id="Maron_Yanagiwara" ru="Maron Yanagiwara"/>
+	<item id="Matilda_Kelly" ru="Matilda Kelly"/>
+	<item id="Max_Strauss_H18" ru="Max Strauss"/>
+	<item id="Max_Strauss_HW" ru="Max Strauss"/>
+	<item id="MayCap" ru="Виктор Знаменский"/>
+	<item id="May_day_CA" ru="Lionel H. Morrow"/>
+	<item id="May_day_FR" ru="René Jobert"/>
+	<item id="May_day_PL" ru="Eugeniusz Grudziński"/>
+	<item id="May_day_RU" ru="Андрей Горячев"/>
+	<item id="May_day_UK" ru="Peter Vance"/>
+	<item id="May_day_US" ru="Holden Kirby Bennett"/>
+	<item id="Maya" ru="Maya"/>
+	<item id="Megatron" ru="Мегатрон"/>
+	<item id="Mei_Irizaki" ru="Mei Irizaki"/>
+	<item id="Midway_Commander_JP" ru="Tamio Yamazaki"/>
+	<item id="Midway_Commander_US" ru="Nathan Wyatt"/>
+	<item id="MightyJingles" ru="The Mighty Jingles"/>
+	<item id="Mina_Thea" ru="Thea Kreutzer"/>
+	<item id="Mina_Ura" ru="Mina Hurray"/>
+	<item id="Mina_Ura_H18" ru="Mina Hurray"/>
+	<item id="MinakamiShiori_ObonFest" ru="Minakami Shiori"/>
+	<item id="Minin" ru="Кузьма Минин"/>
+	<item id="Moeka_China" ru="Moeka China"/>
+	<item id="Mongol_TM" ru="Guō Hóngfàn"/>
+	<item id="MoritzBrandt" ru="Moritz Brandt"/>
+	<item id="Mr_Hide" ru="Henry J. Hide"/>
+	<item id="Musashi" ru="Musashi"/>
+	<item id="Myoko" ru="Myōkō"/>
+	<item id="NETH_WWII_SA" ru="Frederik van Hendriks"/>
+	<item id="Nachi" ru="Nachi"/>
+	<item id="Nakhimov" ru="Павел Нахимов"/>
+	<item id="Narong_Duanta" ru="Narong Duangta"/>
+	<item id="Nikos_Thalassinos" ru="Nikos Thalassinos"/>
+	<item id="OliverWright" ru="Oliver Wright"/>
+	<item id="Optimus_Prime" ru="Оптимус Прайм"/>
+	<item id="PANAZ_WWII_SA" ru="Yuen Xuanzhou"/>
+	<item id="PA_Diesel" ru="Octane Diesel"/>
+	<item id="PA_Ecraseur" ru="Dr. Ecraseur"/>
+	<item id="PA_Grozny" ru="Иван Грозный"/>
+	<item id="PA_Rattenkonig" ru="Rattenkönig"/>
+	<item id="PA_Scarlet" ru="Scarlet Fury"/>
+	<item id="PA_Skullcap" ru="Skullcap"/>
+	<item id="PA_Truba" ru="Борис Труба"/>
+	<item id="PA_Vagabond" ru="Baron von Vagabond"/>
+	<item id="PA_Vortex" ru="David Vortex"/>
+	<item id="Paolo_Navigatore" ru="Paolo Navigatore"/>
+	<item id="Pearl_Harbor_JAP" ru="Koichi Nagata"/>
+	<item id="Pearl_Harbor_USA" ru="Roger Archibald"/>
+	<item id="Pedro_Max" ru="Pedro Max Fernando Frontin"/>
+	<item id="Polyakov" ru="Павел Поляков"/>
+	<item id="Privateer" ru="William Lymington"/>
+	<item id="Quan_Rong" ru="Quán Róng"/>
+	<item id="RUSCAP" ru="Василий Знаменский"/>
+	<item id="RUS_Red_Freedom" ru="Red Freedom"/>
+	<item id="RUS_WWII_SA" ru="Алексей Стаценко"/>
+	<item id="RVR_Chatam" ru="Charles Chatham"/>
+	<item id="RVR_Clydebank" ru="Colin Clydebank"/>
+	<item id="RVR_Elswick" ru="Edward Elswick"/>
+	<item id="RadioTapok" ru="Олег Абрамов"/>
+	<item id="Raizo_Suzuki" ru="Raizō Suzuki"/>
+	<item id="Rattus_Rogue_H2020" ru="Rattus Rogue"/>
+	<item id="RaymondLewis" ru="Raymond Lewis"/>
+	<item id="Reinhard_Logh" ru="Reinhard von Lohengramm"/>
+	<item id="Rick_Hotep_H18" ru="Rick H. O'Tep"/>
+	<item id="Ru_Hu" ru="Ru Hu"/>
+	<item id="Rumble" ru="Рамбл"/>
+	<item id="Rusalka_BDay22" ru="Хозяйка семи морей"/>
+	<item id="SANSONETTI" ru="Luigi Sansonetti"/>
+	<item id="SATSUMA_CAP" ru="Goro Miyamoto"/>
+	<item id="ST_1" ru="Albert Maurer"/>
+	<item id="ST_2" ru="Paul Kästner"/>
+	<item id="SWIRSKI" ru="Jerzy Świrski"/>
+	<item id="Sa_Zhenbing" ru="Sa Zhenbing"/>
+	<item id="Sairus_Gerrero" ru="Иван К. Улибин"/>
+	<item id="Sairus_Gerrero_H18" ru="Иван К. Улибин"/>
+	<item id="Sairus_Guerrero" ru="Sairus Guerrero"/>
+	<item id="Sairus_Guerrero_H18" ru="Sairus Guerrero"/>
+	<item id="Salvatore_Capitano" ru="Salvatore Capitano"/>
+	<item id="Santa_Europe" ru="Santa Claus"/>
+	<item id="Santa_France" ru="Père Noël"/>
+	<item id="Santa_Germany" ru="Weihnachtsmann"/>
+	<item id="Santa_Holland" ru="Sinterklaas"/>
+	<item id="Santa_Italy" ru="Babbo Natale"/>
+	<item id="Santa_Japan" ru="Santa"/>
+	<item id="Santa_PanAmerica" ru="Papá Noel"/>
+	<item id="Santa_Panazia" ru="Santa"/>
+	<item id="Santa_Pirate" ru="Корсар Морозыч"/>
+	<item id="Santa_Russia" ru="Дед Мороз"/>
+	<item id="Santa_Spain" ru="Papá Noel"/>
+	<item id="Santa_UK" ru="Santa Claus"/>
+	<item id="Santa_USA" ru="Santa Claus"/>
+	<item id="Sanzang" ru="Tang Sanzang"/>
+	<item id="Satou_Ichirou" ru="Ichirō Satō"/>
+	<item id="Scroogeklaas" ru="Scrooge Nicholson"/>
+	<item id="Seagal" ru="John Doe"/>
+	<item id="Siegfried_Logh" ru="Siegfried Kircheis"/>
+	<item id="Slavic_girl" ru="Катя StormyGirl"/>
+	<item id="Soundwave" ru="Саундвейв"/>
+	<item id="Southern_dragon_king" ru="Southern Dragon King"/>
+	<item id="Spaceman1" ru="Queen Bee"/>
+	<item id="Spaceman2" ru="Golden Konung"/>
+	<item id="Spaceman3" ru="Pete Earthling"/>
+	<item id="Spaceman4" ru="Hzrzngh (The Great)"/>
+	<item id="Spaceman5" ru="11010111101001"/>
+	<item id="Spaceman6" ru="Red Freedom"/>
+	<item id="Spaceman7" ru="Dart Norman"/>
+	<item id="Spaceman8" ru="Cybermedes"/>
+	<item id="Spaceman9" ru="LilFish OG"/>
+	<item id="Spiridov" ru="Григорий Спиридов"/>
+	<item id="Starr" ru="Starr"/>
+	<item id="Starscream" ru="Старскрим"/>
+	<item id="SunQuan" ru="Sun Quan"/>
+	<item id="TM13_GER" ru="Klaus Sternberger"/>
+	<item id="TM13_JAP" ru="Kenji Shiraishi"/>
+	<item id="TM13_RUS" ru="Степан Ермаков"/>
+	<item id="TM13_USA" ru="Edward Turner"/>
+	<item id="TOGO" ru="Tōgō Heihachirō"/>
+	<item id="TRUBETSKOY" ru="Владимир Трубецкой"/>
+	<item id="Takao" ru="Takao"/>
+	<item id="Takeo_Suzuki" ru="Takeo Suzuki"/>
+	<item id="Takeo_Takagi" ru="Takeo Takagi"/>
+	<item id="Taliya" ru="Taliya"/>
+	<item id="Tao_Ji" ru="Tāo Ji"/>
+	<item id="Turry" ru="Turry"/>
+	<item id="UKCAP" ru="Bert Dunkirk"/>
+	<item id="UK_Dart_Norman" ru="Dart Norman"/>
+	<item id="UK_WWII_SA" ru="Brian Northcape"/>
+	<item id="USACAP" ru="George Doe"/>
+	<item id="USAOVECHKIN" ru="Alexander Ovechkin"/>
+	<item id="USAOVECHKINPREM" ru="Alexander Ovechkin"/>
+	<item id="USAOVECHKINPREMHELL" ru="Tsar Alexander"/>
+	<item id="USA_Cybermedes" ru="Cybermedes"/>
+	<item id="USA_Hzrzngh" ru="Hzrzngh (The Great)"/>
+	<item id="USSROVECHKIN" ru="Александр Овечкин"/>
+	<item id="USSROVECHKINPREM" ru="Александр Овечкин"/>
+	<item id="USSROVECHKINPREMHELL" ru="Царь Александр"/>
+	<item id="US_WWII_SA" ru="Neil Chesters"/>
+	<item id="U_2501_Subtest" ru="Simon Fischer"/>
+	<item id="Unsinkable_Sam_Ger" ru="Unsinkbarer Sam"/>
+	<item id="Unsinkable_Sam_UK" ru="Unsinkable Sam"/>
+	<item id="Ushakov" ru="Фёдор Ушаков"/>
+	<item id="Valerka_Meshcheryakov" ru="Валерка Мещеряков"/>
+	<item id="Van_Shubs_H18" ru="Dr. van Schubs"/>
+	<item id="Vasily_Yutov" ru="Vasily Yutov"/>
+	<item id="Viking_TM" ru="Björn Konungr"/>
+	<item id="Vilkov" ru="Николай Вилков"/>
+	<item id="WEST" ru="Dusty Rodes"/>
+	<item id="WarhammerChaos" ru="Arthas Roqthar the Cold"/>
+	<item id="WarhammerImperial" ru="Justinian Lyons XIII"/>
+	<item id="Warhammer_Blacktemplar" ru="Augustin Riegerwald"/>
+	<item id="Warhammer_Ork" ru="Grotmaz Smart"/>
+	<item id="Welthund" ru="Welthund"/>
+	<item id="Willie_Neumann" ru="Willie Neumann"/>
+	<item id="WimHindenmann" ru="Wim Hindenmann"/>
+	<item id="WoWoNiang_France" ru="Wo Wo Niang"/>
+	<item id="WoWoNiang_Japan" ru="Wo Wo Niang"/>
+	<item id="WoWoNiang_PanAsia" ru="Wo Wo Niang"/>
+	<item id="WoWoNiang_UK" ru="Wo Wo Niang"/>
+	<item id="WoWoNiang_USA" ru="Wo Wo Niang"/>
+	<item id="Wonyong_Ryu" ru="Wonyong Ryu"/>
+	<item id="Wujing" ru="Sha Wujing"/>
+	<item id="Wukong" ru="Sun Wukong"/>
+	<item id="Yamamoto" ru="Yamamoto Isoroku"/>
+	<item id="Yamato" ru="Yamato"/>
+	<item id="Yang_Logh" ru="Yang Wen-li"/>
+	<item id="Yashka_Gypsy" ru="Яшка-цыган"/>
+	<item id="Yi_Sun_Sin" ru="Yi Sun-Sin"/>
+	<item id="Yu_Cheng" ru="Yu Cheng"/>
+	<item id="Yuriy_Vorobyev" ru="Yuriy Vorobyev"/>
+	<item id="ZhangLiao" ru="Zhang Liao"/>
+	<item id="admirale" ru="Anton Grant"/>
+	<item id="alisa_summer" ru="Алиса"/>
+	<item id="astra_dog" ru="Астра"/>
+	<item id="astronaut_Artemiev" ru="Олег Артемьев"/>
+	<item id="balbes" ru="Балбес"/>
+	<item id="byvalyj" ru="Бывалый"/>
+	<item id="cappie_miside" ru="Кепочка"/>
+	<item id="cat_scientist" ru="Кот учёный"/>
+	<item id="chatlanin_patsak" ru="Уэф и Би"/>
+	<item id="lena_summer" ru="Лена"/>
+	<item id="mermaid_LESTA" ru="Леста"/>
+	<item id="mila_miside" ru="Мила"/>
+	<item id="mita_miside" ru="Мита"/>
+	<item id="mt_katukov" ru="Михаил Катуков"/>
+	<item id="oshiro_Inuyama" ru="Taro Kawashima"/>
+	<item id="oshiro_osaka" ru="Yuuto Kawashima"/>
+	<item id="peter_the_great" ru="Пётр Великий"/>
+	<item id="pushkin" ru="Александр Пушкин"/>
+	<item id="robot" ru="GM-22D"/>
+	<item id="slavyana_summer" ru="Славя"/>
+	<item id="smf_hare" ru="Заяц"/>
+	<item id="smf_modern_hare" ru="Заяц '21"/>
+	<item id="smf_modern_wolf" ru="Волк '21"/>
+	<item id="smf_wolf" ru="Волк"/>
+	<item id="soviet_8_march" ru="Вера Михайлова"/>
+	<item id="soviet_8_march_2" ru="Анна Щетинина"/>
+	<item id="trus" ru="Трус"/>
+	<item id="ulyana_summer" ru="Ульяна"/>
+	<item id="uvarov" ru="Александр Уваров"/>
+	<item id="venturer" ru="Михаил Орлов"/>
+	<item id="vova_skripach" ru="Дядя Вова и Скрипач"/>
+	<item id="yulia_summer" ru="Юля"/>
+</content>

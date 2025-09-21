@@ -1,0 +1,33 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="SoundModBuilder.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="WindowLocation" Type="System.Drawing.Point" Scope="User">
+      <Value Profile="(Default)">0, 0</Value>
+    </Setting>
+    <Setting Name="WindowSize" Type="System.Drawing.Size" Scope="User">
+      <Value Profile="(Default)">1090, 700</Value>
+    </Setting>
+    <Setting Name="GamePath" Type="System.String" Scope="User">
+      <Value Profile="(Default)">D:\Games\Korabli</Value>
+    </Setting>
+    <Setting Name="GameVer" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="WwisePath" Type="System.String" Scope="User">
+      <Value Profile="(Default)">D:\utils\Wwise 2019.2.15.7667\Authoring\x64\Release\bin\WwiseCLI.exe</Value>
+    </Setting>
+    <Setting Name="WwiseProject" Type="System.String" Scope="User">
+      <Value Profile="(Default)">D:\utils\wows_conversion_project19_Only_Windows\conv_19_WIN.wproj</Value>
+    </Setting>
+    <Setting Name="LastProject" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="ColorBackEvtListItemEmpty" Type="System.Drawing.Color" Scope="User">
+      <Value Profile="(Default)">Silver</Value>
+    </Setting>
+    <Setting Name="ColorBackEvtListItem" Type="System.Drawing.Color" Scope="User">
+      <Value Profile="(Default)">LightGreen</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

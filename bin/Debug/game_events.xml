@@ -1,0 +1,430 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+	<event name="Play_VO_Ship_Avatar_Flooding" extid="VVO_Ship_Avatar_Flooding">
+		<path name="Alarms_Critical_Flooding" ru="Быстро набираем воду!">
+			<condition name="VO_Damage" value="VO_Damage_Critical_Flooding" />
+		</path>
+	</event>
+	<event name="Play_VO_Fire_Alarm" extid="VVO_Fire_Alarm">
+		<path name="Alarms_Fire_Alarm" ru="Пожарная тревога!">
+			<condition name="isPlayer" value="True" />
+		</path>
+	</event>
+	<!--<event name="Play_VO_Alarm_Weather_Changed" extid="VVO_Alarm_Weather_Changed">
+		<path name="WeatherChange" ru="Погода: надвигается шторм">
+			<condition name="Ambient_Battle_Weather_Type" value="Ambient_Battle_Weather_Type_Storm" />
+		</path>
+		<path name="WeatherChange" ru="Погода: надвигается сильная буря">
+			<condition name="Ambient_Battle_Weather_Type" value="Ambient_Battle_Weather_Type_Snowstorm" />
+		</path>
+	</event>-->
+	<event name="Play_VO_Submarine_Energy_Over" extid="VVO_Submarine_Energy_Over">
+		<path name="Alarms_Sub_Battery_End" ru="ПЛ: Батарея разряжена" />
+	</event>
+	<event name="Play_VO_Submarine_Alarm_Energy_Danger" extid="VVO_Submarine_Alarm_Energy_Danger">
+		<path name="Alarms_Sub_Battery_Low" ru="ПЛ: Низкий заряд батареи" />
+	</event>
+	<event name="Play_VO_Submarine_Detected" extid="VVO_Submarine_Detected">
+		<path name="Alarms_Sub_Detected" ru="ПЛ: Командир, мы обнаружены!" />
+	</event>
+	<event name="Play_VO_Submarine_Dive_Limit" extid="VVO_Submarine_Dive_Limit">
+		<path name="Alarms_Sub_Max_Depth" ru="ПЛ: Достигнута предельная глубина" />
+	</event>
+	<event name="Play_VO_Ship_Alarms_Torpedo_Danger" extid="VVO_Ship_Alarms_Torpedo_Danger">
+		<path name="Alarms_Torpedo_Ahead" ru="Торпеды прямо по курсу">
+			<condition name="VO_Torpedo_Location" value="Torpedo_Ahead" />
+		</path>
+		<path name="Alarms_Torpedo_Back" ru="Торпеды за кормой">
+			<condition name="VO_Torpedo_Location" value="Torpedo_Back" />
+		</path>
+		<path name="Alarms_Torpedo_Left" ru="Торпеды слева">
+			<condition name="VO_Torpedo_Location" value="Torpedo_Left" />
+		</path>
+		<path name="Alarms_Torpedo_Right" ru="Торпеды справа">
+			<condition name="VO_Torpedo_Location" value="Torpedo_Right" />
+		</path>
+	</event>
+	<event name="Play_VO_Autopilot" extid="VVO_Autopilot">
+		<path name="Autopilot_Checkpoint" ru="Автопилот: пройдена КТ">
+			<condition name="VO_Autopilot" value="VO_Autopilot_Checkpoint" />
+		</path>
+		<path name="Autopilot_Destination" ru="Автопилот: конец маршрута">
+			<condition name="VO_Autopilot" value="VO_Autopilot_End" />
+		</path>
+		<path name="Autopilot_Disabled" ru="Автопилот отключен">
+			<condition name="VO_Autopilot" value="VO_Autopilot_Off" />
+		</path>
+		<path name="Autopilot_Enabled" ru="Автопилот активирован">
+			<condition name="VO_Autopilot" value="VO_Autopilot_On" />
+		</path>
+	</event>
+	<event name="Play_VO_Consumable" extid="VVO_Consumable">
+		<path name="CatFight_Launch" ru="Катапультный истребитель запущен">
+			<condition name="HelpType" value="Fighter" />
+		</path>
+		<path name="CatFight_Carrier_Launch" ru="Патрульный истребитель запущен">
+			<condition name="HelpType" value="CallFighters" />
+		</path>
+		<path name="Corr_Launch" ru="Корректировщик запущен">
+			<condition name="HelpType" value="Scout" />
+		</path>
+		<path name="Consumable_AAC_Ready" ru="Усиленный режим работы ПВО">
+			<condition name="HelpType" value="AirDefenseDisp" />
+		</path>
+		<path name="Consumable_Smoke_Start" ru="Дымогенератор запущен">
+			<condition name="HelpType" value="Smoke" />
+		</path>
+		<path name="Consumable_Hydroacoustic_Search" ru="Активирован ГАП">
+			<condition name="HelpType" value="Hydroacoustic" />
+		</path>
+		<path name="Consumable_Forsage_Start" ru="Форсаж активирован">
+			<condition name="HelpType" value="Engine" />
+		</path>
+	</event>
+	<event name="Play_VO_Consumable_End" extid="VVO_Consumable_End">
+		<path name="CatFight_Return" ru="Катапультный истребитель возвращается">
+			<condition name="HelpType" value="Fighter" />
+		</path>
+		<!-- <path name="CatFight_Carrier_Return" ru="Патрульный истребитель возвращается"> -->
+			<!-- <condition name="HelpType" value="CallFighters" /> -->
+		<!-- </path> -->
+		<path name="Corr_Return" ru="Корректировщик возвращается">
+			<condition name="HelpType" value="Scout" />
+		</path>
+		<path name="Consumable_AAC_Normal" ru="ПВО работает в нормальном режиме">
+			<condition name="HelpType" value="AirDefenseDisp" />
+		</path>
+		<path name="Consumable_Smoke_Stop" ru="Дымзавеса установлена">
+			<condition name="HelpType" value="Smoke" />
+		</path>
+		<path name="Consumable_Problem_Solved" ru="Ремонт закончен">
+			<condition name="HelpType" value="CrashCrew" />
+		</path>
+		<path name="Consumable_Forsage_Normal" ru="Форсаж отключен">
+			<condition name="HelpType" value="Engine" />
+		</path>
+	</event>
+	<event name="Play_VO_Consumable_Interrupted" extid="VVO_Consumable_Interrupted">
+		<path name="CatFight_Destroyed" ru="Катапультный истребитель уничтожен">
+			<condition name="HelpType" value="Fighter" />
+		</path>
+		<!-- <path name="CatFight_Carrier_Destroyed" ru="Патрульный истребитель уничтожен"> -->
+			<!-- <condition name="HelpType" value="CallFighters" /> -->
+		<!-- </path> -->
+		<path name="Corr_Destroyed" ru="Корректировщик уничтожен">
+			<condition name="HelpType" value="Scout" />
+		</path>
+	</event>
+	<event name="Play_VO_Alarm_Defective_Modules" extid="VVO_Alarm_Defective_Modules">
+		<path name="Defective_Modules_Engine_Damaged" ru="Повреждён двигатель">
+			<condition name="Module_Type" value="Module_Type_Engine" />
+			<condition name="Module_State" value="Module_State_Crit" />
+		</path>
+		<path name="Defective_Modules_MainGun_Damaged" ru="Повреждена башня ГК">
+			<condition name="Module_Type" value="Module_Type_MG" />
+			<condition name="Module_State" value="Module_State_Crit" />
+		</path>
+		<path name="Defective_Modules_Wheel_Damaged" ru="Повреждены рули">
+			<condition name="Module_Type" value="Module_Type_Steering_Wheel" />
+			<condition name="Module_State" value="Module_State_Crit" />
+		</path>
+	</event>
+	<event name="Play_VO_Frags" extid="VVO_Frags">
+		<path name="Destroy_Enemy_Aircarrier" ru="Уничтожен курятник">
+			<condition name="isPlayer" value="False" />
+			<condition name="Damage_Frag_Type" value="Damage_Frag_AirCarrier" />
+		</path>
+		<path name="Destroy_Enemy_Battleship" ru="Уничтожен линкор">
+			<condition name="isPlayer" value="False" />
+			<condition name="Damage_Frag_Type" value="Damage_Frag_Battleship" />
+		</path>
+		<path name="Destroy_Enemy_Cruiser" ru="Уничтожен крейсер">
+			<condition name="isPlayer" value="False" />
+			<condition name="Damage_Frag_Type" value="Damage_Frag_Cruiser" />
+		</path>
+		<path name="Destroy_Enemy_Destroyer" ru="Уничтожен эсминец">
+			<condition name="isPlayer" value="False" />
+			<condition name="Damage_Frag_Type" value="Damage_Frag_Destroyer" />
+		</path>
+		<path name="Destroy_Enemy_Sub" ru="Уничтожена подлодка">
+			<condition name="isPlayer" value="False" />
+			<condition name="Damage_Frag_Type" value="Damage_Frag_Submarine" />
+		</path>
+	</event>
+	<event name="Play_VO_Detection_Enemy" extid="VVO_Detection_Enemy">
+		<path name="Detection_Enemy_Aircarrier" ru="Обнаружен вражеский авианосец!">
+			<condition name="VO_Spotting" value="VO_Spotting_AirCarrier" />
+		</path>
+		<path name="Detection_Enemy_Any_Ship" ru="Обнаружены силы противника!">
+			<condition name="VO_Spotting" value="VO_Spotting_Multi" />
+		</path>
+		<path name="Detection_Enemy_Battleship" ru="Обнаружен вражеский линкор!">
+			<condition name="VO_Spotting" value="VO_Spotting_Battleship" />
+		</path>
+		<path name="Detection_Enemy_Cruiser" ru="Обнаружен вражеский крейсер!">
+			<condition name="VO_Spotting" value="VO_Spotting_Cruiser" />
+		</path>
+		<path name="Detection_Enemy_Destroyer" ru="Обнаружен вражеский эсминец!">
+			<condition name="VO_Spotting" value="VO_Spotting_Destroyer" />
+		</path>
+		<path name="Detection_Enemy_Sub" ru="Обнаружена вражеская подводная лодка!">
+			<condition name="VO_Spotting" value="VO_Spotting_Submarine" />
+		</path>
+	</event>
+	<event name="Play_VO_Domination_Status" extid="VVO_Domination_Status">
+		<path name="Domination_Ally_Close_Win" ru="Наша команда близка к победе!">
+			<condition name="VO_Domination" value="VO_Domination_Close_Win_Ally" />
+		</path>
+		<path name="Domination_Enemy_Close_Win" ru="Команда противника близка к победе!">
+			<condition name="VO_Domination" value="VO_Domination_Close_Win_Enemy" />
+		</path>
+		<path name="Domination_Ally_Advantage" ru="Наша команда получила преимущество!">
+			<condition name="VO_Domination" value="VO_Domination_Advantage_Ally" />
+		</path>
+		<path name="Domination_Enemy_Advantage" ru="Команда противника получила преимущество!">
+			<condition name="VO_Domination" value="VO_Domination_Advantage_Enemy" />
+		</path>
+	</event>
+	<event name="Play_VO_DoubleKill" extid="VVO_DoubleKill">
+		<path name="DoubleKill" ru="Двойной удар!" />
+	</event>
+	<event name="Play_VO_FirstKill" extid="VVO_FirstKill">
+		<path name="FirstKill" ru="Первая кровь!" />
+	</event>
+	<event name="Play_VO_Friendly_Hit" extid="VVO_Friendly_Hit">
+		<path name="Friendly_Fire_Hit_Alert" ru="Огонь по своим!" />
+	</event>
+	<event name="Play_VO_Teamkill_Punishment" extid="VVO_Teamkill_Punishment">
+		<path name="Friendly_Fire_Punishment" ru="Дисциплинарное взыскание за огонь по своим" />
+	</event>
+	<event name="Play_VO_Hit_Feedback_Good_Hit" extid="VVO_Hit_Feedback_Good_Hit">
+		<path name="Hit_Confirmation" ru="Есть пробитие!" />
+	</event>
+	<event name="Play_VO_Timer_5" extid="VVO_Timer_5">
+		<path name="IDS_TIMER_5" ru="До конца боя осталось 5 минут" />
+	</event>
+	<event name="Play_VO_Last_Hope" extid="VVO_Last_Hope">
+		<path name="Last_Hope" ru="Вы - последняя надежда команды" />
+	</event>
+	<event name="Play_VO_Start_Battle" extid="VVO_Start_Battle">
+		<path name="Lets_Battle" ru="Бой начинается" />
+	</event>
+	<event name="Play_VO_Reload_Air_Support" extid="VVO_Reload_Air_Support">
+		<path name="Pilots_Air_Support_Ready" ru="ПЛО: жду приказов" />
+	</event>
+	<event name="Play_VO_Ship_Weapon_AirSupport_Shot" extid="VVO_Ship_Weapon_AirSupport_Shot">
+		<path name="Pilots_Air_Support_Airborne" ru="ПЛО: взлёт произвёл" />
+	</event>
+	<event name="Play_VO_Pilots_Status" extid="VVO_Pilots_Status">
+		<path name="Pilots_Airborne" ru="Пилоты: Взлёт произвёл">
+			<condition name="VO_Plane_Status" value="TAKEOFF_ENDED" />
+		</path>
+		<path name="Pilots_Atpos" ru="Пилоты: На позиции, жду приказов">
+			<condition name="VO_Plane_Status" value="AtPos" />
+		</path>
+		<path name="Pilots_Destroy" ru="Пилоты: Уничтожен">
+			<condition name="VO_Plane_Status" value="Destroy" />
+		</path>
+		<path name="Pilots_Engage" ru="Пилоты: Атакую!">
+			<condition name="VO_Plane_Status" value="ATTACK_STARTED" />
+		</path>
+		<path name="Pilots_Land" ru="Пилоты: Иду на базу">
+			<condition name="VO_Plane_Status" value="LANDING_INITIATED" />
+		</path>
+		<path name="Pilots_Ready" ru="Пилоты: Готов!">
+			<condition name="VO_Plane_Status" value="Ready" />
+		</path>
+		<path name="Pilots_Under_Attack" ru="Пилоты: Атакован!">
+			<condition name="VO_Plane_Status" value="UNDER_ATTACK" />
+		</path>
+	</event>
+	<event name="Play_VO_Quick_Commands" extid="VVO_Quick_Commands">
+		<path name="Quick_Commands_Ally_Base" ru="[ИСХ] Защитить базу">
+			<condition name="VO_Quick_Commands" value="CMD_QUICK_TACTIC_ALLY_BASE" />
+		</path>
+		<path name="Quick_Commands_Ally_Building" ru="[ИСХ] Защитить наземные объекты">
+			<condition name="VO_Quick_Commands" value="CMD_QUICK_TACTIC_ALLY_BUILDING" />
+		</path>
+		<path name="Quick_Commands_Ally_Planes" ru="[ИСХ] Защищайте самолёты союзника">
+			<condition name="VO_Quick_Commands" value="CMD_QUICK_TACTIC_ALLY_PLANE" />
+		</path>
+		<path name="Quick_Commands_Ally_Point" ru="[ИСХ] Защитить указанную точку">
+			<condition name="VO_Quick_Commands" value="CMD_QUICK_TACTIC_ALLY_POINT" />
+		</path>
+		<path name="Quick_Commands_Ally_Ship" ru="[ИСХ] Защитить корабль">
+			<condition name="VO_Quick_Commands" value="CMD_QUICK_TACTIC_ALLY_SHIP" />
+		</path>
+		<path name="Quick_Commands_Aye_Aye" ru="[ИСХ] Так точно!">
+			<condition name="VO_Quick_Commands" value="CMD_QUICK_AYE_AYE" />
+		</path>
+		<path name="Quick_Commands_Back" ru="[ИСХ] Все назад!">
+			<condition name="VO_Quick_Commands" value="CMD_QUICK_BACK" />
+		</path>
+		<path name="Quick_Commands_Back_Ship" ru="[ИСХ] Назад (союзному кораблю)">
+			<condition name="VO_Quick_Commands" value="CMD_QUICK_BACK_ALLY_SHIP" />
+		</path>
+		<path name="Quick_Commands_Caramba" ru="[ИСХ] $%*#@!!!">
+			<condition name="VO_Quick_Commands" value="CMD_QUICK_CARAMBA" />
+		</path>
+		<path name="Quick_Commands_Enemy_Base" ru="[ИСХ] Захватить базу">
+			<condition name="VO_Quick_Commands" value="CMD_QUICK_TACTIC_ENEMY_BASE" />
+		</path>
+		<path name="Quick_Commands_Enemy_Building" ru="[ИСХ] Уничтожить наземные объекты">
+			<condition name="VO_Quick_Commands" value="CMD_QUICK_TACTIC_ENEMY_BUILDING" />
+		</path>
+		<path name="Quick_Commands_Enemy_Planes" ru="[ИСХ] Уничтожить вражескую авиацию">
+			<condition name="VO_Quick_Commands" value="CMD_QUICK_TACTIC_ENEMY_PLANE" />
+		</path>
+		<path name="Quick_Commands_Enemy_Point" ru="[ИСХ] Захватить точку">
+			<condition name="VO_Quick_Commands" value="CMD_QUICK_TACTIC_ENEMY_POINT" />
+		</path>
+		<path name="Quick_Commands_Enemy_Ship" ru="[ИСХ] Уничтожить указанный корабль!">
+			<condition name="VO_Quick_Commands" value="CMD_QUICK_TACTIC_ENEMY_SHIP" />
+		</path>
+		<path name="Quick_Commands_Good_Game" ru="[ИСХ] Хорошо сыграно">
+			<condition name="VO_Quick_Commands" value="CMD_QUICK_GOOD_GAME" />
+		</path>
+		<path name="Quick_Commands_Good_Game_Ship" ru="[ИСХ] Отличная игра (союзному кораблю)">
+			<condition name="VO_Quick_Commands" value="CMD_QUICK_GOOD_GAME_ALLY_SHIP" />
+		</path>
+		<path name="Quick_Commands_Good_Luck" ru="[ИСХ] Удачи!">
+			<condition name="VO_Quick_Commands" value="CMD_QUICK_GOOD_LUCK" />
+		</path>
+		<path name="Quick_Commands_Need_AA" ru="[ИСХ] Нужна помощь с ПВО">
+			<condition name="VO_Quick_Commands" value="CMD_QUICK_NEED_AIR_DEFENCE" />
+		</path>
+		<path name="Quick_Commands_Need_Scouting" ru="[ИСХ] Нужна разведка!">
+			<condition name="VO_Quick_Commands" value="CMD_QUICK_NEED_VISION" />
+		</path>
+		<path name="Quick_Commands_Need_Smoke" ru="[ИСХ] Нужны дымы!">
+			<condition name="VO_Quick_Commands" value="CMD_QUICK_NEED_SMOKE" />
+		</path>
+		<path name="Quick_Commands_Need_Support" ru="[ИСХ] Нужна поддержка">
+			<condition name="VO_Quick_Commands" value="CMD_QUICK_NEED_SUPPORT" />
+		</path>
+		<path name="Quick_Commands_Need_Support_Plane" ru="[ИСХ] Нужна поддержка для союзной авиации">
+			<condition name="VO_Quick_Commands" value="CMD_QUICK_NEED_SUPPORT_ALLY_PLANE" />
+		</path>
+		<path name="Quick_Commands_Need_Support_Ship" ru="[ИСХ] Нужна поддержка (союзному кораблю)">
+			<condition name="VO_Quick_Commands" value="CMD_QUICK_NEED_SUPPORT_ALLY_SHIP" />
+		</path>
+		<path name="Quick_Commands_No_Way" ru="[ИСХ] Отказано!">
+			<condition name="VO_Quick_Commands" value="CMD_QUICK_NO_WAY" />
+		</path>
+		<path name="Quick_Commands_Thank_You" ru="[ИСХ] Спасибо!">
+			<condition name="VO_Quick_Commands" value="CMD_QUICK_THANK_YOU" />
+		</path>
+		<path name="Quick_Commands_Thank_You_Ship" ru="[ИСХ] Спасибо! (союзному кораблю)">
+			<condition name="VO_Quick_Commands" value="CMD_QUICK_THANK_YOU_ALLY_SHIP" />
+		</path>
+	</event>
+	<event name="Play_VO_Quick_Commands_Receive" extid="VVO_Quick_Commands_Receive">
+		<path name="Quick_Commands_Ally_Base" ru="[ВХ] Защитить базу">
+			<condition name="VO_Quick_Commands" value="CMD_QUICK_TACTIC_ALLY_BASE" />
+		</path>
+		<path name="Quick_Commands_Ally_Building" ru="[ВХ] Защитить наземные объекты">
+			<condition name="VO_Quick_Commands" value="CMD_QUICK_TACTIC_ALLY_BUILDING" />
+		</path>
+		<path name="Quick_Commands_Ally_Planes" ru="[ВХ] Защищайте самолёты союзника">
+			<condition name="VO_Quick_Commands" value="CMD_QUICK_TACTIC_ALLY_PLANE" />
+		</path>
+		<path name="Quick_Commands_Ally_Point" ru="[ВХ] Защитить указанную точку">
+			<condition name="VO_Quick_Commands" value="CMD_QUICK_TACTIC_ALLY_POINT" />
+		</path>
+		<path name="Quick_Commands_Ally_Ship" ru="[ВХ] Защитить корабль">
+			<condition name="VO_Quick_Commands" value="CMD_QUICK_TACTIC_ALLY_SHIP" />
+		</path>
+		<path name="Quick_Commands_Aye_Aye" ru="[ВХ] Так точно!">
+			<condition name="VO_Quick_Commands" value="CMD_QUICK_AYE_AYE" />
+		</path>
+		<path name="Quick_Commands_Back" ru="[ВХ] Все назад!">
+			<condition name="VO_Quick_Commands" value="CMD_QUICK_BACK" />
+		</path>
+		<path name="Quick_Commands_Back_Ship" ru="[ВХ] Назад (союзному кораблю)">
+			<condition name="VO_Quick_Commands" value="CMD_QUICK_BACK_ALLY_SHIP" />
+		</path>
+		<path name="Quick_Commands_Caramba" ru="[ВХ] $%*#@!!!">
+			<condition name="VO_Quick_Commands" value="CMD_QUICK_CARAMBA" />
+		</path>
+		<path name="Quick_Commands_Enemy_Base" ru="[ВХ] Захватить базу">
+			<condition name="VO_Quick_Commands" value="CMD_QUICK_TACTIC_ENEMY_BASE" />
+		</path>
+		<path name="Quick_Commands_Enemy_Building" ru="[ВХ] Уничтожить наземные объекты">
+			<condition name="VO_Quick_Commands" value="CMD_QUICK_TACTIC_ENEMY_BUILDING" />
+		</path>
+		<path name="Quick_Commands_Enemy_Planes" ru="[ВХ] Уничтожить вражескую авиацию">
+			<condition name="VO_Quick_Commands" value="CMD_QUICK_TACTIC_ENEMY_PLANE" />
+		</path>
+		<path name="Quick_Commands_Enemy_Point" ru="[ВХ] Захватить точку">
+			<condition name="VO_Quick_Commands" value="CMD_QUICK_TACTIC_ENEMY_POINT" />
+		</path>
+		<path name="Quick_Commands_Enemy_Ship" ru="[ВХ] Уничтожить указанный корабль!">
+			<condition name="VO_Quick_Commands" value="CMD_QUICK_TACTIC_ENEMY_SHIP" />
+		</path>
+		<path name="Quick_Commands_Good_Game" ru="[ВХ] Хорошо сыграно">
+			<condition name="VO_Quick_Commands" value="CMD_QUICK_GOOD_GAME" />
+		</path>
+		<path name="Quick_Commands_Good_Game_Ship" ru="[ВХ] Отличная игра (союзному кораблю)">
+			<condition name="VO_Quick_Commands" value="CMD_QUICK_GOOD_GAME_ALLY_SHIP" />
+		</path>
+		<path name="Quick_Commands_Good_Luck" ru="[ВХ] Удачи!">
+			<condition name="VO_Quick_Commands" value="CMD_QUICK_GOOD_LUCK" />
+		</path>
+		<path name="Quick_Commands_Need_AA" ru="[ВХ] Нужна помощь с ПВО">
+			<condition name="VO_Quick_Commands" value="CMD_QUICK_NEED_AIR_DEFENCE" />
+		</path>
+		<path name="Quick_Commands_Need_Scouting" ru="[ВХ] Нужна разведка!">
+			<condition name="VO_Quick_Commands" value="CMD_QUICK_NEED_VISION" />
+		</path>
+		<path name="Quick_Commands_Need_Smoke" ru="[ВХ] Нужны дымы!">
+			<condition name="VO_Quick_Commands" value="CMD_QUICK_NEED_SMOKE" />
+		</path>
+		<path name="Quick_Commands_Need_Support" ru="[ВХ] Нужна поддержка">
+			<condition name="VO_Quick_Commands" value="CMD_QUICK_NEED_SUPPORT" />
+		</path>
+		<path name="Quick_Commands_Need_Support_Plane" ru="[ВХ] Нужна поддержка для союзной авиации">
+			<condition name="VO_Quick_Commands" value="CMD_QUICK_NEED_SUPPORT_ALLY_PLANE" />
+		</path>
+		<path name="Quick_Commands_Need_Support_Ship" ru="[ВХ] Нужна поддержка (союзному кораблю)">
+			<condition name="VO_Quick_Commands" value="CMD_QUICK_NEED_SUPPORT_ALLY_SHIP" />
+		</path>
+		<path name="Quick_Commands_No_Way" ru="[ВХ] Отказано!">
+			<condition name="VO_Quick_Commands" value="CMD_QUICK_NO_WAY" />
+		</path>
+		<path name="Quick_Commands_Thank_You" ru="[ВХ] Спасибо!">
+			<condition name="VO_Quick_Commands" value="CMD_QUICK_THANK_YOU" />
+		</path>
+		<path name="Quick_Commands_Thank_You_Ship" ru="[ВХ] Спасибо! (союзному кораблю)">
+			<condition name="VO_Quick_Commands" value="CMD_QUICK_THANK_YOU_ALLY_SHIP" />
+		</path>
+	</event>
+	<event name="Play_VO_Damage_Death" extid="VVO_Damage_Death">
+		<path name="Ship_Destroyed" ru="[HSF] Наш корабль уничтожен" />
+	</event>
+	<event name="Play_VO_Highschool_Fleet_MG_Shot" extid="VVO_Highschool_Fleet_MG_Shot">
+		<path name="Fire_Main_Battery" ru="[HSF] Выстрел ГК" />
+	</event>
+	<event name="Play_VO_Highschool_Fleet_TA_shot" extid="VVO_Highschool_Fleet_TA_shot">
+		<path name="Fire_Torpedo" ru="[HSF] Пускаю торпеды" />
+	</event>
+	<event name="Play_VO_Highschool_Fleet_Torpedo_Hit" extid="VVO_Highschool_Fleet_Torpedo_Hit">
+		<path name="Torpedo_Hit" ru="[HSF] Попадание торпедой" />
+	</event>
+	<!-- <event name="Play_VO_Lock_Weapon" extid="VVO_Lock_Weapon"> -->
+		<!-- <path name="Lock_Weapon" ru="[HSF] Цель захвачена" /> -->
+	<!-- </event> -->
+	<event name="Play_VO_Result_Stinger" extid="VVO_Result_Stinger">
+		<path name="Defeat" ru="[HSF] Поражение">
+			<condition name="Battle_Status_Result" value="Battle_Status_Result_Lose" />
+		</path>
+		<path name="Victory" ru="[HSF] Победа">
+			<condition name="Battle_Status_Result" value="Battle_Status_Result_Win" />
+		</path>
+		<path name="Draw" ru="[HSF] Ничья">
+			<condition name="Battle_Status_Result" value="Battle_Status_Result_Draw" />
+		</path>
+	</event>
+	<event name="Play_VO_Alarm_Map_Border" extid="VVO_Alarm_Map_Border">
+		<path name="Alarms_Blue_Line" ru="[HSF] Достигнут край карты" />
+	</event>
+</root>
