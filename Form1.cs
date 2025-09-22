@@ -4,7 +4,6 @@ using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -620,10 +619,10 @@ namespace SoundModBuilder
         {
             UpdateStrip();
             UpdateMenuItem();
-            listBox2.Items.Clear();
             WebBrowser_Navigate(prj.SrcPath);
             UpdateEventsList();
             listBox1.SelectedIndex = 0;
+            ListBox2_Update();
             FileInfo fi = new FileInfo(prj.PrjPath);
             SetStatusText(0, $"Проект '{fi.Name}' загружен");
             Properties.Settings.Default.LastProject = prj.PrjPath;

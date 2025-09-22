@@ -3,7 +3,6 @@ using System.Drawing;
 using System.IO;
 using System.Reflection;
 using System.Windows.Forms;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace SoundModBuilder
 {
@@ -12,18 +11,6 @@ namespace SoundModBuilder
         public SettingsWindow()
         {
             InitializeComponent();
-            toolTip1.SetToolTip(label4,
-                "Путь к папке с игрой (содержит папку bin и файл preferences.xml)\nНапример: D:\\Games\\Korabli");
-            toolTip1.SetToolTip(label5,
-                "Путь к файлу WwiseCLI.exe\nНапример: D:\\utils\\Wwise 2019.2.15.7667\\Authoring\\x64\\Release\\bin\\WwiseCLI.exe");
-            toolTip1.SetToolTip(label6,
-                "Путь к проекту Wwise 2019\nНапример: D:\\utils\\wows_conversion_project19_Only_Windows\\conv_19_WIN.wproj");
-
-            textBox1.Text = Properties.Settings.Default.GamePath;
-            textBox2.Text = Properties.Settings.Default.WwisePath;
-            textBox3.Text = Properties.Settings.Default.WwiseProject;
-            button5.BackColor = Properties.Settings.Default.ColorBackEvtListItem;
-            button6.BackColor = Properties.Settings.Default.ColorBackEvtListItemEmpty;
         }
 
         private void BtnSelectGamePath_Click(object sender, EventArgs e)
@@ -70,12 +57,19 @@ namespace SoundModBuilder
 
         private void SettingsWindow_Load(object sender, EventArgs e)
         {
-            UpdateLabelGameVer();
-            TextBox1_OnTextChanged();
-            TextBox2_OnTextChanged();
-            TextBox3_OnTextChanged();
-            textBox1.Select();
-            textBox1.Select(0, 0);
+            toolTip1.SetToolTip(label4,
+    "Путь к папке с игрой (содержит папку bin и файл preferences.xml)\nНапример: D:\\Games\\Korabli");
+            toolTip1.SetToolTip(label5,
+                "Путь к файлу WwiseCLI.exe\nНапример: D:\\utils\\Wwise 2019.2.15.7667\\Authoring\\x64\\Release\\bin\\WwiseCLI.exe");
+            toolTip1.SetToolTip(label6,
+                "Путь к проекту Wwise 2019\nНапример: D:\\utils\\wows_conversion_project19_Only_Windows\\conv_19_WIN.wproj");
+
+            textBox1.Text = Properties.Settings.Default.GamePath;
+            textBox2.Text = Properties.Settings.Default.WwisePath;
+            textBox3.Text = Properties.Settings.Default.WwiseProject;
+            button5.BackColor = Properties.Settings.Default.ColorBackEvtListItem;
+            button6.BackColor = Properties.Settings.Default.ColorBackEvtListItemEmpty;
+            textBox3.Select(0, 0);
         }
 
         private void TextBox1_OnTextChanged()
@@ -216,12 +210,12 @@ namespace SoundModBuilder
                 }
             }
 
-            string ParentDir =  Directory.GetParent(Assembly.GetEntryAssembly().Location).FullName;        
-            if(!Directory.Exists(Properties.Settings.Default.WwisePath))
+            string ParentDir = Directory.GetParent(Assembly.GetEntryAssembly().Location).FullName;
+            if (!Directory.Exists(Properties.Settings.Default.WwisePath))
                 Properties.Settings.Default.WwisePath = ParentDir +
                     "\\utils\\Wwise 2019.2.15.7667\\Authoring\\x64\\Release\\bin\\WwiseCLI.exe";
 
-            if(!Directory.Exists(Properties.Settings.Default.WwiseProject))
+            if (!Directory.Exists(Properties.Settings.Default.WwiseProject))
                 Properties.Settings.Default.WwiseProject = ParentDir +
                     "\\utils\\wows_conversion_project19_Only_Windows\\conv_19_WIN.wproj";
         }
