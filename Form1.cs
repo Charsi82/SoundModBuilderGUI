@@ -176,6 +176,7 @@ namespace SoundModBuilder
             internal string ModName { get; set; }
 
             private string m_ModDir;
+
             internal string ModDir { set { m_ModDir = value; } get { return m_ModDir.Length == 0 ? ModName : m_ModDir; } }
             internal string CommanderID { get; set; }
             internal string PrjPath { get; set; }
@@ -1049,7 +1050,7 @@ namespace SoundModBuilder
             MessageBox.Show(msg, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
-        private void RunConverter(IProgress<string> progress, IProgress<int> progress2, string FileName, string args)
+        private void RunConverter(IProgress<string> progress, string FileName, string args)
         {
             using (Process process = new Process())
             {
@@ -1066,7 +1067,6 @@ namespace SoundModBuilder
                 process.Start();
                 process.BeginOutputReadLine();
                 process.WaitForExit();
-                progress2.Report(0);
             }
         }
 
@@ -1078,34 +1078,36 @@ namespace SoundModBuilder
 
             string ConvertPath = textBox1.Text;
             if (!Directory.Exists(ConvertPath)) return;
-            int max_counter = Directory.EnumerateFiles(ConvertPath, "*.wem").ToArray().Length;
+            var WemFiles = Directory.EnumerateFiles(ConvertPath, "*.wem");
+            int max_counter = WemFiles.ToArray().Length;
             if (max_counter == 0) return;
             int counter = 0;
 
             listBox2.Items.Clear();
             string msg_state = "конвертация";
             var progress_work = new Progress<string>(s => listBox2.Items.Add(s));
-            var progress_on_exit = new Progress<int>(_ =>
+            var progress_complete = new MethodInvoker(delegate
             {
-                counter++;
-                label2.Text = $"WEM -> OGG: {msg_state} {counter * 100 / max_counter}%";
+                label2.Text = $"WEM -> OGG: {msg_state} {++counter * 100 / max_counter}%";
             });
-
-            foreach (var path in Directory.EnumerateFiles(ConvertPath, "*.wem"))
+            // List<Task> tasks = new List<Task>();
+            foreach (var path in WemFiles)
             {
-                await Task.Run(() => RunConverter(progress_work, progress_on_exit,
-                    $"{converter_folder}/ww2ogg.exe",
-                    $"\"{path}\" --pcb {converter_folder}/packed_codebooks_aoTuV_603.bin"));
+                await Task.Run(() => RunConverter(progress_work,
+                      $"{converter_folder}/ww2ogg.exe",
+                      $"\"{path}\" --pcb {converter_folder}/packed_codebooks_aoTuV_603.bin"))
+                     .ContinueWith(_ => Invoke(progress_complete));
             }
 
             counter = 0;
             msg_state = "постобработка";
             foreach (var path in Directory.EnumerateFiles(ConvertPath, "*.ogg"))
             {
-                await Task.Run(() => RunConverter(progress_work, progress_on_exit, $"{converter_folder}/revorb.exe", path));
+                await Task.Run(() => RunConverter(progress_work, $"{converter_folder}/revorb.exe", $"\"{path}\""))
+                    .ContinueWith(_ => Invoke(progress_complete));
             }
-
-            /*            if (to_mp3)
+            /*
+             if (to_mp3)
                         {
                             if (!File.Exists($"{converter_folder}/ffmpeg.exe")) return;
                             label2.Text = "Конвертация в mp3:";
@@ -1121,7 +1123,7 @@ namespace SoundModBuilder
                             Task.WaitAll(tasks.ToArray());
                             if (remove_tmp_ogg) DeleteFilesByMask("*.ogg");
                         }*/
-            label2.Text = "Конвертация в ogg: выполнено.";
+            label2.Text = "WEM -> OGG: выполнено.";
             listBox2.TopIndex = listBox2.Items.Count - 1;
             AdjustSplitterDistance();
         }
@@ -1133,26 +1135,22 @@ namespace SoundModBuilder
             string ConvertPath = textBox1.Text;
             if (!Directory.Exists(ConvertPath)) return;
 
-            int max_counter = Directory.EnumerateFiles(ConvertPath, "*.wem").ToArray().Length;
+            var Files = Directory.EnumerateFiles(ConvertPath, "*.wem");
+            int max_counter = Files.ToArray().Length;
             if (max_counter == 0) return;
 
             listBox2.Items.Clear();
             var progress_work = new Progress<string>(s => listBox2.Items.Add(s));
             int counter = 0;
-            var progress_on_exit = new Progress<int>(_ =>
+            var progress_complete = new MethodInvoker(delegate { label2.Text = $"WEM -> WAV: {++counter * 100 / max_counter}%"; });
+            foreach (var path in Files)
             {
-                counter++;
-                label2.Text = $"WEM -> WAV: {counter * 100 / max_counter}%";
-            });
-
-            foreach (var path in Directory.EnumerateFiles(ConvertPath, "*.wem"))
-            {
-                await Task.Run(() => RunConverter(progress_work, progress_on_exit,
-                vgmstream,
-                    $"-o \"{ConvertPath}\\{Path.GetFileNameWithoutExtension(path)}.wav\" \"{path}\""));
+                await Task.Run(() => RunConverter(progress_work, vgmstream,
+                        $"-o \"{ConvertPath}\\{Path.GetFileNameWithoutExtension(path)}.wav\" \"{path}\""))
+                    .ContinueWith(_ => Invoke(progress_complete));
             }
 
-            label2.Text = $"Конвертация в wav: выполнено.";
+            label2.Text = $"WEM -> WAV: выполнено.";
             listBox2.TopIndex = listBox2.Items.Count - 1;
             AdjustSplitterDistance();
         }
@@ -1167,15 +1165,23 @@ namespace SoundModBuilder
             Convert_to_WAV();
         }
 
-        private void DeleteFilesByMask(string mask)
+        private async void DeleteFilesByMask(string mask)
         {
             if (MessageBox.Show($"Удалить все {mask} файлы из текущей папки?", "Удаление файлов",
                 MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
             {
                 string dir = textBox1.Text;
+                label2.Text = $"Удаление файлов {mask}";
+                listBox2.Items.Clear();
                 if (Directory.Exists(dir))
                     foreach (var path in Directory.EnumerateFiles(dir, mask))
-                        File.Delete(path);
+                    {
+                        listBox2.Items.Add(path);
+                        await Task.Run(() => { File.Delete(path); });
+                    }
+                listBox2.Items.Add("Выполнено.");
+                listBox2.TopIndex = listBox2.Items.Count - 1;
+                AdjustSplitterDistance();
             }
         }
 
@@ -1192,19 +1198,22 @@ namespace SoundModBuilder
         private void AdjustSplitterDistance()
         {
             int maxlen = 0;
+            Font font = new Font("Microsoft Sans Serif", 8);
             foreach (var itm in listBox2.Items)
             {
-                var len = itm.ToString().Length;
-                if (maxlen < len) maxlen = len;
+                int strlen = TextRenderer.MeasureText(itm.ToString(), font).Width;
+                if (maxlen < strlen) maxlen = strlen;
             }
             if (maxlen < 10) return;
-            int w = maxlen * 6 - 50;
-            if (w < 390) w = 390;
-            splitContainer1.SplitterDistance = w;
+            if (maxlen < 390) maxlen = 390;
+            splitContainer1.SplitterDistance = maxlen + 10;
         }
 
         private void Import_ToolStripMenuItem_Click(object sender, EventArgs e)
         {
+
+            if (!TryClear()) return;
+
             OpenFileDialog dialog = new OpenFileDialog
             {
                 Title = "Укажите файл mod.xml",
@@ -1251,8 +1260,6 @@ namespace SoundModBuilder
             {
                 prj.CommanderID = "";
             }
-
-            ClearFiles();
 
             foreach (XmlNode xnode in xRoot.SelectSingleNode("AudioModification").SelectNodes("ExternalEvent"))
             {
@@ -1306,7 +1313,7 @@ namespace SoundModBuilder
                 }
             }
             bProjectChanged = true;
-            prj.SrcPath = Directory.GetParent(dialog.FileName).FullName;
+            prj.SrcPath = dir;
             WebBrowser_Navigate(prj.SrcPath);
             UpdateStrip();
             UpdateEventsList();
