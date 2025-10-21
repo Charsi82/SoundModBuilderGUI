@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.IO;
 using System.Net.Http;
 using System.Reflection;
 using System.Text.RegularExpressions;
@@ -17,10 +18,10 @@ namespace SoundModBuilder
             var CurrVersion = Assembly.GetExecutingAssembly().GetName().Version;
             label4.Text = CurrVersion.ToString();
             label5.Text = CurrVersion.ToString();
-            if (Utils.InternetOk()) CheckNewVersion();
+            CheckNewVersion();
         }
 
-        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        private void LinkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             linkLabel1.LinkVisited = true;
             String url = "https://gitflic.ru/project/charsi82/soundmodbuildergui/release";
@@ -29,16 +30,23 @@ namespace SoundModBuilder
 
         private async void CheckNewVersion()
         {
-            string fileToDownload = "https://gitflic.ru/project/charsi82/soundmodbuildergui/blob/raw?file=Properties/AssemblyInfo.cs";
-            using (var httpClient = new HttpClient())
+            try
             {
-                string content = await httpClient.GetStringAsync(fileToDownload);
-                Regex re = new Regex("AssemblyVersion\\(\"(\\d[\\d\\.]+)");
-                var match = re.Match(content);
-                if (match.Success)
+                string fileToDownload = "https://gitflic.ru/project/charsi82/soundmodbuildergui/blob/raw?file=Properties/AssemblyInfo.cs";
+                using (var httpClient = new HttpClient())
                 {
-                    label5.Text = $"{match.Groups[1].Value}";
+                    string content = await httpClient.GetStringAsync(fileToDownload);
+                    Regex re = new Regex("AssemblyVersion\\(\"(\\d[\\d\\.]+)");
+                    var match = re.Match(content);
+                    if (match.Success)
+                    {
+                        label5.Text = $"{match.Groups[1].Value}";
+                    }
                 }
+            }
+            catch
+            {
+                // обновление не доступно
             }
         }
 

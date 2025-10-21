@@ -286,19 +286,5 @@ namespace SoundModBuilder
                 }
             }
         }
-
-        internal static bool InternetOk()
-        {
-            try
-            {
-                Dns.GetHostEntry(Dns.GetHostName());
-                return true;
-            }
-            catch (Exception)
-            {
-
-                return false;
-            }
-        }
     }
 }
