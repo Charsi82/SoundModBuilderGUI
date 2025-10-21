@@ -35,11 +35,13 @@ namespace SoundModBuilder
             Utils.UpdateGamePath();
             Utils.UpdateGameVersion();
             UpdateMenuItem();
+            menuStrip1.Renderer = new MenuStripRenderer();
         }
 
         private void OpenSettingsWindow()
         {
-            if (DialogResult.OK == new SettingsWindow().ShowDialog(this))
+            SettingsWindow sw = new SettingsWindow() { parent = this };
+            if (DialogResult.OK == sw.ShowDialog(this))
             {
                 UpdateMenuItem();
                 listBox1.Update();
@@ -254,21 +256,30 @@ namespace SoundModBuilder
                 return true;
             }
 
-            internal void Load(string path)
+            internal bool Load(string path)
             {
-                PrjPath = path;
-                XmlDocument xDoc = new XmlDocument();
-                xDoc.Load(PrjPath);
-                XmlElement xRoot = xDoc.DocumentElement;
-                XmlNode xnode = xRoot.SelectSingleNode("project");
-                ModName = xnode?.SelectSingleNode("mod_name")?.InnerText;
-                ModDir = xnode?.SelectSingleNode("mod_path")?.InnerText;
-                SrcPath = xnode?.SelectSingleNode("src_path")?.InnerText;
-                CommanderID = xnode?.SelectSingleNode("cmdr_id")?.InnerText;
+                try
+                {
+                    XmlDocument xDoc = new XmlDocument();
+                    xDoc.Load(path);
+                    XmlElement xRoot = xDoc.DocumentElement;
+                    XmlNode xnode = xRoot.SelectSingleNode("project");
+                    ModName = xnode?.SelectSingleNode("mod_name")?.InnerText;
+                    ModDir = xnode?.SelectSingleNode("mod_path")?.InnerText;
+                    SrcPath = xnode?.SelectSingleNode("src_path")?.InnerText;
+                    CommanderID = xnode?.SelectSingleNode("cmdr_id")?.InnerText;
 
-                xnode = xRoot.SelectSingleNode("events");
-                foreach (MKEvent evt in EventsSFX)
-                    evt.Load(xnode);
+                    xnode = xRoot.SelectSingleNode("events");
+                    foreach (MKEvent evt in EventsSFX)
+                        evt.Load(xnode);
+                    PrjPath = path;
+                    return true;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"{ex.Message}", "Ошибка загрузки");
+                    return false;
+                }
             }
 
             internal bool Load()
@@ -277,11 +288,10 @@ namespace SoundModBuilder
                 {
                     InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),
                     Title = "Выберите файл проекта",
-                    Filter = "Projects(*.prj)|*.prj|All()|*.*"
+                    Filter = "Проекты (*.prj)|*.prj|Все файлы|*.*"
                 };
                 if (DialogResult.OK != dlg.ShowDialog()) return false;
-                Load(dlg.FileName);
-                return true;
+                return Load(dlg.FileName);
             }
 
             internal bool Save()
@@ -290,7 +300,7 @@ namespace SoundModBuilder
                 {
                     SaveFileDialog dlg = new SaveFileDialog
                     {
-                        Filter = "Projects(*.prj)|*.prj|All()|*.*"
+                        Filter = "Проекты (*.prj)|*.prj|Все файлы|*.*"
                     };
                     if (DialogResult.OK != dlg.ShowDialog()) return false;
                     PrjPath = dlg.FileName;
@@ -473,7 +483,7 @@ namespace SoundModBuilder
                         if (is_file_added)
                         {
                             path.FileList.Sort();
-                            EventsListColors[idx] = path.FileList.Count > 0;
+                            EventsListColors[idx] = true;
                             listBox2.Items.Clear();
                             foreach (string s in path.FileList)
                                 listBox2.Items.Add(s);
@@ -656,7 +666,7 @@ namespace SoundModBuilder
 
         private void UpdateStrip()
         {
-            SetStatusText(1, $"Проект: {prj.ModName}" + (ProjectChanged ? "*" : ""));
+            SetStatusText(1, $"Проект: {prj.ModName}{(ProjectChanged ? "*" : "")}");
             SetStatusText(2, $"Папка: {prj.SrcPath}");
         }
 
@@ -665,7 +675,7 @@ namespace SoundModBuilder
             statusStrip1.Items[idx].Text = text;
         }
 
-        private void NewToolStripMenuItem_Click(object sender, EventArgs e)
+        private void Clean_ToolStripMenuItem_Click(object sender, EventArgs e)
         {
             TryClear();
         }
@@ -677,18 +687,29 @@ namespace SoundModBuilder
                     state.FileList.Clear();
         }
 
+        private bool FileListNotEmpty()
+        {
+            foreach (MKEvent evt in prj.EventsSFX)
+                foreach (MKState state in evt.Paths)
+                    if (state.FileList.Count > 0) return true;
+            return false;
+        }
+
         private bool TryClear()
         {
-            if (Directory.Exists(prj.SrcPath) && DialogResult.Yes == MessageBox.Show(
-                "Удалить все ассоциации файлов с событиями?", "Подтверждение",
-                MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2))
-            {
-                ClearFiles();
-                listBox2.Items.Clear();
-                UpdateEventsList();
-                return true;
-            }
-            return false;
+            if (!FileListNotEmpty()) return true;
+            if (DialogResult.No == MessageBox.Show(
+                "Удалить все ассоциации файлов с событиями?",
+                "Подтверждение",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Warning,
+                MessageBoxDefaultButton.Button2))
+                return false;
+
+            ClearFiles();
+            listBox2.Items.Clear();
+            UpdateEventsList();
+            return true;
         }
 
         private void OpenProjectOptionsWindow()
@@ -714,7 +735,7 @@ namespace SoundModBuilder
                 ProjectSrcPath = prj.SrcPath,
                 CommanderID = prj.CommanderID,
             };
-
+            ApplyTheme(wnd);
             if (DialogResult.OK == wnd.ShowDialog(this))
             {
                 if (prj.ModName != wnd.ProjectName)
@@ -753,7 +774,7 @@ namespace SoundModBuilder
         {
             SaveFileDialog dlg = new SaveFileDialog
             {
-                Filter = "Projects(*.prj)|*.prj|All()|*.*"
+                Filter = "Проекты (*.prj)|*.prj|Все файлы|*.*"
             };
             if (DialogResult.OK != dlg.ShowDialog()) return;
             prj.PrjPath = dlg.FileName;
@@ -765,8 +786,8 @@ namespace SoundModBuilder
             if (prj.ModName.Length == 0)
             {
                 string ErrMsg = (prj.SrcPath.Length == 0)
-                    ? "Не указано название проекта и папка с исходными файлами!"
-                    : "Не указано название проекта!";
+                    ? "Не указано имя проекта и папка с исходными файлами!"
+                    : "Не указано имя проекта!";
                 ErrorMsgBox(ErrMsg);
                 OpenProjectOptionsWindow();
                 return;
@@ -854,10 +875,13 @@ namespace SoundModBuilder
 
         private void HelpToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Программа для создания модов голосовой озвучки\nигры \"Мир Кораблей\" от компании \"Леста Игры\"©.\nВерсия: 1.4\nАвтор: charsi2011@gmail.com",
-                            "О программе",
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Information);
+            ShowAboutDialog();
+        }
+
+        private void ShowAboutDialog()
+        {
+            var dlg = new AboutDialog();
+            dlg.ShowDialog(this);
         }
 
         private void ExitCtrlXToolStripMenuItem_Click(object sender, EventArgs e)
@@ -880,9 +904,10 @@ namespace SoundModBuilder
 
             if (File.Exists(Properties.Settings.Default.LastProject))
             {
-                prj.Load(Properties.Settings.Default.LastProject);
-                OnProjectLoad();
+                if (prj.Load(Properties.Settings.Default.LastProject))
+                    OnProjectLoad();
             }
+            UpdateTheme();
         }
 
         private void OpenDirToolStripMenuItem_Click(object sender, EventArgs e)
@@ -962,6 +987,11 @@ namespace SoundModBuilder
 
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
+            if (keyData == Keys.F1)
+            {
+                ShowAboutDialog();
+                return true;
+            }
             if (webBrowser1.Focused || textBox1.Focused)
                 switch (keyData)
                 {
@@ -1197,6 +1227,7 @@ namespace SoundModBuilder
 
         private void AdjustSplitterDistance()
         {
+            if (!Properties.Settings.Default.SplitterAutoSize) return;
             int maxlen = 0;
             Font font = new Font("Microsoft Sans Serif", 8);
             foreach (var itm in listBox2.Items)
@@ -1219,13 +1250,13 @@ namespace SoundModBuilder
                 Title = "Укажите файл mod.xml",
                 Filter = "mod.xml|",
                 FileName = "mod.xml",
-                InitialDirectory = webBrowser1.Url.LocalPath
+                InitialDirectory = webBrowser1.Url?.LocalPath
             };
             if (dialog.ShowDialog(this) != DialogResult.OK) return;
 
+            prj.SrcPath = Directory.GetParent(dialog.FileName).FullName;
             XmlDocument xDoc = new XmlDocument();
             xDoc.Load(dialog.FileName);
-            string dir = Directory.GetParent(dialog.FileName).FullName;
             XmlElement xRoot = xDoc.DocumentElement;
 
             // commanders 
@@ -1302,7 +1333,7 @@ namespace SoundModBuilder
                         XmlNode xFileList = xpath.SelectSingleNode("FilesList");
                         foreach (XmlNode xFile in xFileList.SelectNodes("File"))
                         {
-                            string fn = $"{dir}\\{Path.GetFileNameWithoutExtension(xFile.InnerText)}.wav";
+                            string fn = $"{prj.SrcPath}\\{Path.GetFileNameWithoutExtension(xFile.InnerText)}.wav";
                             if (!mkState.FileList.Contains(fn))
                             {
                                 mkState.FileList.Add(fn);
@@ -1313,11 +1344,95 @@ namespace SoundModBuilder
                 }
             }
             bProjectChanged = true;
-            prj.SrcPath = dir;
             WebBrowser_Navigate(prj.SrcPath);
             UpdateStrip();
             UpdateEventsList();
             ListBox2_Update();
+        }
+
+        internal void UpdateTheme()
+        {
+            ApplyTheme(this);
+            ApplyMenuTheme(menuStrip1.Items);
+        }
+
+        public static Color GetBackColor()
+        {
+            return Properties.Settings.Default.DarkTheme ? Properties.Settings.Default.DarkModeBack : SystemColors.Control;
+        }
+
+        public static Color GetForeColor()
+        {
+            return Properties.Settings.Default.DarkTheme ? Properties.Settings.Default.DarkModeFore : SystemColors.ControlText;
+        }
+
+        private void ApplyMenuTheme(ToolStripItemCollection items)
+        {
+            foreach (ToolStripItem item in items)
+            {
+                if (item is ToolStripDropDownItem menuItem)
+                {
+                    menuItem.DropDown.ForeColor = GetForeColor();
+                }
+            }
+        }
+
+        internal void ApplyTheme(Control ctrl)
+        {
+            ctrl.BackColor = GetBackColor();
+            ctrl.ForeColor = GetForeColor();
+            foreach (Control child in ctrl.Controls)
+            {
+                ApplyTheme(child);
+            }
+        }
+
+        /////////////
+        private class MenuStripRenderer : ToolStripProfessionalRenderer
+        {
+            public MenuStripRenderer() : base(new MyColors()) { }
+        }
+
+        private class MyColors : ProfessionalColorTable
+        {
+            // фон при наведении мыши, не относящихся в меню верхнего уровня
+            public override Color MenuItemSelected => GetBackColor();
+
+            // фон при наведении мыши
+            public override Color MenuItemSelectedGradientBegin => GetBackColor();
+            public override Color MenuItemSelectedGradientEnd => GetBackColor();
+
+            // фон при выборе пункта
+            public override Color MenuItemPressedGradientBegin => GetBackColor();
+            public override Color MenuItemPressedGradientEnd => GetBackColor();
+
+            // цвет отсутпа для иконки
+            public override Color ImageMarginGradientBegin => GetBackColor();
+            public override Color ImageMarginGradientMiddle => GetBackColor();
+            public override Color ImageMarginGradientEnd => GetBackColor();
+
+            // рамка пункта меню
+            public override Color MenuItemBorder => GetForeColor();
+            // общая рамка меню
+            public override Color MenuBorder => GetForeColor();
+
+            //public override Color ToolStripBorder => Color.Red;
+            // цвет подчеркивания выбраннного пункта топ меню
+            public override Color ToolStripDropDownBackground => GetBackColor();
+
+            // цвет разделителя
+            public override Color SeparatorDark => GetForeColor();
+
+        }
+
+        private void SplitContainer1_Paint(object sender, PaintEventArgs pe)
+        {
+            using (SolidBrush brush = new SolidBrush(SystemColors.ActiveBorder))
+            {
+                int pos = listBox2.Location.Y;
+                Rectangle rect = new Rectangle(splitContainer1.SplitterDistance, pos, 2, splitContainer1.Height - pos - 5);
+                pe.Graphics.FillRectangle(brush, rect);
+            }
         }
     }
 }

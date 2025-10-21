@@ -130,5 +130,53 @@ namespace SoundModBuilder.Properties {
                 this["ColorBackEvtListItem"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool DarkTheme {
+            get {
+                return ((bool)(this["DarkTheme"]));
+            }
+            set {
+                this["DarkTheme"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("55, 55, 55")]
+        public global::System.Drawing.Color DarkModeBack {
+            get {
+                return ((global::System.Drawing.Color)(this["DarkModeBack"]));
+            }
+            set {
+                this["DarkModeBack"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("89, 254, 18")]
+        public global::System.Drawing.Color DarkModeFore {
+            get {
+                return ((global::System.Drawing.Color)(this["DarkModeFore"]));
+            }
+            set {
+                this["DarkModeFore"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool SplitterAutoSize {
+            get {
+                return ((bool)(this["SplitterAutoSize"]));
+            }
+            set {
+                this["SplitterAutoSize"] = value;
+            }
+        }
     }
 }

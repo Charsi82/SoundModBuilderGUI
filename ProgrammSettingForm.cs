@@ -1,13 +1,17 @@
 ﻿using System;
 using System.Drawing;
 using System.IO;
+using System.Net;
 using System.Reflection;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
+using System.Xml;
 
 namespace SoundModBuilder
 {
     public partial class SettingsWindow : Form
     {
+        public Form1 parent;
         public SettingsWindow()
         {
             InitializeComponent();
@@ -47,7 +51,7 @@ namespace SoundModBuilder
             {
                 Title = "Укажите путь к файлу conv_19_WIN.wproj",
                 FileName = "conv_19_WIN",
-                Filter = "Wwise project(conv_19_WIN.wproj)|conv_19_WIN.wproj",
+                Filter = "Wwise project (conv_19_WIN.wproj)|conv_19_WIN.wproj",
             };
             if (dialog.ShowDialog(this) == DialogResult.OK)
             {
@@ -58,7 +62,7 @@ namespace SoundModBuilder
         private void SettingsWindow_Load(object sender, EventArgs e)
         {
             toolTip1.SetToolTip(label4,
-    "Путь к папке с игрой (содержит папку bin и файл preferences.xml)\nНапример: D:\\Games\\Korabli");
+                "Путь к папке с игрой (содержит папку bin и файл preferences.xml)\nНапример: D:\\Games\\Korabli");
             toolTip1.SetToolTip(label5,
                 "Путь к файлу WwiseCLI.exe\nНапример: D:\\utils\\Wwise 2019.2.15.7667\\Authoring\\x64\\Release\\bin\\WwiseCLI.exe");
             toolTip1.SetToolTip(label6,
@@ -67,9 +71,24 @@ namespace SoundModBuilder
             textBox1.Text = Properties.Settings.Default.GamePath;
             textBox2.Text = Properties.Settings.Default.WwisePath;
             textBox3.Text = Properties.Settings.Default.WwiseProject;
+            updateColors();
+            textBox3.Select(0, 0);
+        }
+
+        private void updateColors()
+        {
+            parent.UpdateTheme();
+            parent.ApplyTheme(this);
+            ButtonDarkMode.BackgroundImage = Properties.Settings.Default.DarkTheme ?
+                Properties.Resources.sun : Properties.Resources.moon;
             button5.BackColor = Properties.Settings.Default.ColorBackEvtListItem;
             button6.BackColor = Properties.Settings.Default.ColorBackEvtListItemEmpty;
-            textBox3.Select(0, 0);
+            button7.BackColor = Properties.Settings.Default.DarkModeBack;
+            button8.BackColor = Properties.Settings.Default.DarkModeFore;
+            button7.Enabled = Properties.Settings.Default.DarkTheme;
+            button8.Enabled = Properties.Settings.Default.DarkTheme;
+            label11.Enabled = Properties.Settings.Default.DarkTheme;
+            label12.Enabled = Properties.Settings.Default.DarkTheme;
         }
 
         private void TextBox1_OnTextChanged()
@@ -182,30 +201,56 @@ namespace SoundModBuilder
                 button6.BackColor = Properties.Settings.Default.ColorBackEvtListItemEmpty = colorDialog1.Color;
             }
         }
+
+        private void Button7_Click(object sender, EventArgs e)
+        {
+            colorDialog1.Color = Properties.Settings.Default.DarkModeBack;
+            InitColorDialog();
+            if (colorDialog1.ShowDialog(this) == DialogResult.OK)
+            {
+                button7.BackColor = Properties.Settings.Default.DarkModeBack = colorDialog1.Color;
+                updateColors();
+            }
+        }
+
+        private void Button8_Click(object sender, EventArgs e)
+        {
+            colorDialog1.Color = Properties.Settings.Default.DarkModeFore;
+            InitColorDialog();
+            if (colorDialog1.ShowDialog(this) == DialogResult.OK)
+            {
+                button8.BackColor = Properties.Settings.Default.DarkModeFore = colorDialog1.Color;
+                updateColors();
+            }
+        }
+
+        private void ButtonDarkMode_Click(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.DarkTheme = !Properties.Settings.Default.DarkTheme;
+            updateColors();
+        }
     }
 
-    public partial class Utils
+    internal static class Utils
     {
-        internal static bool IsValidGamePath(string path) => Directory.Exists($"{path}\\bin") && File.Exists($"{path}\\preferences.xml");
+        internal static bool IsValidGamePath(string path) => Directory.Exists($"{path}\\bin") && File.Exists($"{path}\\game_info.xml");
         internal static bool IsValidWwisePath(string path) => path.EndsWith("\\WwiseCLI.exe") && File.Exists(path);
         internal static bool IsValidWwiseProjectPath(string path) => path.EndsWith("\\conv_19_WIN.wproj") && File.Exists(path);
         internal static void UpdateGamePath()
         {
             if (!Directory.Exists(Properties.Settings.Default.GamePath))
             {
-                const string lgc_pref = "C:\\ProgramData\\Lesta\\GameCenter\\preferences.xml";
+                string lgc_pref = Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData) +
+                    "\\Lesta\\GameCenter\\preferences.xml";
                 if (File.Exists(lgc_pref))
                 {
-                    string[] xml = File.ReadAllLines(lgc_pref);
-                    foreach (string str in xml)
+                    XmlDocument xDoc = new XmlDocument();
+                    xDoc.Load(lgc_pref);
+                    var xnode = xDoc.DocumentElement?.SelectSingleNode("application")?.
+                    SelectSingleNode("games_manager")?.SelectSingleNode("current_game");
+                    if (xnode != null)
                     {
-                        if (str.Contains("current_game"))
-                        {
-                            int from = str.IndexOf('<') + 14;
-                            int len = str.LastIndexOf('<') - from;
-                            Properties.Settings.Default.GamePath = str.Substring(from, len);
-                            break;
-                        }
+                        Properties.Settings.Default.GamePath = xnode.InnerText;
                     }
                 }
             }
@@ -213,29 +258,46 @@ namespace SoundModBuilder
             string ParentDir = Directory.GetParent(Assembly.GetEntryAssembly().Location).FullName;
             if (!Directory.Exists(Properties.Settings.Default.WwisePath))
                 Properties.Settings.Default.WwisePath = ParentDir +
-                    "\\utils\\Wwise 2019.2.15.7667\\Authoring\\x64\\Release\\bin\\WwiseCLI.exe";
+                    @"\utils\Wwise 2019.2.15.7667\Authoring\x64\Release\bin\WwiseCLI.exe";
 
             if (!Directory.Exists(Properties.Settings.Default.WwiseProject))
                 Properties.Settings.Default.WwiseProject = ParentDir +
-                    "\\utils\\wows_conversion_project19_Only_Windows\\conv_19_WIN.wproj";
+                    @"\utils\wows_conversion_project19_Only_Windows\conv_19_WIN.wproj";
         }
 
         internal static void UpdateGameVersion()
         {
-            string pref = $"{Properties.Settings.Default.GamePath}\\preferences.xml";
-            if (File.Exists(pref))
+            string xml_path = $"{Properties.Settings.Default.GamePath}\\game_info.xml";
+            if (File.Exists(xml_path))
             {
-                string[] xml = File.ReadAllLines(pref);
-                foreach (string str in xml)
+                XmlDocument xDoc = new XmlDocument();
+                xDoc.Load(xml_path);
+                var xnode = xDoc.DocumentElement?.SelectSingleNode("game")?.
+                    SelectSingleNode("part_versions")?.SelectSingleNode("version")?.
+                    Attributes?["installed"]?.InnerText;
+                if (xnode != null)
                 {
-                    if (str.Contains("last_server_version"))
+                    Regex reg = new Regex(@"\d+$");
+                    Match match = reg.Match(xnode);
+                    if (match.Success)
                     {
-                        int from = str.LastIndexOf(',') + 1;
-                        int len = str.LastIndexOf('\t') - from;
-                        Properties.Settings.Default.GameVer = str.Substring(from, len);
-                        break;
+                        Properties.Settings.Default.GameVer = match.Value;
                     }
                 }
+            }
+        }
+
+        internal static bool InternetOk()
+        {
+            try
+            {
+                Dns.GetHostEntry(Dns.GetHostName());
+                return true;
+            }
+            catch (Exception)
+            {
+
+                return false;
             }
         }
     }

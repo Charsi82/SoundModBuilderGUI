@@ -29,5 +29,17 @@
     <Setting Name="ColorBackEvtListItem" Type="System.Drawing.Color" Scope="User">
       <Value Profile="(Default)">LightGreen</Value>
     </Setting>
+    <Setting Name="DarkTheme" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="DarkModeBack" Type="System.Drawing.Color" Scope="User">
+      <Value Profile="(Default)">55, 55, 55</Value>
+    </Setting>
+    <Setting Name="DarkModeFore" Type="System.Drawing.Color" Scope="User">
+      <Value Profile="(Default)">89, 254, 18</Value>
+    </Setting>
+    <Setting Name="SplitterAutoSize" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
   </Settings>
 </SettingsFile>
