@@ -87,7 +87,6 @@ namespace SoundModBuilder
             // 
             this.splitContainer1.Panel1.Controls.Add(this.listBox2);
             this.splitContainer1.Panel1.Controls.Add(this.label2);
-            resources.ApplyResources(this.splitContainer1.Panel1, "splitContainer1.Panel1");
             // 
             // splitContainer1.Panel2
             // 

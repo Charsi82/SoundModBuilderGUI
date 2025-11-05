@@ -49,7 +49,6 @@
             this.button1.Size = new System.Drawing.Size(70, 23);
             this.button1.TabIndex = 0;
             this.button1.Text = "OK";
-            this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.BtnApply_Click);
             // 
             // label1
@@ -66,7 +65,7 @@
             this.textBox1.Location = new System.Drawing.Point(15, 25);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(201, 20);
-            this.textBox1.TabIndex = 2;
+            this.textBox1.TabIndex = 1;
             // 
             // label2
             // 
@@ -98,15 +97,16 @@
             this.textBox3.Location = new System.Drawing.Point(15, 71);
             this.textBox3.Name = "textBox3";
             this.textBox3.Size = new System.Drawing.Size(395, 20);
-            this.textBox3.TabIndex = 2;
+            this.textBox3.TabIndex = 3;
             // 
             // button2
             // 
             this.button2.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.button2.Location = new System.Drawing.Point(410, 70);
+            this.button2.Location = new System.Drawing.Point(410, 69);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(25, 23);
             this.button2.TabIndex = 3;
+            this.button2.TabStop = false;
             this.button2.Text = "...";
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.BtnGetFolder_Click);

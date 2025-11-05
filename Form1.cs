@@ -45,6 +45,7 @@ namespace SoundModBuilder
             {
                 UpdateMenuItem();
                 listBox1.Update();
+                AdjustSplitterDistance();
             }
         }
 
@@ -783,20 +784,16 @@ namespace SoundModBuilder
 
         private void ProjectSave()
         {
-            if (prj.ModName.Length == 0)
+            while (prj.ModName.Length == 0)
             {
-                string ErrMsg = (prj.SrcPath.Length == 0)
-                    ? "Не указано имя проекта и папка с исходными файлами!"
-                    : "Не указано имя проекта!";
-                ErrorMsgBox(ErrMsg);
+                ErrorMsgBox("Имя проекта не может быть пустым!");
                 OpenProjectOptionsWindow();
-                return;
             }
-            else if (prj.SrcPath.Length == 0)
+
+            while (!Directory.Exists(prj.SrcPath))
             {
                 ErrorMsgBox("Не указана папка с исходными файлами!");
                 OpenProjectOptionsWindow();
-                return;
             }
 
             if (prj.Save())

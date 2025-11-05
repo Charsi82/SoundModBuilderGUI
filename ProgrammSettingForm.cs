@@ -71,11 +71,13 @@ namespace SoundModBuilder
             textBox1.Text = Properties.Settings.Default.GamePath;
             textBox2.Text = Properties.Settings.Default.WwisePath;
             textBox3.Text = Properties.Settings.Default.WwiseProject;
-            updateColors();
-            textBox3.Select(0, 0);
+            UpdateColors();
+            TextBox1_OnTextChanged();
+            TextBox2_OnTextChanged();
+            TextBox3_OnTextChanged();
         }
 
-        private void updateColors()
+        private void UpdateColors()
         {
             parent.UpdateTheme();
             parent.ApplyTheme(this);
@@ -87,8 +89,8 @@ namespace SoundModBuilder
             button8.BackColor = Properties.Settings.Default.DarkModeFore;
             button7.Enabled = Properties.Settings.Default.DarkTheme;
             button8.Enabled = Properties.Settings.Default.DarkTheme;
-            label11.Enabled = Properties.Settings.Default.DarkTheme;
-            label12.Enabled = Properties.Settings.Default.DarkTheme;
+            //label11.Enabled = Properties.Settings.Default.DarkTheme;
+            //label12.Enabled = Properties.Settings.Default.DarkTheme;
         }
 
         private void TextBox1_OnTextChanged()
@@ -103,7 +105,10 @@ namespace SoundModBuilder
             {
                 label4.ImageIndex = 1;
             }
-            UpdateLabelGameVer();
+            // Update LabelGameVer
+            string gv = Properties.Settings.Default.GameVer;
+            if (gv.Length == 0) gv = "не определена";
+            labelGameVer.Text = $"Версия игры: {gv}";
         }
 
         private void TextBox2_OnTextChanged()
@@ -130,13 +135,6 @@ namespace SoundModBuilder
             {
                 label6.ImageIndex = 1;
             }
-        }
-
-        private void UpdateLabelGameVer()
-        {
-            string gv = Properties.Settings.Default.GameVer;
-            if (gv.Length == 0) gv = "не определена";
-            labelGameVer.Text = $"Версия игры: {gv}";
         }
 
         private void TextBox1_TextChanged(object sender, EventArgs e)
@@ -209,7 +207,7 @@ namespace SoundModBuilder
             if (colorDialog1.ShowDialog(this) == DialogResult.OK)
             {
                 button7.BackColor = Properties.Settings.Default.DarkModeBack = colorDialog1.Color;
-                updateColors();
+                UpdateColors();
             }
         }
 
@@ -220,14 +218,14 @@ namespace SoundModBuilder
             if (colorDialog1.ShowDialog(this) == DialogResult.OK)
             {
                 button8.BackColor = Properties.Settings.Default.DarkModeFore = colorDialog1.Color;
-                updateColors();
+                UpdateColors();
             }
         }
 
         private void ButtonDarkMode_Click(object sender, EventArgs e)
         {
             Properties.Settings.Default.DarkTheme = !Properties.Settings.Default.DarkTheme;
-            updateColors();
+            UpdateColors();
         }
     }
 
