@@ -178,5 +178,17 @@ namespace SoundModBuilder.Properties {
                 this["SplitterAutoSize"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool UseExists {
+            get {
+                return ((bool)(this["UseExists"]));
+            }
+            set {
+                this["UseExists"] = value;
+            }
+        }
     }
 }

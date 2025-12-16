@@ -6,6 +6,7 @@
 	<item id="AUBOYNEAU" ru="Philippe Auboyneau"/>
 	<item id="Adi_Guntur" ru="Adi Guntur"/>
 	<item id="Akeno_Mashiro" ru="Akeno Misaki"/>
+	<item id="Alisa_Winter" ru="Зимняя Алиса"/>
 	<item id="Android_TM4" ru="ЦМ-10А"/>
 	<item id="Anime_TM5" ru="Кейра"/>
 	<item id="Apraksin" ru="Фёдор Апраксин"/>
@@ -169,6 +170,7 @@
 	<item id="HORACEHOOD" ru="Horace Hood"/>
 	<item id="Haguro" ru="Haguro"/>
 	<item id="Halsey" ru="William F. Halsey Jr."/>
+	<item id="Handzo" ru="Юки Хандзо"/>
 	<item id="Hank_Bailey" ru="Hank Bailey"/>
 	<item id="Haruna" ru="Haruna"/>
 	<item id="Helsind" ru="Abraham V. Hellsinger"/>
@@ -196,6 +198,7 @@
 	<item id="James_Dgrease_H18" ru="James D. Breese"/>
 	<item id="James_Dgrease_HW" ru="James D. Breese"/>
 	<item id="Jenkins" ru="Leroy Jenkins"/>
+	<item id="Jitnyakov_Aria" ru="Михаил Житняков"/>
 	<item id="Jorick_Aria" ru="Жорик"/>
 	<item id="KUZNETSOV" ru="Николай Кузнецов"/>
 	<item id="K_Type_Subtest" ru="Семён Рыбаков"/>
@@ -220,6 +223,7 @@
 	<item id="Lazar_Kent" ru="Lazarus Centurio"/>
 	<item id="Lazar_Kent_H18" ru="Lazarus Centurio"/>
 	<item id="Leila_anime" ru="Айла"/>
+	<item id="Lena_Winter" ru="Зимняя Лена"/>
 	<item id="Leo_Gradwell" ru="Leo Gradwell"/>
 	<item id="Leprechaun" ru="Seán McMurphy"/>
 	<item id="Liberty" ru="Statue of Liberty"/>
@@ -279,6 +283,8 @@
 	<item id="Pearl_Harbor_USA" ru="Roger Archibald"/>
 	<item id="Pedro_Max" ru="Pedro Max Fernando Frontin"/>
 	<item id="Polyakov" ru="Павел Поляков"/>
+	<item id="Popov_Aria" ru="Сергей Попов"/>
+	<item id="Pozharsky" ru="Дмитрий Пожарский"/>
 	<item id="Privateer" ru="William Lymington"/>
 	<item id="Quan_Rong" ru="Quán Róng"/>
 	<item id="RUSCAP" ru="Василий Знаменский"/>
@@ -298,6 +304,7 @@
 	<item id="Rusalka_BDay22" ru="Хозяйка семи морей"/>
 	<item id="SANSONETTI" ru="Luigi Sansonetti"/>
 	<item id="SATSUMA_CAP" ru="Goro Miyamoto"/>
+	<item id="SERGEY" ru="Серёжа"/>
 	<item id="ST_1" ru="Albert Maurer"/>
 	<item id="ST_2" ru="Paul Kästner"/>
 	<item id="SWIRSKI" ru="Jerzy Świrski"/>
@@ -326,6 +333,7 @@
 	<item id="Seagal" ru="John Doe"/>
 	<item id="Siegfried_Logh" ru="Siegfried Kircheis"/>
 	<item id="Slavic_girl" ru="Катя StormyGirl"/>
+	<item id="Slavyana_Winter" ru="Зимняя Славя"/>
 	<item id="Soundwave" ru="Саундвейв"/>
 	<item id="Southern_dragon_king" ru="Southern Dragon King"/>
 	<item id="Spaceman1" ru="Queen Bee"/>
@@ -341,6 +349,8 @@
 	<item id="Starr" ru="Starr"/>
 	<item id="Starscream" ru="Старскрим"/>
 	<item id="SunQuan" ru="Sun Quan"/>
+	<item id="Sun_Shangxiang" ru="Sun Shangxiang"/>
+	<item id="THEODORECHANDLER" ru="Theodore E. Chandler"/>
 	<item id="TM13_GER" ru="Klaus Sternberger"/>
 	<item id="TM13_JAP" ru="Kenji Shiraishi"/>
 	<item id="TM13_RUS" ru="Степан Ермаков"/>
@@ -367,6 +377,9 @@
 	<item id="USSROVECHKINPREMHELL" ru="Царь Александр"/>
 	<item id="US_WWII_SA" ru="Neil Chesters"/>
 	<item id="U_2501_Subtest" ru="Simon Fischer"/>
+	<item id="Udalov_Aria" ru="Максим Удалов"/>
+	<item id="Ulyana_Winter" ru="Зимняя Ульяна"/>
+	<item id="Unknown" ru="Unknown"/>
 	<item id="Unsinkable_Sam_Ger" ru="Unsinkbarer Sam"/>
 	<item id="Unsinkable_Sam_UK" ru="Unsinkable Sam"/>
 	<item id="Ushakov" ru="Фёдор Ушаков"/>
@@ -397,6 +410,7 @@
 	<item id="Yashka_Gypsy" ru="Яшка-цыган"/>
 	<item id="Yi_Sun_Sin" ru="Yi Sun-Sin"/>
 	<item id="Yu_Cheng" ru="Yu Cheng"/>
+	<item id="Yulia_Winter" ru="Зимняя Юля"/>
 	<item id="Yuriy_Vorobyev" ru="Yuriy Vorobyev"/>
 	<item id="ZhangLiao" ru="Zhang Liao"/>
 	<item id="admirale" ru="Anton Grant"/>
@@ -408,11 +422,14 @@
 	<item id="cappie_miside" ru="Кепочка"/>
 	<item id="cat_scientist" ru="Кот учёный"/>
 	<item id="chatlanin_patsak" ru="Уэф и Би"/>
+	<item id="cyberslav" ru="Киберслав"/>
 	<item id="lena_summer" ru="Лена"/>
 	<item id="mermaid_LESTA" ru="Леста"/>
 	<item id="mila_miside" ru="Мила"/>
+	<item id="miloslava" ru="Милослава"/>
 	<item id="mita_miside" ru="Мита"/>
 	<item id="mt_katukov" ru="Михаил Катуков"/>
+	<item id="nechist" ru="Арт"/>
 	<item id="oshiro_Inuyama" ru="Taro Kawashima"/>
 	<item id="oshiro_osaka" ru="Yuuto Kawashima"/>
 	<item id="peter_the_great" ru="Пётр Великий"/>
@@ -428,6 +445,7 @@
 	<item id="trus" ru="Трус"/>
 	<item id="ulyana_summer" ru="Ульяна"/>
 	<item id="uvarov" ru="Александр Уваров"/>
+	<item id="v_gremitskiy" ru="Владимир Гремицкий"/>
 	<item id="venturer" ru="Михаил Орлов"/>
 	<item id="vova_skripach" ru="Дядя Вова и Скрипач"/>
 	<item id="yulia_summer" ru="Юля"/>

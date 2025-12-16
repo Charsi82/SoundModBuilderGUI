@@ -65,13 +65,21 @@ namespace SoundModBuilder
             ProjectSrcPath = textBox3.Text;
 
             string cb_text = comboBox1.Text;
-            foreach (var commander in CommanderList)
+            if (cb_text.Length > 0)
             {
-                if (commander.CB_ItemName == cb_text)
+
+                foreach (var commander in CommanderList)
                 {
-                    CommanderID = commander.Ids;
-                    break;
+                    if (commander.CB_ItemName == cb_text)
+                    {
+                        CommanderID = commander.Ids;
+                        break;
+                    }
                 }
+            }
+            else
+            {
+                CommanderID = "";
             }
             Close();
         }

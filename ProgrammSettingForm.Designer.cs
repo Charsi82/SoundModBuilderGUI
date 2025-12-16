@@ -59,6 +59,7 @@
             this.label11 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.checkBox2 = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // label1
@@ -186,9 +187,9 @@
             // 
             // labelGameVer
             // 
-            this.labelGameVer.Location = new System.Drawing.Point(430, 185);
+            this.labelGameVer.Location = new System.Drawing.Point(430, 179);
             this.labelGameVer.Name = "labelGameVer";
-            this.labelGameVer.Size = new System.Drawing.Size(153, 13);
+            this.labelGameVer.Size = new System.Drawing.Size(153, 20);
             this.labelGameVer.TabIndex = 5;
             this.labelGameVer.Text = "Версия игры: не определена";
             this.labelGameVer.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -196,7 +197,7 @@
             // button5
             // 
             this.button5.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button5.Location = new System.Drawing.Point(219, 209);
+            this.button5.Location = new System.Drawing.Point(219, 208);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(23, 23);
             this.button5.TabIndex = 8;
@@ -207,7 +208,7 @@
             // button6
             // 
             this.button6.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button6.Location = new System.Drawing.Point(317, 210);
+            this.button6.Location = new System.Drawing.Point(317, 208);
             this.button6.Name = "button6";
             this.button6.Size = new System.Drawing.Size(23, 23);
             this.button6.TabIndex = 9;
@@ -217,7 +218,7 @@
             // 
             // label7
             // 
-            this.label7.Location = new System.Drawing.Point(216, 181);
+            this.label7.Location = new System.Drawing.Point(216, 179);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(155, 20);
             this.label7.TabIndex = 8;
@@ -253,7 +254,7 @@
             // 
             // label8
             // 
-            this.label8.Location = new System.Drawing.Point(244, 209);
+            this.label8.Location = new System.Drawing.Point(244, 208);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(69, 23);
             this.label8.TabIndex = 9;
@@ -262,7 +263,7 @@
             // 
             // label9
             // 
-            this.label9.Location = new System.Drawing.Point(346, 210);
+            this.label9.Location = new System.Drawing.Point(346, 208);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(67, 23);
             this.label9.TabIndex = 9;
@@ -272,7 +273,7 @@
             // button7
             // 
             this.button7.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button7.Location = new System.Drawing.Point(51, 209);
+            this.button7.Location = new System.Drawing.Point(51, 208);
             this.button7.Name = "button7";
             this.button7.Size = new System.Drawing.Size(23, 23);
             this.button7.TabIndex = 6;
@@ -283,7 +284,7 @@
             // button8
             // 
             this.button8.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button8.Location = new System.Drawing.Point(119, 209);
+            this.button8.Location = new System.Drawing.Point(119, 208);
             this.button8.Name = "button8";
             this.button8.Size = new System.Drawing.Size(23, 23);
             this.button8.TabIndex = 7;
@@ -293,7 +294,7 @@
             // 
             // label10
             // 
-            this.label10.Location = new System.Drawing.Point(15, 181);
+            this.label10.Location = new System.Drawing.Point(15, 179);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(120, 20);
             this.label10.TabIndex = 8;
@@ -302,7 +303,7 @@
             // 
             // label11
             // 
-            this.label11.Location = new System.Drawing.Point(76, 209);
+            this.label11.Location = new System.Drawing.Point(76, 208);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(34, 23);
             this.label11.TabIndex = 9;
@@ -311,7 +312,7 @@
             // 
             // label12
             // 
-            this.label12.Location = new System.Drawing.Point(144, 209);
+            this.label12.Location = new System.Drawing.Point(144, 208);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(40, 23);
             this.label12.TabIndex = 9;
@@ -330,11 +331,24 @@
             this.checkBox1.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
             this.checkBox1.UseVisualStyleBackColor = true;
             // 
+            // checkBox2
+            // 
+            this.checkBox2.Checked = global::SoundModBuilder.Properties.Settings.Default.UseExists;
+            this.checkBox2.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::SoundModBuilder.Properties.Settings.Default, "UseExists", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.checkBox2.Location = new System.Drawing.Point(257, 153);
+            this.checkBox2.Name = "checkBox2";
+            this.checkBox2.Size = new System.Drawing.Size(182, 18);
+            this.checkBox2.TabIndex = 5;
+            this.checkBox2.Text = "Использовать существующие";
+            this.checkBox2.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
+            this.checkBox2.UseVisualStyleBackColor = true;
+            // 
             // SettingsWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(591, 242);
+            this.Controls.Add(this.checkBox2);
             this.Controls.Add(this.checkBox1);
             this.Controls.Add(this.ButtonDarkMode);
             this.Controls.Add(this.label12);
@@ -406,5 +420,6 @@
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Button ButtonDarkMode;
         private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.CheckBox checkBox2;
     }
 }

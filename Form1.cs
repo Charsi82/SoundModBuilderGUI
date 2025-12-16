@@ -837,37 +837,60 @@ namespace SoundModBuilder
                 return;
             }
 
-            // generate Source.xml
-            if (!GenerateSourceXML())
+            // bypass
+            if (Properties.Settings.Default.UseExists)
             {
-                SetStatusText(0, "Ошибка создания Source.xml");
-                return;
+                List<string> processed = new List<string>();
+                listBox2.Items.Add("Копируем существующие wem файлы в папку с модом...");
+                prj.EventsSFX.ForEach((evt) =>
+                {
+                    evt.Paths.ForEach((state) =>
+                    {
+                        state.FileList.ForEach((path) =>
+                        {
+                            if (processed.Contains(path)) return;
+                            processed.Add(path);
+                            FileInfo fi = new FileInfo(path);
+                            string fn = Path.GetFileNameWithoutExtension(fi.Name);
+                            string src = $"{fi.DirectoryName}\\{fn}.wem";
+                            if (File.Exists(src))
+                            {
+                                listBox2.Items.Add(src);
+                                File.Copy(src, $"{ModDir}\\{fn}.wem", true);
+                            }
+                        });
+                    });
+                });
             }
+            else
+            {
+                // generate Source.xml
+                if (!GenerateSourceXML())
+                {
+                    SetStatusText(0, "Ошибка создания Source.xml");
+                    return;
+                }
 
-            // convert wav to wem
-            listBox2.Items.Add("=================");
-
-            string SrcXml = $@"{prj.SrcPath}\Windows\Sources.xml";
-            var progress = new Progress<string>(s => listBox2.Items.Add(s));
-
-            await Task.Run(() => ConvertAndCopy(progress,
-                $"\"{Properties.Settings.Default.WwiseProject}\" -ConvertExternalSources \"{SrcXml}\" -ExternalSourcesOutput \"{prj.SrcPath}\" -verbose",
-                $"/c copy /b \"{prj.SrcPath}\\Windows\\*.wem\" \"{ModDir}\"",
-                $"{prj.SrcPath}\\Windows"
-                ));
+                // convert wav to wem
+                listBox2.Items.Add("=================");
+                var progress = new Progress<string>(s => listBox2.Items.Add(s));
+                await Task.Run(() => ConvertAndCopy(progress,
+                    $"\"{Properties.Settings.Default.WwiseProject}\" -ConvertExternalSources \"{prj.SrcPath}\\Windows\\Sources.xml\" -ExternalSourcesOutput \"{prj.SrcPath}\" -verbose",
+                    $"/c copy /b \"{prj.SrcPath}\\Windows\\*.wem\" \"{ModDir}\"",
+                    $"{prj.SrcPath}\\Windows"
+                    ));
+            }
 
             // generate mod.xml
             listBox2.Items.Add("Генерируем mod.xml");
             if (prj.GenerateModXML(ModDir))
             {
-                listBox2.Items.Add("Сгенерирован mod.xml");
                 listBox2.Items.Add("=================");
                 listBox2.Items.Add("Готово.");
                 listBox2.TopIndex = listBox2.Items.Count - 1;
                 SetStatusText(0, "Готово");
             }
-            label2.Text = "Журнал сборки:";
-            AdjustSplitterDistance();
+            AdjustSplitterDistance(true);
         }
 
         private void HelpToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1222,9 +1245,9 @@ namespace SoundModBuilder
             DeleteFilesByMask("*.ogg");
         }
 
-        private void AdjustSplitterDistance()
+        private void AdjustSplitterDistance(bool force = false)
         {
-            if (!Properties.Settings.Default.SplitterAutoSize) return;
+            if (!force && !Properties.Settings.Default.SplitterAutoSize) return;
             int maxlen = 0;
             Font font = new Font("Microsoft Sans Serif", 8);
             foreach (var itm in listBox2.Items)
