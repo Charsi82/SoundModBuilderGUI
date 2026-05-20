@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Drawing;
 using System.IO;
-using System.Net;
 using System.Reflection;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
@@ -238,18 +237,31 @@ namespace SoundModBuilder
         {
             if (!Directory.Exists(Properties.Settings.Default.GamePath))
             {
-                string lgc_pref = Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData) +
-                    "\\Lesta\\GameCenter\\preferences.xml";
-                if (File.Exists(lgc_pref))
+                string lgc_path_dat = Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData) + "\\Lesta\\GameCenter\\data\\lgc_path.dat";
+                if (!File.Exists(lgc_path_dat))
                 {
-                    XmlDocument xDoc = new XmlDocument();
-                    xDoc.Load(lgc_pref);
-                    var xnode = xDoc.DocumentElement?.SelectSingleNode("application")?.
-                    SelectSingleNode("games_manager")?.SelectSingleNode("current_game");
-                    if (xnode != null)
-                    {
-                        Properties.Settings.Default.GamePath = xnode.InnerText;
-                    }
+                    return;
+                }
+
+                string lgc_path = File.ReadAllText(lgc_path_dat);
+                if (!Directory.Exists(lgc_path))
+                {
+                    return;
+                }
+
+                string lgc_pref = $"{lgc_path}\\preferences.xml";
+                if (!File.Exists(lgc_pref))
+                {
+                    return;
+                }
+
+                XmlDocument xDoc = new XmlDocument();
+                xDoc.Load(lgc_pref);
+                var xnode = xDoc.DocumentElement?.SelectSingleNode("application")?.
+                SelectSingleNode("games_manager")?.SelectSingleNode("current_game");
+                if (xnode != null)
+                {
+                    Properties.Settings.Default.GamePath = xnode.InnerText;
                 }
             }
 

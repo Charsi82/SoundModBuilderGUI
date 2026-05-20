@@ -107,6 +107,7 @@
     <Compile Include="AboutDialog.Designer.cs">
       <DependentUpon>AboutDialog.cs</DependentUpon>
     </Compile>
+    <Compile Include="AppUpdater.cs" />
     <Compile Include="ChooseCommanderForm.cs">
       <SubType>Form</SubType>
     </Compile>

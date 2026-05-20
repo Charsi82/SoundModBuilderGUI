@@ -52,21 +52,28 @@ namespace SoundModBuilder
             this.SaveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.SaveAsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ImportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             this.PreferencesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.ExitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ProjectToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.BuildToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ProjectOptionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.CleanToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.CopyMessagesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.addSilenceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.CleanToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.OpenResultDirToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.HelpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.RunConverterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ConvertWemToWaveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ConvertWemToOggToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripSeparator();
             this.DelWavToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.DelOggToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.HelpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.UpdateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.label1 = new System.Windows.Forms.Label();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -208,8 +215,8 @@ namespace SoundModBuilder
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.FileToolStripMenuItem,
             this.ProjectToolStripMenuItem,
-            this.HelpToolStripMenuItem,
-            this.RunConverterToolStripMenuItem});
+            this.RunConverterToolStripMenuItem,
+            this.HelpToolStripMenuItem});
             resources.ApplyResources(this.menuStrip1, "menuStrip1");
             this.menuStrip1.Name = "menuStrip1";
             // 
@@ -220,7 +227,9 @@ namespace SoundModBuilder
             this.SaveToolStripMenuItem,
             this.SaveAsToolStripMenuItem,
             this.ImportToolStripMenuItem,
+            this.toolStripSeparator4,
             this.PreferencesToolStripMenuItem,
+            this.toolStripSeparator3,
             this.ExitToolStripMenuItem});
             this.FileToolStripMenuItem.Name = "FileToolStripMenuItem";
             resources.ApplyResources(this.FileToolStripMenuItem, "FileToolStripMenuItem");
@@ -249,11 +258,21 @@ namespace SoundModBuilder
             resources.ApplyResources(this.ImportToolStripMenuItem, "ImportToolStripMenuItem");
             this.ImportToolStripMenuItem.Click += new System.EventHandler(this.Import_ToolStripMenuItem_Click);
             // 
+            // toolStripSeparator4
+            // 
+            this.toolStripSeparator4.Name = "toolStripSeparator4";
+            resources.ApplyResources(this.toolStripSeparator4, "toolStripSeparator4");
+            // 
             // PreferencesToolStripMenuItem
             // 
             this.PreferencesToolStripMenuItem.Name = "PreferencesToolStripMenuItem";
             resources.ApplyResources(this.PreferencesToolStripMenuItem, "PreferencesToolStripMenuItem");
             this.PreferencesToolStripMenuItem.Click += new System.EventHandler(this.SettingsToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator3
+            // 
+            this.toolStripSeparator3.Name = "toolStripSeparator3";
+            resources.ApplyResources(this.toolStripSeparator3, "toolStripSeparator3");
             // 
             // ExitToolStripMenuItem
             // 
@@ -266,8 +285,11 @@ namespace SoundModBuilder
             this.ProjectToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.BuildToolStripMenuItem,
             this.ProjectOptionsToolStripMenuItem,
-            this.CleanToolStripMenuItem,
+            this.toolStripSeparator2,
             this.CopyMessagesToolStripMenuItem,
+            this.addSilenceToolStripMenuItem,
+            this.CleanToolStripMenuItem,
+            this.toolStripSeparator1,
             this.OpenResultDirToolStripMenuItem});
             this.ProjectToolStripMenuItem.Name = "ProjectToolStripMenuItem";
             resources.ApplyResources(this.ProjectToolStripMenuItem, "ProjectToolStripMenuItem");
@@ -284,11 +306,10 @@ namespace SoundModBuilder
             resources.ApplyResources(this.ProjectOptionsToolStripMenuItem, "ProjectOptionsToolStripMenuItem");
             this.ProjectOptionsToolStripMenuItem.Click += new System.EventHandler(this.ProjectOptionsToolStripMenuItem_Click);
             // 
-            // CleanToolStripMenuItem
+            // toolStripSeparator2
             // 
-            this.CleanToolStripMenuItem.Name = "CleanToolStripMenuItem";
-            resources.ApplyResources(this.CleanToolStripMenuItem, "CleanToolStripMenuItem");
-            this.CleanToolStripMenuItem.Click += new System.EventHandler(this.Clean_ToolStripMenuItem_Click);
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            resources.ApplyResources(this.toolStripSeparator2, "toolStripSeparator2");
             // 
             // CopyMessagesToolStripMenuItem
             // 
@@ -296,18 +317,28 @@ namespace SoundModBuilder
             resources.ApplyResources(this.CopyMessagesToolStripMenuItem, "CopyMessagesToolStripMenuItem");
             this.CopyMessagesToolStripMenuItem.Click += new System.EventHandler(this.CopyMessagesToolStripMenuItem_Click);
             // 
+            // addSilenceToolStripMenuItem
+            // 
+            this.addSilenceToolStripMenuItem.Name = "addSilenceToolStripMenuItem";
+            resources.ApplyResources(this.addSilenceToolStripMenuItem, "addSilenceToolStripMenuItem");
+            this.addSilenceToolStripMenuItem.Click += new System.EventHandler(this.AddSilenceToolStripMenuItem_Click);
+            // 
+            // CleanToolStripMenuItem
+            // 
+            this.CleanToolStripMenuItem.Name = "CleanToolStripMenuItem";
+            resources.ApplyResources(this.CleanToolStripMenuItem, "CleanToolStripMenuItem");
+            this.CleanToolStripMenuItem.Click += new System.EventHandler(this.Clean_ToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            resources.ApplyResources(this.toolStripSeparator1, "toolStripSeparator1");
+            // 
             // OpenResultDirToolStripMenuItem
             // 
             this.OpenResultDirToolStripMenuItem.Name = "OpenResultDirToolStripMenuItem";
             resources.ApplyResources(this.OpenResultDirToolStripMenuItem, "OpenResultDirToolStripMenuItem");
             this.OpenResultDirToolStripMenuItem.Click += new System.EventHandler(this.OpenDirToolStripMenuItem_Click);
-            // 
-            // HelpToolStripMenuItem
-            // 
-            this.HelpToolStripMenuItem.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.HelpToolStripMenuItem.Name = "HelpToolStripMenuItem";
-            resources.ApplyResources(this.HelpToolStripMenuItem, "HelpToolStripMenuItem");
-            this.HelpToolStripMenuItem.Click += new System.EventHandler(this.HelpToolStripMenuItem_Click);
             // 
             // RunConverterToolStripMenuItem
             // 
@@ -348,6 +379,28 @@ namespace SoundModBuilder
             this.DelOggToolStripMenuItem.Name = "DelOggToolStripMenuItem";
             resources.ApplyResources(this.DelOggToolStripMenuItem, "DelOggToolStripMenuItem");
             this.DelOggToolStripMenuItem.Click += new System.EventHandler(this.RemoveOGG_ToolStripMenuItem_Click);
+            // 
+            // HelpToolStripMenuItem
+            // 
+            this.HelpToolStripMenuItem.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.HelpToolStripMenuItem.AutoToolTip = true;
+            this.HelpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.UpdateToolStripMenuItem,
+            this.aboutToolStripMenuItem});
+            this.HelpToolStripMenuItem.Name = "HelpToolStripMenuItem";
+            resources.ApplyResources(this.HelpToolStripMenuItem, "HelpToolStripMenuItem");
+            // 
+            // CheckNewVersionToolStripMenuItem
+            // 
+            this.UpdateToolStripMenuItem.Name = "CheckNewVersionToolStripMenuItem";
+            resources.ApplyResources(this.UpdateToolStripMenuItem, "CheckNewVersionToolStripMenuItem");
+            this.UpdateToolStripMenuItem.Click += new System.EventHandler(this.CheckNewVersionToolStripMenuItem_Click);
+            // 
+            // aboutToolStripMenuItem
+            // 
+            this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
+            resources.ApplyResources(this.aboutToolStripMenuItem, "aboutToolStripMenuItem");
+            this.aboutToolStripMenuItem.Click += new System.EventHandler(this.AboutToolStripMenuItem_Click);
             // 
             // label1
             // 
@@ -423,6 +476,13 @@ namespace SoundModBuilder
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem2;
         private System.Windows.Forms.ToolStripMenuItem DelWavToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem DelOggToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
+        private System.Windows.Forms.ToolStripMenuItem addSilenceToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
+        private System.Windows.Forms.ToolStripMenuItem UpdateToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
     }
 }
 

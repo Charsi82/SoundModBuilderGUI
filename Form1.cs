@@ -14,6 +14,7 @@ namespace SoundModBuilder
     public partial class Form1 : Form
     {
         private readonly VOProject prj;
+        //internal readonly AppUpdater Updater;
         private readonly List<bool> EventsListColors = new List<bool>();
         private bool bProjectChanged = false;
         public bool ProjectChanged { get => bProjectChanged; set { bProjectChanged = value; UpdateStrip(); } }
@@ -21,6 +22,7 @@ namespace SoundModBuilder
         public Form1()
         {
             InitializeComponent();
+            //Updater = new AppUpdater();
             prj = new VOProject();
             UpdateStrip();
             BuildToolStripMenuItem.Enabled = false;
@@ -78,13 +80,13 @@ namespace SoundModBuilder
                 }
             }
 
-            internal void Dump(XmlNode xnode, XmlDocument xdoc, string CommanderID, string mod_path)
+            internal bool Dump(XmlNode xnode, XmlDocument xdoc, string CommanderID, string mod_path)
             {
                 bool skip = true;
                 foreach (MKState s in Paths)
                     if (s.FileList.Count > 0)
                     { skip = false; break; }
-                if (skip) return;
+                if (skip) return true;
                 XmlNode ext = xnode.AppendChild(xdoc.CreateElement("ExternalEvent"));
                 ext.AppendChild(xdoc.CreateElement("Name")).InnerText = Name;
                 XmlNode xcont = ext.AppendChild(xdoc.CreateElement("Container"));
@@ -92,7 +94,8 @@ namespace SoundModBuilder
                 xcont.AppendChild(xdoc.CreateElement("ExternalId")).InnerText = ExtId;
                 foreach (MKState s in Paths)
                     if (s.FileList.Count > 0)
-                        s.Dump(xcont, xdoc, CommanderID, mod_path);
+                        if (!s.Dump(xcont, xdoc, CommanderID, mod_path)) return false;
+                return true;
             }
 
             internal void Load(XmlNode xnode)
@@ -126,7 +129,7 @@ namespace SoundModBuilder
                 FileList = new List<string>();
             }
 
-            internal void Dump(XmlNode xnode, XmlDocument xdoc, string CommanderID, string mod_path)
+            internal bool Dump(XmlNode xnode, XmlDocument xdoc, string CommanderID, string mod_path)
             {
                 xnode = xnode.AppendChild(xdoc.CreateElement("Path"));
                 XmlNode xlist = xnode.AppendChild(xdoc.CreateElement("StateList"));
@@ -142,14 +145,20 @@ namespace SoundModBuilder
                     xstate.AppendChild(xdoc.CreateElement("Name")).InnerText = "CrewName";
                     xstate.AppendChild(xdoc.CreateElement("Value")).InnerText = CommanderID;
                 }
+
                 xlist = xnode.AppendChild(xdoc.CreateElement("FilesList"));
                 foreach (string fn in FileList)
                 {
-                    FileInfo fi = new FileInfo(fn);
-                    string WemNameExt = $"{fi.Name}".Replace($"{fi.Extension}", ".wem");
+                    string WemNameExt = $"{Path.GetFileNameWithoutExtension(fn)}.wem";
                     if (File.Exists($"{mod_path}\\{WemNameExt}"))
                         xlist.AppendChild(xdoc.CreateElement("File")).AppendChild(xdoc.CreateElement("Name")).InnerText = WemNameExt;
+                    else
+                    {
+                        MessageBox.Show($"Не найден файл '{mod_path}\\{WemNameExt}'", "Ошибка", MessageBoxButtons.OK);
+                        return false;
+                    }
                 }
+                return true;
             }
 
             internal void Load(XmlNode xnode)
@@ -229,7 +238,7 @@ namespace SoundModBuilder
 
                 foreach (MKEvent e in EventsSFX)
                 {
-                    e.Dump(xnode, xDoc, CommanderID, mod_path);
+                    if (!e.Dump(xnode, xDoc, CommanderID, mod_path)) return false; ;
                 }
                 XmlElement xRoot = xDoc.DocumentElement;
                 XmlNode xmldecl = xDoc.CreateXmlDeclaration("1.0", "UTF-8", null);
@@ -437,10 +446,10 @@ namespace SoundModBuilder
 
             try
             {
-                string TmpDir = $@"{prj.SrcPath}\Windows";
+                string TmpDir = $"{prj.SrcPath}\\Windows";
                 if (Directory.Exists(TmpDir)) Directory.Delete(TmpDir, true);
                 Directory.CreateDirectory(TmpDir);
-                XmlWriter writer = XmlWriter.Create($@"{TmpDir}\Sources.xml", settings);
+                XmlWriter writer = XmlWriter.Create($"{TmpDir}\\Sources.xml", settings);
                 xDoc.Save(writer);
                 writer.Flush();
                 writer.Close();
@@ -688,17 +697,17 @@ namespace SoundModBuilder
                     state.FileList.Clear();
         }
 
-        private bool FileListNotEmpty()
+        private bool FileListEmpty()
         {
             foreach (MKEvent evt in prj.EventsSFX)
                 foreach (MKState state in evt.Paths)
-                    if (state.FileList.Count > 0) return true;
-            return false;
+                    if (state.FileList.Count > 0) return false;
+            return true;
         }
 
         private bool TryClear()
         {
-            if (!FileListNotEmpty()) return true;
+            if (FileListEmpty()) return true;
             if (DialogResult.No == MessageBox.Show(
                 "Удалить все ассоциации файлов с событиями?",
                 "Подтверждение",
@@ -710,6 +719,7 @@ namespace SoundModBuilder
             ClearFiles();
             listBox2.Items.Clear();
             UpdateEventsList();
+            ProjectChanged = true;
             return true;
         }
 
@@ -782,7 +792,7 @@ namespace SoundModBuilder
             ProjectSave();
         }
 
-        private void ProjectSave()
+        public void ProjectSave()
         {
             while (prj.ModName.Length == 0)
             {
@@ -819,10 +829,11 @@ namespace SoundModBuilder
 
         private async void BuildToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            ProjectSave();
             listBox2.Items.Clear();
             label2.Text = "Журнал сборки:";
             // clear or create mod directory
-            string ModDir = $"{Properties.Settings.Default.GamePath}\\bin\\{Properties.Settings.Default.GameVer}\\res_mods\\banks\\mods\\{prj.ModDir}";
+            string ModDir = $@"{Properties.Settings.Default.GamePath}\bin\{Properties.Settings.Default.GameVer}\res_mods\banks\mods\{prj.ModDir}";
             try
             {
                 DirectoryInfo di = new DirectoryInfo(ModDir);
@@ -846,19 +857,50 @@ namespace SoundModBuilder
                 {
                     evt.Paths.ForEach((state) =>
                     {
+                        if (state.FileList.Count == 0) return;
+                        int files_count = 0;
                         state.FileList.ForEach((path) =>
                         {
-                            if (processed.Contains(path)) return;
+                            if (processed.Contains(path))
+                            {
+                                files_count++;
+                                return;
+                            }
                             processed.Add(path);
                             FileInfo fi = new FileInfo(path);
                             string fn = Path.GetFileNameWithoutExtension(fi.Name);
                             string src = $"{fi.DirectoryName}\\{fn}.wem";
-                            if (File.Exists(src))
+
+                            if (!File.Exists(src))
                             {
-                                listBox2.Items.Add(src);
-                                File.Copy(src, $"{ModDir}\\{fn}.wem", true);
+                                if (fn != "TISHINA")
+                                {
+                                    listBox2.Items.Add($"НЕ НАЙДЕН: {src}");
+                                    return;
+                                }
+                                string appDirectory = AppDomain.CurrentDomain.BaseDirectory;
+                                src = $"{appDirectory}\\utils\\TISHINA.wem"; // try copy 'TISHINA.wem' from appDirectory
+                                if (File.Exists(src))
+                                {
+                                    File.Copy(src, $"{ModDir}\\TISHINA.wem", true);
+                                    listBox2.Items.Add($"Скопирован: {src}");
+                                }
+                                else
+                                {
+                                    listBox2.Items.Add($"НЕ НАЙДЕН: {src}");
+                                }
                             }
+                            else
+                            {
+                                File.Copy(src, $"{ModDir}\\{fn}.wem", true);
+                                listBox2.Items.Add($"Скопирован: {src}");
+                            }
+                            files_count++;
                         });
+                        if (files_count == 0)
+                        {
+                            listBox2.Items.Add($"ОШИБКА: не найдены файлы для события '{state.ReadRu}'.");
+                        }
                     });
                 });
             }
@@ -882,26 +924,21 @@ namespace SoundModBuilder
             }
 
             // generate mod.xml
-            listBox2.Items.Add("Генерируем mod.xml");
+            listBox2.Items.Add("Создаём mod.xml");
             if (prj.GenerateModXML(ModDir))
             {
                 listBox2.Items.Add("=================");
                 listBox2.Items.Add("Готово.");
-                listBox2.TopIndex = listBox2.Items.Count - 1;
                 SetStatusText(0, "Готово");
             }
+            else
+            {
+                listBox2.Items.Add("Ошибка создания mod.xml");
+                SetStatusText(0, "Ошибка сборки");
+            }
+
+            listBox2.TopIndex = listBox2.Items.Count - 1;
             AdjustSplitterDistance(true);
-        }
-
-        private void HelpToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            ShowAboutDialog();
-        }
-
-        private void ShowAboutDialog()
-        {
-            var dlg = new AboutDialog();
-            dlg.ShowDialog(this);
         }
 
         private void ExitCtrlXToolStripMenuItem_Click(object sender, EventArgs e)
@@ -922,10 +959,18 @@ namespace SoundModBuilder
             if (Properties.Settings.Default.WindowLocation != Point.Empty) Location = Properties.Settings.Default.WindowLocation;
             Size = Properties.Settings.Default.WindowSize;
 
-            if (File.Exists(Properties.Settings.Default.LastProject))
+            bool TryLoadProject(string path)
             {
-                if (prj.Load(Properties.Settings.Default.LastProject))
-                    OnProjectLoad();
+                if (!File.Exists(path)) return false;
+                if (!prj.Load(path)) return false;
+                OnProjectLoad();
+                return true;
+            }
+
+            if (!TryLoadProject(Properties.Settings.Default.LastProject))
+            {
+                string[] fullArgs = Environment.GetCommandLineArgs();
+                if (fullArgs.Length > 1) TryLoadProject(fullArgs[1]);
             }
             UpdateTheme();
         }
@@ -1007,11 +1052,6 @@ namespace SoundModBuilder
 
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
-            if (keyData == Keys.F1)
-            {
-                ShowAboutDialog();
-                return true;
-            }
             if (webBrowser1.Focused || textBox1.Focused)
                 switch (keyData)
                 {
@@ -1262,7 +1302,6 @@ namespace SoundModBuilder
 
         private void Import_ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
             if (!TryClear()) return;
 
             OpenFileDialog dialog = new OpenFileDialog
@@ -1322,7 +1361,7 @@ namespace SoundModBuilder
                     var pEvt = prj.EventsSFX.Find(evt => (evt.ExtId == extid));
                     if (pEvt == null) continue;
                     XmlNode xStateList = xpath.SelectSingleNode("StateList");
-                    string nv = "";
+                    var _nv = new Dictionary<string, string>();
                     bool _br = false;
                     foreach (XmlNode xState in xStateList.SelectNodes("State"))
                     {
@@ -1333,7 +1372,7 @@ namespace SoundModBuilder
                             if (value != prj.CommanderID) _br = true;
                             break;
                         }
-                        nv += name + value;
+                        _nv[name] = value;
                     }
 
                     if (_br)
@@ -1343,9 +1382,10 @@ namespace SoundModBuilder
 
                     var mkState = pEvt.Paths.Find(stl =>
                     {
-                        string check = (extid == "VVO_Pilots_Status") ? "Plane_TypeTorpedo" : "";
-                        stl.StateList.ForEach(st => check += st.Name + st.Value);
-                        return check.Contains(nv);
+                        var _check = new Dictionary<string, string>();
+                        if (extid == "VVO_Pilots_Status") _check["Plane_Type"] = "Torpedo";
+                        stl.StateList.ForEach(st => _check[st.Name] = st.Value);
+                        return _check.All(pair => _nv.TryGetValue(pair.Key, out string value) && value == pair.Value);
                     });
 
                     if (mkState != null)
@@ -1452,6 +1492,52 @@ namespace SoundModBuilder
                 int pos = listBox2.Location.Y;
                 Rectangle rect = new Rectangle(splitContainer1.SplitterDistance, pos, 2, splitContainer1.Height - pos - 5);
                 pe.Graphics.FillRectangle(brush, rect);
+            }
+        }
+
+        private void AddSilence()
+        {
+            prj.EventsSFX.ForEach((evt) =>
+            {
+                evt.Paths.ForEach((state) =>
+                {
+                    if (state.FileList.Count == 0)
+                    {
+                        state.FileList.Add($"{prj.SrcPath}\\TISHINA.wav");
+                    }
+                });
+            });
+            UpdateEventsList();
+            ListBox2_Update();
+            ProjectChanged = true;
+        }
+
+        private void AddSilenceToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            AddSilence();
+        }
+
+        private void AboutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            AboutDialog dlg = new AboutDialog();
+            dlg.ShowDialog(this);
+        }
+
+        private void CheckNewVersionToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            AppUpdater Updater = new AppUpdater();
+            Updater.UpdateConfigs();
+            if (!Updater.Check())
+            {
+                MessageBox.Show("Вы используете последнюю версию программы.",
+                    "Обновление", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+            if (MessageBox.Show("Доступна новая версия. Обновить программу?",
+                "Обновление", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            {
+                CheckProjectChanges();
+                Updater.Run();
             }
         }
     }
