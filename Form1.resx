@@ -208,10 +208,10 @@
     <value>Top, Left, Right</value>
   </data>
   <data name="textBox1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>101, 6</value>
+    <value>101, 5</value>
   </data>
   <data name="textBox1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>233, 20</value>
+    <value>232, 20</value>
   </data>
   <data name="textBox1.TabIndex" type="System.Int32, mscorlib">
     <value>7</value>
@@ -274,7 +274,7 @@
     <value>NoControl</value>
   </data>
   <data name="button5.Location" type="System.Drawing.Point, System.Drawing">
-    <value>75, 5</value>
+    <value>75, 4</value>
   </data>
   <data name="button5.Size" type="System.Drawing.Size, System.Drawing">
     <value>22, 22</value>
@@ -307,7 +307,7 @@
     <value>NoControl</value>
   </data>
   <data name="button1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 5</value>
+    <value>3, 4</value>
   </data>
   <data name="button1.Size" type="System.Drawing.Size, System.Drawing">
     <value>22, 22</value>
@@ -340,7 +340,7 @@
     <value>NoControl</value>
   </data>
   <data name="button2.Location" type="System.Drawing.Point, System.Drawing">
-    <value>27, 5</value>
+    <value>27, 4</value>
   </data>
   <data name="button2.Size" type="System.Drawing.Size, System.Drawing">
     <value>22, 22</value>
@@ -373,7 +373,7 @@
     <value>NoControl</value>
   </data>
   <data name="button3.Location" type="System.Drawing.Point, System.Drawing">
-    <value>51, 5</value>
+    <value>51, 4</value>
   </data>
   <data name="button3.Size" type="System.Drawing.Size, System.Drawing">
     <value>22, 22</value>
@@ -403,7 +403,7 @@
     <value>Top, Bottom, Left, Right</value>
   </data>
   <data name="webBrowser1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>5, 31</value>
+    <value>5, 29</value>
   </data>
   <data name="webBrowser1.MinimumSize" type="System.Drawing.Size, System.Drawing">
     <value>200, 20</value>
@@ -711,10 +711,10 @@
   <data name="RunConverterToolStripMenuItem.Text" xml:space="preserve">
     <value>Конвертация</value>
   </data>
-  <data name="CheckNewVersionToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="UpdateToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>204, 22</value>
   </data>
-  <data name="CheckNewVersionToolStripMenuItem.Text" xml:space="preserve">
+  <data name="UpdateToolStripMenuItem.Text" xml:space="preserve">
     <value>Проверить обновления</value>
   </data>
   <data name="aboutToolStripMenuItem.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
@@ -1333,10 +1333,10 @@
   <data name="&gt;&gt;HelpToolStripMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;CheckNewVersionToolStripMenuItem.Name" xml:space="preserve">
-    <value>CheckNewVersionToolStripMenuItem</value>
+  <data name="&gt;&gt;UpdateToolStripMenuItem.Name" xml:space="preserve">
+    <value>UpdateToolStripMenuItem</value>
   </data>
-  <data name="&gt;&gt;CheckNewVersionToolStripMenuItem.Type" xml:space="preserve">
+  <data name="&gt;&gt;UpdateToolStripMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;aboutToolStripMenuItem.Name" xml:space="preserve">

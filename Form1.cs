@@ -80,13 +80,14 @@ namespace SoundModBuilder
                 }
             }
 
-            internal bool Dump(XmlNode xnode, XmlDocument xdoc, string CommanderID, string mod_path)
+            internal bool Dump(XmlNode xnode, string CommanderID, string mod_path)
             {
                 bool skip = true;
                 foreach (MKState s in Paths)
                     if (s.FileList.Count > 0)
                     { skip = false; break; }
                 if (skip) return true;
+                XmlDocument xdoc = xnode.OwnerDocument;
                 XmlNode ext = xnode.AppendChild(xdoc.CreateElement("ExternalEvent"));
                 ext.AppendChild(xdoc.CreateElement("Name")).InnerText = Name;
                 XmlNode xcont = ext.AppendChild(xdoc.CreateElement("Container"));
@@ -94,7 +95,7 @@ namespace SoundModBuilder
                 xcont.AppendChild(xdoc.CreateElement("ExternalId")).InnerText = ExtId;
                 foreach (MKState s in Paths)
                     if (s.FileList.Count > 0)
-                        if (!s.Dump(xcont, xdoc, CommanderID, mod_path)) return false;
+                        if (!s.Dump(xcont, CommanderID, mod_path)) return false;
                 return true;
             }
 
@@ -129,8 +130,9 @@ namespace SoundModBuilder
                 FileList = new List<string>();
             }
 
-            internal bool Dump(XmlNode xnode, XmlDocument xdoc, string CommanderID, string mod_path)
+            internal bool Dump(XmlNode xnode, string CommanderID, string mod_path)
             {
+                XmlDocument xdoc = xnode.OwnerDocument;
                 xnode = xnode.AppendChild(xdoc.CreateElement("Path"));
                 XmlNode xlist = xnode.AppendChild(xdoc.CreateElement("StateList"));
                 foreach (State s in StateList)
@@ -238,7 +240,7 @@ namespace SoundModBuilder
 
                 foreach (MKEvent e in EventsSFX)
                 {
-                    if (!e.Dump(xnode, xDoc, CommanderID, mod_path)) return false; ;
+                    if (!e.Dump(xnode, CommanderID, mod_path)) return false; ;
                 }
                 XmlElement xRoot = xDoc.DocumentElement;
                 XmlNode xmldecl = xDoc.CreateXmlDeclaration("1.0", "UTF-8", null);
@@ -248,7 +250,8 @@ namespace SoundModBuilder
                 {
                     Indent = true,
                     IndentChars = "\t",
-                    Encoding = new UTF8Encoding(false)
+                    Encoding = new UTF8Encoding(false),
+                    NewLineChars = "\n"
                 };
 
                 try

@@ -390,10 +390,10 @@ namespace SoundModBuilder
             this.HelpToolStripMenuItem.Name = "HelpToolStripMenuItem";
             resources.ApplyResources(this.HelpToolStripMenuItem, "HelpToolStripMenuItem");
             // 
-            // CheckNewVersionToolStripMenuItem
+            // UpdateToolStripMenuItem
             // 
-            this.UpdateToolStripMenuItem.Name = "CheckNewVersionToolStripMenuItem";
-            resources.ApplyResources(this.UpdateToolStripMenuItem, "CheckNewVersionToolStripMenuItem");
+            this.UpdateToolStripMenuItem.Name = "UpdateToolStripMenuItem";
+            resources.ApplyResources(this.UpdateToolStripMenuItem, "UpdateToolStripMenuItem");
             this.UpdateToolStripMenuItem.Click += new System.EventHandler(this.CheckNewVersionToolStripMenuItem_Click);
             // 
             // aboutToolStripMenuItem
