@@ -63,6 +63,7 @@
 	<item id="CUNNINGHAM" ru="Andrew Cunningham"/>
 	<item id="CaoCao" ru="Cao Cao"/>
 	<item id="ChangeDual" ru="Chang'e"/>
+	<item id="Chatskiy" ru="Чацкий"/>
 	<item id="Chernomor" ru="Черномор"/>
 	<item id="ChristophSchulz" ru="Christoph Schulz"/>
 	<item id="ComRichard" ru="ComRichard"/>
@@ -94,6 +95,7 @@
 	<item id="Commander_Yamato_H2019" ru="Chernomor the Terrible"/>
 	<item id="Commander_Z_52_PA" ru="Rattenkönig"/>
 	<item id="Conspirologist" ru="Дункан Ч."/>
+	<item id="Constantine_Sharp" ru="Константин Шарп"/>
 	<item id="Cruiser_Duck_High_FA2023" ru="Фьюро"/>
 	<item id="Cruiser_Duck_Low_FA2023" ru="Луиджи МакКрякки"/>
 	<item id="DE_Ijichi" ru="Hikojirō Ijichi"/>
@@ -113,6 +115,7 @@
 	<item id="Dasha_US" ru="Даша Перова"/>
 	<item id="David_Jones_H18" ru="David Jones"/>
 	<item id="David_Jones_HW" ru="David Jones"/>
+	<item id="Davidov" ru="Давыдов"/>
 	<item id="De_Jong" ru="Klaas Janssen"/>
 	<item id="De_Ruyter" ru="Michiel de Ruyter"/>
 	<item id="Destroyer_Duck_High_FA2023" ru="Дак Панчис"/>
@@ -130,7 +133,7 @@
 	<item id="Edinburgh_space" ru="Triangulum"/>
 	<item id="EliteTournament22" ru="Da Lan"/>
 	<item id="Ermelinda_Jung" ru="Эрмелинда Юнг"/>
-	<item id="EvaValentine" ru="Eva Valentine"/>
+	<item id="EvaValentine" ru="Ева Валентайн"/>
 	<item id="FRANCECAPPREM" ru="Charles-Henri Honoré"/>
 	<item id="FRANCE_CAP" ru="Jean-Jacques Honoré"/>
 	<item id="FRANCISCO_FERREIRA" ru="Francisco Ferreira Filho"/>
@@ -170,7 +173,7 @@
 	<item id="HORACEHOOD" ru="Horace Hood"/>
 	<item id="Haguro" ru="Haguro"/>
 	<item id="Halsey" ru="William F. Halsey Jr."/>
-	<item id="Handzo" ru="Юки Хандзо"/>
+	<item id="Handzo" ru="Юки Гёкуро"/>
 	<item id="Hank_Bailey" ru="Hank Bailey"/>
 	<item id="Haruna" ru="Haruna"/>
 	<item id="Helsind" ru="Abraham V. Hellsinger"/>
@@ -197,6 +200,7 @@
 	<item id="James_Conrad" ru="Джеймс Конрад"/>
 	<item id="James_Dgrease_H18" ru="James D. Breese"/>
 	<item id="James_Dgrease_HW" ru="James D. Breese"/>
+	<item id="Jason_Tumanoff" ru="Jason Tumanoff"/>
 	<item id="Jenkins" ru="Leroy Jenkins"/>
 	<item id="Jitnyakov_Aria" ru="Михаил Житняков"/>
 	<item id="Jorick_Aria" ru="Жорик"/>
@@ -255,17 +259,20 @@
 	<item id="Mina_Ura_H18" ru="Mina Hurray"/>
 	<item id="MinakamiShiori_ObonFest" ru="Minakami Shiori"/>
 	<item id="Minin" ru="Кузьма Минин"/>
+	<item id="Mitropolit" ru="Митрополит"/>
 	<item id="Moeka_China" ru="Moeka China"/>
 	<item id="Mongol_TM" ru="Guō Hóngfàn"/>
+	<item id="Moriarty" ru="Профессор Мориарти"/>
 	<item id="MoritzBrandt" ru="Moritz Brandt"/>
 	<item id="Mr_Hide" ru="Henry J. Hide"/>
+	<item id="Muller" ru="Мюллер"/>
 	<item id="Musashi" ru="Musashi"/>
 	<item id="Myoko" ru="Myōkō"/>
 	<item id="NETH_WWII_SA" ru="Frederik van Hendriks"/>
 	<item id="Nachi" ru="Nachi"/>
 	<item id="Nakhimov" ru="Павел Нахимов"/>
 	<item id="Narong_Duanta" ru="Narong Duangta"/>
-	<item id="Nikos_Thalassinos" ru="Nikos Thalassinos"/>
+	<item id="Olga_Gromova" ru="Ольга Громова"/>
 	<item id="OliverWright" ru="Oliver Wright"/>
 	<item id="Optimus_Prime" ru="Оптимус Прайм"/>
 	<item id="PANAZ_WWII_SA" ru="Yuen Xuanzhou"/>
@@ -331,11 +338,13 @@
 	<item id="Satou_Ichirou" ru="Ichirō Satō"/>
 	<item id="Scroogeklaas" ru="Scrooge Nicholson"/>
 	<item id="Seagal" ru="John Doe"/>
+	<item id="Sherlock" ru="Шерлок Холмс"/>
 	<item id="Siegfried_Logh" ru="Siegfried Kircheis"/>
 	<item id="Slavic_girl" ru="Катя StormyGirl"/>
 	<item id="Slavyana_Winter" ru="Зимняя Славя"/>
 	<item id="Soundwave" ru="Саундвейв"/>
 	<item id="Southern_dragon_king" ru="Southern Dragon King"/>
+	<item id="Space_Curator" ru="Куратор"/>
 	<item id="Spaceman1" ru="Queen Bee"/>
 	<item id="Spaceman2" ru="Golden Konung"/>
 	<item id="Spaceman3" ru="Pete Earthling"/>
@@ -362,6 +371,7 @@
 	<item id="Takeo_Takagi" ru="Takeo Takagi"/>
 	<item id="Taliya" ru="Taliya"/>
 	<item id="Tao_Ji" ru="Tāo Ji"/>
+	<item id="Tournament_Gladiator" ru="Рейн Астер"/>
 	<item id="Turry" ru="Turry"/>
 	<item id="UKCAP" ru="Bert Dunkirk"/>
 	<item id="UK_Dart_Norman" ru="Dart Norman"/>
@@ -379,7 +389,6 @@
 	<item id="U_2501_Subtest" ru="Simon Fischer"/>
 	<item id="Udalov_Aria" ru="Максим Удалов"/>
 	<item id="Ulyana_Winter" ru="Зимняя Ульяна"/>
-	<item id="Unknown" ru="Unknown"/>
 	<item id="Unsinkable_Sam_Ger" ru="Unsinkbarer Sam"/>
 	<item id="Unsinkable_Sam_UK" ru="Unsinkable Sam"/>
 	<item id="Ushakov" ru="Фёдор Ушаков"/>
@@ -393,6 +402,7 @@
 	<item id="WarhammerImperial" ru="Justinian Lyons XIII"/>
 	<item id="Warhammer_Blacktemplar" ru="Augustin Riegerwald"/>
 	<item id="Warhammer_Ork" ru="Grotmaz Smart"/>
+	<item id="Watson" ru="Доктор Ватсон"/>
 	<item id="Welthund" ru="Welthund"/>
 	<item id="Willie_Neumann" ru="Willie Neumann"/>
 	<item id="WimHindenmann" ru="Wim Hindenmann"/>
