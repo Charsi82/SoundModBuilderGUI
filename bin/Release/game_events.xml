@@ -215,29 +215,114 @@
 	<event name="Play_VO_Ship_Weapon_AirSupport_Shot" extid="VVO_Ship_Weapon_AirSupport_Shot">
 		<path name="Pilots_Air_Support_Airborne" ru="ПЛО: взлёт произвёл" />
 	</event>
-	<event name="Play_VO_Pilots_Status" extid="VVO_Pilots_Status">
-		<path name="Pilots_Airborne" ru="Пилоты: Взлёт произвёл">
+	
+	<event name="Play_VO_Pilots_Status" extid="VVO_Pilots_Status">	
+		<path name="Pilots_Airborne" ru="Пилоты (Торпедоносец): Взлёт произвёл">
+			<condition name="Plane_Type" value="Torpedo" />
 			<condition name="VO_Plane_Status" value="TAKEOFF_ENDED" />
 		</path>
-		<path name="Pilots_Atpos" ru="Пилоты: На позиции, жду приказов">
+		<path name="Pilots_Atpos" ru="Пилоты (Торпедоносец): На позиции">
+			<condition name="Plane_Type" value="Torpedo" />
 			<condition name="VO_Plane_Status" value="AtPos" />
 		</path>
-		<path name="Pilots_Destroy" ru="Пилоты: Уничтожен">
+		<path name="Pilots_Destroy" ru="Пилоты (Торпедоносец): Уничтожен">
+			<condition name="Plane_Type" value="Torpedo" />
 			<condition name="VO_Plane_Status" value="Destroy" />
 		</path>
-		<path name="Pilots_Engage" ru="Пилоты: Атакую!">
+		<path name="Pilots_Engage" ru="Пилоты (Торпедоносец): Атакую!">
+			<condition name="Plane_Type" value="Torpedo" />
 			<condition name="VO_Plane_Status" value="ATTACK_STARTED" />
 		</path>
-		<path name="Pilots_Land" ru="Пилоты: Иду на базу">
+		<path name="Pilots_Land" ru="Пилоты (Торпедоносец): Иду на базу">
+			<condition name="Plane_Type" value="Torpedo" />
 			<condition name="VO_Plane_Status" value="LANDING_INITIATED" />
 		</path>
-		<path name="Pilots_Ready" ru="Пилоты: Готов!">
+		<path name="Pilots_Ready" ru="Пилоты (Торпедоносец): Готов!">
+			<condition name="Plane_Type" value="Torpedo" />
 			<condition name="VO_Plane_Status" value="Ready" />
 		</path>
-		<path name="Pilots_Under_Attack" ru="Пилоты: Атакован!">
+		<path name="Pilots_Under_Attack" ru="Пилоты (Торпедоносец): Атакован!">
+			<condition name="Plane_Type" value="Torpedo" />
 			<condition name="VO_Plane_Status" value="UNDER_ATTACK" />
 		</path>
+	
+		<path name="Pilots_Airborne" ru="Пилоты (Бомбардировщик): Взлёт произвёл">
+			<condition name="Plane_Type" value="Bomber" />
+			<condition name="VO_Plane_Status" value="TAKEOFF_ENDED" />
+		</path>
+		<path name="Pilots_Atpos" ru="Пилоты (Бомбардировщик): На позиции">
+			<condition name="Plane_Type" value="Bomber" />
+			<condition name="VO_Plane_Status" value="AtPos" />
+		</path>
+		<path name="Pilots_Destroy" ru="Пилоты (Бомбардировщик): Уничтожен">
+			<condition name="Plane_Type" value="Bomber" />
+			<condition name="VO_Plane_Status" value="Destroy" />
+		</path>
+		<path name="Pilots_Engage" ru="Пилоты (Бомбардировщик): Атакую!">
+			<condition name="Plane_Type" value="Bomber" />
+			<condition name="VO_Plane_Status" value="ATTACK_STARTED" />
+		</path>
+		<path name="Pilots_Land" ru="Пилоты (Бомбардировщик): Иду на базу">
+			<condition name="Plane_Type" value="Bomber" />
+			<condition name="VO_Plane_Status" value="LANDING_INITIATED" />
+		</path>
+		<path name="Pilots_Ready" ru="Пилоты (Бомбардировщик): Готов!">
+			<condition name="Plane_Type" value="Bomber" />
+			<condition name="VO_Plane_Status" value="Ready" />
+		</path>
+		<path name="Pilots_Under_Attack" ru="Пилоты (Бомбардировщик): Атакован!">
+			<condition name="Plane_Type" value="Bomber" />
+			<condition name="VO_Plane_Status" value="UNDER_ATTACK" />
+		</path>
+	
+		<path name="Pilots_Airborne" ru="Пилоты (Истребитель): Взлёт произвёл">
+			<condition name="Plane_Type" value="Fighter" />
+			<condition name="VO_Plane_Status" value="TAKEOFF_ENDED" />
+		</path>
+		<path name="Pilots_Atpos" ru="Пилоты (Истребитель): На позиции">
+			<condition name="Plane_Type" value="Fighter" />
+			<condition name="VO_Plane_Status" value="AtPos" />
+		</path>
+		<path name="Pilots_Destroy" ru="Пилоты (Истребитель): Уничтожен">
+			<condition name="Plane_Type" value="Fighter" />
+			<condition name="VO_Plane_Status" value="Destroy" />
+		</path>
+		<path name="Pilots_Engage" ru="Пилоты (Истребитель): Атакую!">
+			<condition name="Plane_Type" value="Fighter" />
+			<condition name="VO_Plane_Status" value="ATTACK_STARTED" />
+		</path>
+		<path name="Pilots_Land" ru="Пилоты (Истребитель): Иду на базу">
+			<condition name="Plane_Type" value="Fighter" />
+			<condition name="VO_Plane_Status" value="LANDING_INITIATED" />
+		</path>
+		<path name="Pilots_Ready" ru="Пилоты (Истребитель): Готов!">
+			<condition name="Plane_Type" value="Fighter" />
+			<condition name="VO_Plane_Status" value="Ready" />
+		</path>
+		<path name="Pilots_Under_Attack" ru="Пилоты (Истребитель): Атакован!">
+			<condition name="Plane_Type" value="Fighter" />
+			<condition name="VO_Plane_Status" value="UNDER_ATTACK" />
+		</path>
+	
+		<path name="Pilots_Destroy" ru="Пилоты (Кат. истребитель): Уничтожен">
+			<condition name="Plane_Type" value="FighterCons" />
+			<condition name="VO_Plane_Status" value="Destroy" />
+		</path>
+		<path name="Pilots_Land" ru="Пилоты (Кат. истребитель): Возвращаюсь">
+			<condition name="Plane_Type" value="FighterCons" />
+			<condition name="VO_Plane_Status" value="LANDING_INITIATED" />
+		</path>
+	
+		<path name="Pilots_Destroy" ru="Пилоты (Корректировщик): Уничтожен">
+			<condition name="Plane_Type" value="Scout" />
+			<condition name="VO_Plane_Status" value="Destroy" />
+		</path>
+		<path name="Pilots_Land" ru="Пилоты (Корректировщик): Возвращаюсь">
+			<condition name="Plane_Type" value="Scout" />
+			<condition name="VO_Plane_Status" value="LANDING_INITIATED" />
+		</path>		
 	</event>
+	
 	<event name="Play_VO_Quick_Commands" extid="VVO_Quick_Commands">
 		<path name="Quick_Commands_Ally_Base" ru="[ИСХ] Защитить базу">
 			<condition name="VO_Quick_Commands" value="CMD_QUICK_TACTIC_ALLY_BASE" />

@@ -337,9 +337,9 @@
             this.checkBox2.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::SoundModBuilder.Properties.Settings.Default, "UseExists", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.checkBox2.Location = new System.Drawing.Point(257, 153);
             this.checkBox2.Name = "checkBox2";
-            this.checkBox2.Size = new System.Drawing.Size(182, 18);
+            this.checkBox2.Size = new System.Drawing.Size(322, 18);
             this.checkBox2.TabIndex = 5;
-            this.checkBox2.Text = "Использовать существующие";
+            this.checkBox2.Text = "Использовать существующие wem файлы\r\n";
             this.checkBox2.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
             this.checkBox2.UseVisualStyleBackColor = true;
             // 

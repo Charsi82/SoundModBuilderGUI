@@ -32,16 +32,18 @@ namespace SoundModBuilder
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.listBox2 = new System.Windows.Forms.ListBox();
-            this.label2 = new System.Windows.Forms.Label();
+            this.buttonFiles = new System.Windows.Forms.Button();
+            this.buttonLog = new System.Windows.Forms.Button();
+            this.listBoxLog = new System.Windows.Forms.ListBox();
+            this.listBoxFiles = new System.Windows.Forms.ListBox();
             this.textBox1 = new System.Windows.Forms.TextBox();
-            this.button4 = new System.Windows.Forms.Button();
-            this.button5 = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
+            this.buttonGetDirectory = new System.Windows.Forms.Button();
+            this.buttonHome = new System.Windows.Forms.Button();
+            this.buttonBack = new System.Windows.Forms.Button();
+            this.buttonForward = new System.Windows.Forms.Button();
+            this.buttonUp = new System.Windows.Forms.Button();
             this.webBrowser1 = new System.Windows.Forms.WebBrowser();
-            this.listBox1 = new System.Windows.Forms.ListBox();
+            this.listBoxEvents = new System.Windows.Forms.ListBox();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
@@ -59,11 +61,14 @@ namespace SoundModBuilder
             this.ProjectToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.BuildToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ProjectOptionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.CheckToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.CopyMessagesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.copyPilotsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.addSilenceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.CleanToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.openSourceDirToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.OpenResultDirToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.RunConverterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ConvertWemToWaveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -92,37 +97,60 @@ namespace SoundModBuilder
             // 
             // splitContainer1.Panel1
             // 
-            this.splitContainer1.Panel1.Controls.Add(this.listBox2);
-            this.splitContainer1.Panel1.Controls.Add(this.label2);
+            this.splitContainer1.Panel1.Controls.Add(this.buttonFiles);
+            this.splitContainer1.Panel1.Controls.Add(this.buttonLog);
+            this.splitContainer1.Panel1.Controls.Add(this.listBoxLog);
+            this.splitContainer1.Panel1.Controls.Add(this.listBoxFiles);
             // 
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.textBox1);
-            this.splitContainer1.Panel2.Controls.Add(this.button4);
-            this.splitContainer1.Panel2.Controls.Add(this.button5);
-            this.splitContainer1.Panel2.Controls.Add(this.button1);
-            this.splitContainer1.Panel2.Controls.Add(this.button2);
-            this.splitContainer1.Panel2.Controls.Add(this.button3);
+            this.splitContainer1.Panel2.Controls.Add(this.buttonGetDirectory);
+            this.splitContainer1.Panel2.Controls.Add(this.buttonHome);
+            this.splitContainer1.Panel2.Controls.Add(this.buttonBack);
+            this.splitContainer1.Panel2.Controls.Add(this.buttonForward);
+            this.splitContainer1.Panel2.Controls.Add(this.buttonUp);
             this.splitContainer1.Panel2.Controls.Add(this.webBrowser1);
             resources.ApplyResources(this.splitContainer1.Panel2, "splitContainer1.Panel2");
             this.splitContainer1.Paint += new System.Windows.Forms.PaintEventHandler(this.SplitContainer1_Paint);
             // 
-            // listBox2
+            // buttonFiles
             // 
-            this.listBox2.AllowDrop = true;
-            resources.ApplyResources(this.listBox2, "listBox2");
-            this.listBox2.FormattingEnabled = true;
-            this.listBox2.Name = "listBox2";
-            this.listBox2.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
-            this.listBox2.DragDrop += new System.Windows.Forms.DragEventHandler(this.ListBox2_DragDrop);
-            this.listBox2.DragEnter += new System.Windows.Forms.DragEventHandler(this.ListBox2_DragDropEnter);
-            this.listBox2.KeyDown += new System.Windows.Forms.KeyEventHandler(this.ListBox2_KeyDown);
-            this.listBox2.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.ListBox2_MouseDoubleClick);
+            this.buttonFiles.FlatAppearance.BorderColor = System.Drawing.SystemColors.MenuHighlight;
+            resources.ApplyResources(this.buttonFiles, "buttonFiles");
+            this.buttonFiles.Name = "buttonFiles";
+            this.buttonFiles.UseVisualStyleBackColor = true;
+            this.buttonFiles.Click += new System.EventHandler(this.ButtonFiles_Click);
             // 
-            // label2
+            // buttonLog
             // 
-            resources.ApplyResources(this.label2, "label2");
-            this.label2.Name = "label2";
+            this.buttonLog.FlatAppearance.BorderColor = System.Drawing.SystemColors.MenuHighlight;
+            resources.ApplyResources(this.buttonLog, "buttonLog");
+            this.buttonLog.Name = "buttonLog";
+            this.buttonLog.UseVisualStyleBackColor = true;
+            this.buttonLog.Click += new System.EventHandler(this.ButtonLog_Click);
+            // 
+            // listBoxLog
+            // 
+            this.listBoxLog.AllowDrop = true;
+            resources.ApplyResources(this.listBoxLog, "listBoxLog");
+            this.listBoxLog.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
+            this.listBoxLog.FormattingEnabled = true;
+            this.listBoxLog.Name = "listBoxLog";
+            this.listBoxLog.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
+            this.listBoxLog.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.ListBoxLog_DrawItem);
+            // 
+            // listBoxFiles
+            // 
+            this.listBoxFiles.AllowDrop = true;
+            resources.ApplyResources(this.listBoxFiles, "listBoxFiles");
+            this.listBoxFiles.FormattingEnabled = true;
+            this.listBoxFiles.Name = "listBoxFiles";
+            this.listBoxFiles.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
+            this.listBoxFiles.DragDrop += new System.Windows.Forms.DragEventHandler(this.ListBoxFiles_DragDrop);
+            this.listBoxFiles.DragEnter += new System.Windows.Forms.DragEventHandler(this.ListBoxFiles_DragDropEnter);
+            this.listBoxFiles.KeyDown += new System.Windows.Forms.KeyEventHandler(this.ListBoxFiles_KeyDown);
+            this.listBoxFiles.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.ListBoxFiles_MouseDoubleClick);
             // 
             // textBox1
             // 
@@ -130,45 +158,50 @@ namespace SoundModBuilder
             this.textBox1.Name = "textBox1";
             this.textBox1.ReadOnly = true;
             // 
-            // button4
+            // buttonGetDirectory
             // 
-            resources.ApplyResources(this.button4, "button4");
-            this.button4.Name = "button4";
-            this.toolTip1.SetToolTip(this.button4, resources.GetString("button4.ToolTip"));
-            this.button4.UseVisualStyleBackColor = true;
-            this.button4.Click += new System.EventHandler(this.Button4_Click);
+            resources.ApplyResources(this.buttonGetDirectory, "buttonGetDirectory");
+            this.buttonGetDirectory.FlatAppearance.BorderColor = System.Drawing.SystemColors.MenuHighlight;
+            this.buttonGetDirectory.Name = "buttonGetDirectory";
+            this.toolTip1.SetToolTip(this.buttonGetDirectory, resources.GetString("buttonGetDirectory.ToolTip"));
+            this.buttonGetDirectory.UseVisualStyleBackColor = true;
+            this.buttonGetDirectory.Click += new System.EventHandler(this.ButtonGetDirectory_Click);
             // 
-            // button5
+            // buttonHome
             // 
-            resources.ApplyResources(this.button5, "button5");
-            this.button5.Name = "button5";
-            this.toolTip1.SetToolTip(this.button5, resources.GetString("button5.ToolTip"));
-            this.button5.UseVisualStyleBackColor = true;
-            this.button5.Click += new System.EventHandler(this.Button5_Click);
+            this.buttonHome.FlatAppearance.BorderColor = System.Drawing.SystemColors.MenuHighlight;
+            resources.ApplyResources(this.buttonHome, "buttonHome");
+            this.buttonHome.Name = "buttonHome";
+            this.toolTip1.SetToolTip(this.buttonHome, resources.GetString("buttonHome.ToolTip"));
+            this.buttonHome.UseVisualStyleBackColor = true;
+            this.buttonHome.Click += new System.EventHandler(this.ButtonHome_Click);
             // 
-            // button1
+            // buttonBack
             // 
-            resources.ApplyResources(this.button1, "button1");
-            this.button1.Name = "button1";
-            this.toolTip1.SetToolTip(this.button1, resources.GetString("button1.ToolTip"));
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.Button1_Click);
+            this.buttonBack.FlatAppearance.BorderColor = System.Drawing.SystemColors.MenuHighlight;
+            resources.ApplyResources(this.buttonBack, "buttonBack");
+            this.buttonBack.Name = "buttonBack";
+            this.toolTip1.SetToolTip(this.buttonBack, resources.GetString("buttonBack.ToolTip"));
+            this.buttonBack.UseVisualStyleBackColor = true;
+            this.buttonBack.Click += new System.EventHandler(this.ButtonBack_Click);
             // 
-            // button2
+            // buttonForward
             // 
-            resources.ApplyResources(this.button2, "button2");
-            this.button2.Name = "button2";
-            this.toolTip1.SetToolTip(this.button2, resources.GetString("button2.ToolTip"));
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.Button2_Click);
+            this.buttonForward.FlatAppearance.BorderColor = System.Drawing.SystemColors.MenuHighlight;
+            resources.ApplyResources(this.buttonForward, "buttonForward");
+            this.buttonForward.Name = "buttonForward";
+            this.toolTip1.SetToolTip(this.buttonForward, resources.GetString("buttonForward.ToolTip"));
+            this.buttonForward.UseVisualStyleBackColor = true;
+            this.buttonForward.Click += new System.EventHandler(this.ButtonForward_Click);
             // 
-            // button3
+            // buttonUp
             // 
-            resources.ApplyResources(this.button3, "button3");
-            this.button3.Name = "button3";
-            this.toolTip1.SetToolTip(this.button3, resources.GetString("button3.ToolTip"));
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.Button3_Click);
+            this.buttonUp.FlatAppearance.BorderColor = System.Drawing.SystemColors.MenuHighlight;
+            resources.ApplyResources(this.buttonUp, "buttonUp");
+            this.buttonUp.Name = "buttonUp";
+            this.toolTip1.SetToolTip(this.buttonUp, resources.GetString("buttonUp.ToolTip"));
+            this.buttonUp.UseVisualStyleBackColor = true;
+            this.buttonUp.Click += new System.EventHandler(this.ButtonUp_Click);
             // 
             // webBrowser1
             // 
@@ -176,14 +209,14 @@ namespace SoundModBuilder
             this.webBrowser1.Name = "webBrowser1";
             this.webBrowser1.Navigated += new System.Windows.Forms.WebBrowserNavigatedEventHandler(this.WebBrowser1_Navigated);
             // 
-            // listBox1
+            // listBoxEvents
             // 
-            resources.ApplyResources(this.listBox1, "listBox1");
-            this.listBox1.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
-            this.listBox1.FormattingEnabled = true;
-            this.listBox1.Name = "listBox1";
-            this.listBox1.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.ListBox1_DrawItem);
-            this.listBox1.SelectedIndexChanged += new System.EventHandler(this.ListBox1_SelectedIndexChanged);
+            resources.ApplyResources(this.listBoxEvents, "listBoxEvents");
+            this.listBoxEvents.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.listBoxEvents.FormattingEnabled = true;
+            this.listBoxEvents.Name = "listBoxEvents";
+            this.listBoxEvents.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.ListBoxEvents_DrawItem);
+            this.listBoxEvents.SelectedIndexChanged += new System.EventHandler(this.ListBoxEvents_SelectedIndexChanged);
             // 
             // statusStrip1
             // 
@@ -285,11 +318,14 @@ namespace SoundModBuilder
             this.ProjectToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.BuildToolStripMenuItem,
             this.ProjectOptionsToolStripMenuItem,
+            this.CheckToolStripMenuItem,
             this.toolStripSeparator2,
             this.CopyMessagesToolStripMenuItem,
+            this.copyPilotsToolStripMenuItem,
             this.addSilenceToolStripMenuItem,
             this.CleanToolStripMenuItem,
             this.toolStripSeparator1,
+            this.openSourceDirToolStripMenuItem,
             this.OpenResultDirToolStripMenuItem});
             this.ProjectToolStripMenuItem.Name = "ProjectToolStripMenuItem";
             resources.ApplyResources(this.ProjectToolStripMenuItem, "ProjectToolStripMenuItem");
@@ -306,6 +342,12 @@ namespace SoundModBuilder
             resources.ApplyResources(this.ProjectOptionsToolStripMenuItem, "ProjectOptionsToolStripMenuItem");
             this.ProjectOptionsToolStripMenuItem.Click += new System.EventHandler(this.ProjectOptionsToolStripMenuItem_Click);
             // 
+            // CheckToolStripMenuItem
+            // 
+            this.CheckToolStripMenuItem.Name = "CheckToolStripMenuItem";
+            resources.ApplyResources(this.CheckToolStripMenuItem, "CheckToolStripMenuItem");
+            this.CheckToolStripMenuItem.Click += new System.EventHandler(this.CheckToolStripMenuItem_Click);
+            // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
@@ -316,6 +358,12 @@ namespace SoundModBuilder
             this.CopyMessagesToolStripMenuItem.Name = "CopyMessagesToolStripMenuItem";
             resources.ApplyResources(this.CopyMessagesToolStripMenuItem, "CopyMessagesToolStripMenuItem");
             this.CopyMessagesToolStripMenuItem.Click += new System.EventHandler(this.CopyMessagesToolStripMenuItem_Click);
+            // 
+            // copyPilotsToolStripMenuItem
+            // 
+            this.copyPilotsToolStripMenuItem.Name = "copyPilotsToolStripMenuItem";
+            resources.ApplyResources(this.copyPilotsToolStripMenuItem, "copyPilotsToolStripMenuItem");
+            this.copyPilotsToolStripMenuItem.Click += new System.EventHandler(this.CopyPilotsToolStripMenuItem_Click);
             // 
             // addSilenceToolStripMenuItem
             // 
@@ -333,6 +381,12 @@ namespace SoundModBuilder
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
             resources.ApplyResources(this.toolStripSeparator1, "toolStripSeparator1");
+            // 
+            // openSourceDirToolStripMenuItem
+            // 
+            this.openSourceDirToolStripMenuItem.Name = "openSourceDirToolStripMenuItem";
+            resources.ApplyResources(this.openSourceDirToolStripMenuItem, "openSourceDirToolStripMenuItem");
+            this.openSourceDirToolStripMenuItem.Click += new System.EventHandler(this.OpenSourceDirToolStripMenuItem_Click);
             // 
             // OpenResultDirToolStripMenuItem
             // 
@@ -412,7 +466,7 @@ namespace SoundModBuilder
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.splitContainer1);
-            this.Controls.Add(this.listBox1);
+            this.Controls.Add(this.listBoxEvents);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.menuStrip1);
@@ -423,7 +477,6 @@ namespace SoundModBuilder
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
             this.splitContainer1.Panel1.ResumeLayout(false);
-            this.splitContainer1.Panel1.PerformLayout();
             this.splitContainer1.Panel2.ResumeLayout(false);
             this.splitContainer1.Panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
@@ -438,8 +491,8 @@ namespace SoundModBuilder
         }
 
         #endregion
-        private System.Windows.Forms.ListBox listBox1;
-        private System.Windows.Forms.ListBox listBox2;
+        private System.Windows.Forms.ListBox listBoxEvents;
+        private System.Windows.Forms.ListBox listBoxFiles;
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem FileToolStripMenuItem;
@@ -449,7 +502,6 @@ namespace SoundModBuilder
         private System.Windows.Forms.ToolStripMenuItem CleanToolStripMenuItem;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ToolStripMenuItem ProjectOptionsToolStripMenuItem;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel2;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel3;
@@ -461,12 +513,12 @@ namespace SoundModBuilder
         private System.Windows.Forms.ToolStripMenuItem HelpToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem OpenResultDirToolStripMenuItem;
         private System.Windows.Forms.SplitContainer splitContainer1;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.Button buttonBack;
+        private System.Windows.Forms.Button buttonForward;
+        private System.Windows.Forms.Button buttonUp;
+        private System.Windows.Forms.Button buttonGetDirectory;
         private System.Windows.Forms.WebBrowser webBrowser1;
-        private System.Windows.Forms.Button button5;
+        private System.Windows.Forms.Button buttonHome;
         private System.Windows.Forms.ToolStripMenuItem CopyMessagesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem RunConverterToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem ImportToolStripMenuItem;
@@ -483,6 +535,12 @@ namespace SoundModBuilder
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
         private System.Windows.Forms.ToolStripMenuItem UpdateToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
+        private System.Windows.Forms.Button buttonLog;
+        private System.Windows.Forms.Button buttonFiles;
+        private System.Windows.Forms.ListBox listBoxLog;
+        private System.Windows.Forms.ToolStripMenuItem openSourceDirToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem copyPilotsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem CheckToolStripMenuItem;
     }
 }
 

@@ -4,7 +4,9 @@ using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml;
@@ -14,15 +16,25 @@ namespace SoundModBuilder
     public partial class Form1 : Form
     {
         private readonly VOProject prj;
-        //internal readonly AppUpdater Updater;
         private readonly List<bool> EventsListColors = new List<bool>();
+        public readonly List<Commander> CommanderList = new List<Commander>();
         private bool bProjectChanged = false;
         public bool ProjectChanged { get => bProjectChanged; set { bProjectChanged = value; UpdateStrip(); } }
         private readonly string converter_folder = "./utils/converter_wem_to_mp3";
         public Form1()
         {
             InitializeComponent();
-            //Updater = new AppUpdater();
+            string CurrentAppVersion = Assembly.GetExecutingAssembly().GetName().Version.ToString();
+            string Ver = Properties.Settings.Default.AppVersion;
+            if (Ver != CurrentAppVersion)
+            {
+                Properties.Settings.Default.Upgrade();
+                Properties.Settings.Default.AppVersion = CurrentAppVersion;
+                Properties.Settings.Default.Save();
+            }
+            Utils.UpdateGamePath();
+            Utils.UpdateGameVersion();
+            InitCommandersList();
             prj = new VOProject();
             UpdateStrip();
             BuildToolStripMenuItem.Enabled = false;
@@ -30,12 +42,10 @@ namespace SoundModBuilder
                               from MKState p in evt.Paths
                               select p)
             {
-                listBox1.Items.Add(p.ReadRu);
+                listBoxEvents.Items.Add(p.ReadRu);
                 EventsListColors.Add(false);
             }
 
-            Utils.UpdateGamePath();
-            Utils.UpdateGameVersion();
             UpdateMenuItem();
             menuStrip1.Renderer = new MenuStripRenderer();
         }
@@ -45,8 +55,9 @@ namespace SoundModBuilder
             SettingsWindow sw = new SettingsWindow() { parent = this };
             if (DialogResult.OK == sw.ShowDialog(this))
             {
+                InitCommandersList();
                 UpdateMenuItem();
-                listBox1.Update();
+                listBoxEvents.Update();
                 AdjustSplitterDistance();
             }
         }
@@ -386,6 +397,7 @@ namespace SoundModBuilder
                     Indent = true,
                     IndentChars = "\t",
                     Encoding = new UTF8Encoding(false),
+                    NewLineChars = "\n"
                 };
 
                 XmlWriter writer = XmlWriter.Create(PrjPath, settings);
@@ -415,7 +427,7 @@ namespace SoundModBuilder
                 ErrorMsgBox("Папка исходников не найдена");
                 return false;
             }
-            listBox2.Items.Add("Генерируем Source.xml");
+            Log("Генерируем Source.xml");
             XmlDocument xDoc = new XmlDocument
             {
                 PreserveWhitespace = false
@@ -445,6 +457,7 @@ namespace SoundModBuilder
                 Indent = true,
                 IndentChars = "\t",
                 Encoding = new UTF8Encoding(false),
+                NewLineChars = "\n"
             };
 
             try
@@ -456,7 +469,7 @@ namespace SoundModBuilder
                 xDoc.Save(writer);
                 writer.Flush();
                 writer.Close();
-                listBox2.Items.Add("Сгенерирован Sources.xml");
+                Log("Сгенерирован Sources.xml");
             }
             catch (Exception ex)
             {
@@ -466,14 +479,14 @@ namespace SoundModBuilder
             return true;
         }
 
-        private void ListBox2_DragDropEnter(object sender, DragEventArgs e)
+        private void ListBoxFiles_DragDropEnter(object sender, DragEventArgs e)
         {
             e.Effect = e.Data.GetDataPresent(DataFormats.FileDrop) ? DragDropEffects.Copy : DragDropEffects.None;
         }
 
-        private void ListBox2_DragDrop(object sender, DragEventArgs e)
+        private void ListBoxFiles_DragDrop(object sender, DragEventArgs e)
         {
-            string item = listBox1.Text;
+            string item = listBoxEvents.Text;
             int idx = 0;
             bool warn_no_wave = false;
             bool is_file_added = false;
@@ -497,9 +510,9 @@ namespace SoundModBuilder
                         {
                             path.FileList.Sort();
                             EventsListColors[idx] = true;
-                            listBox2.Items.Clear();
+                            listBoxFiles.Items.Clear();
                             foreach (string s in path.FileList)
-                                listBox2.Items.Add(s);
+                                listBoxFiles.Items.Add(s);
                         }
                         break;
                     }
@@ -511,7 +524,7 @@ namespace SoundModBuilder
 
             if (is_file_added)
             {
-                listBox1.Invalidate();
+                listBoxEvents.Invalidate();
                 SetStatusText(0, "Файл(ы) добавлен(ы)");
                 ProjectChanged = true;
             }
@@ -570,47 +583,45 @@ namespace SoundModBuilder
             {
                 progress.Report("Папка удалена.");
             }
-            progress.Report("=================");
         }
 
-        private void ListBox2_Update()
+        private void ListBoxEvents_Update()
         {
-            label2.Text = "Файлы:";
-            string event_name = listBox1.Text;
+            string event_name = listBoxEvents.Text;
             SetStatusText(0, $"Выбрано '{event_name}'");
             foreach (MKState st in from MKEvent evt in prj.EventsSFX
                                    from MKState st in evt.Paths
                                    where st.ReadRu == event_name
                                    select st)
             {
-                listBox2.Items.Clear();
-                foreach (string s in st.FileList) listBox2.Items.Add(s);
+                listBoxFiles.Items.Clear();
+                foreach (string s in st.FileList) listBoxFiles.Items.Add(s);
                 break;
             }
             AdjustSplitterDistance();
+            buttonFiles.PerformClick();
         }
 
-        private void ListBox1_SelectedIndexChanged(object sender, EventArgs e)
+        private void ListBoxEvents_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (listBox1.SelectedIndex != -1) ListBox2_Update();
+            if (listBoxEvents.SelectedIndex != -1) ListBoxEvents_Update();
         }
 
-        private void ListBox2_KeyDown(object sender, KeyEventArgs e)
+        private void ListBoxFiles_KeyDown(object sender, KeyEventArgs e)
         {
-
-            if (e.KeyCode == Keys.Delete && listBox1.SelectedIndex != -1)
+            if (e.KeyCode == Keys.Delete && listBoxEvents.SelectedIndex != -1)
             {
-                int idx = listBox2.SelectedIndices.Count;
+                int idx = listBoxFiles.SelectedIndices.Count;
                 if (idx <= 0) return;
 
-                string item_name = listBox1.Text;
-                foreach (var item in listBox2.SelectedItems)
+                string item_name = listBoxEvents.Text;
+                foreach (var item in listBoxFiles.SelectedItems)
                     prj.Remove(item_name, item.ToString());
 
                 while (idx > 0)
                 {
                     idx -= 1;
-                    listBox2.Items.RemoveAt(listBox2.SelectedIndices[idx]);
+                    listBoxFiles.Items.RemoveAt(listBoxFiles.SelectedIndices[idx]);
                 }
                 UpdateEventsList();
                 SetStatusText(0, "Файл(ы) удален(ы)");
@@ -618,11 +629,11 @@ namespace SoundModBuilder
             }
         }
 
-        private void ListBox2_MouseDoubleClick(object sender, MouseEventArgs e)
+        private void ListBoxFiles_MouseDoubleClick(object sender, MouseEventArgs e)
         {
-            if (listBox1.SelectedIndex != -1 && listBox2.SelectedIndex != -1)
+            if (listBoxEvents.SelectedIndex != -1 && listBoxFiles.SelectedIndex != -1)
             {
-                string fn = listBox2.Text;
+                string fn = listBoxFiles.Text;
                 if (File.Exists(fn))
                 {
                     System.Media.SoundPlayer player = new System.Media.SoundPlayer(fn);
@@ -632,8 +643,8 @@ namespace SoundModBuilder
                 {
                     if (DialogResult.Yes == MessageBox.Show($"Файл '{fn}' не найден. Удалить запись?", null, MessageBoxButtons.YesNo, MessageBoxIcon.Warning))
                     {
-                        prj.Remove(listBox1.Text, fn);
-                        listBox2.Items.RemoveAt(listBox2.SelectedIndex);
+                        prj.Remove(listBoxEvents.Text, fn);
+                        listBoxFiles.Items.RemoveAt(listBoxFiles.SelectedIndex);
                     }
                 }
             }
@@ -645,8 +656,8 @@ namespace SoundModBuilder
             UpdateMenuItem();
             WebBrowser_Navigate(prj.SrcPath);
             UpdateEventsList();
-            listBox1.SelectedIndex = 0;
-            ListBox2_Update();
+            listBoxEvents.SelectedIndex = 0;
+            ListBoxEvents_Update();
             FileInfo fi = new FileInfo(prj.PrjPath);
             SetStatusText(0, $"Проект '{fi.Name}' загружен");
             Properties.Settings.Default.LastProject = prj.PrjPath;
@@ -720,8 +731,10 @@ namespace SoundModBuilder
                 return false;
 
             ClearFiles();
-            listBox2.Items.Clear();
+            listBoxFiles.Items.Clear();
+            listBoxLog.Items.Clear();
             UpdateEventsList();
+            Log("Проект очищен.");
             ProjectChanged = true;
             return true;
         }
@@ -748,7 +761,9 @@ namespace SoundModBuilder
                 ProjectPath = prj.ModDir,
                 ProjectSrcPath = prj.SrcPath,
                 CommanderID = prj.CommanderID,
+                parent = this,
             };
+
             ApplyTheme(wnd);
             if (DialogResult.OK == wnd.ShowDialog(this))
             {
@@ -827,14 +842,25 @@ namespace SoundModBuilder
             foreach (MKEvent evt in prj.EventsSFX)
                 foreach (MKState p in evt.Paths)
                     EventsListColors[idx++] = p.FileList.Count > 0;
-            listBox1.Invalidate();
+            listBoxEvents.Invalidate();
+        }
+
+        private void LogProgress(string text)
+        {
+            SetStatusText(0, text);
+        }
+
+        private void Log(string text)
+        {
+            listBoxLog.Items.Add(text);
         }
 
         private async void BuildToolStripMenuItem_Click(object sender, EventArgs e)
         {
             ProjectSave();
-            listBox2.Items.Clear();
-            label2.Text = "Журнал сборки:";
+            buttonLog.PerformClick();
+            listBoxLog.Items.Clear();
+            Log("Журнал сборки:");
             // clear or create mod directory
             string ModDir = $@"{Properties.Settings.Default.GamePath}\bin\{Properties.Settings.Default.GameVer}\res_mods\banks\mods\{prj.ModDir}";
             try
@@ -848,14 +874,15 @@ namespace SoundModBuilder
             catch (Exception ex)
             {
                 ErrorMsgBox(ex.Message);
+                Log(ex.Message);
                 return;
             }
 
             // bypass
-            if (Properties.Settings.Default.UseExists)
+            if (Properties.Settings.Default.UseExists || !CheckPaths(false))
             {
                 List<string> processed = new List<string>();
-                listBox2.Items.Add("Копируем существующие wem файлы в папку с модом...");
+                Log("Копируем существующие wem файлы в папку с модом...");
                 prj.EventsSFX.ForEach((evt) =>
                 {
                     evt.Paths.ForEach((state) =>
@@ -870,15 +897,15 @@ namespace SoundModBuilder
                                 return;
                             }
                             processed.Add(path);
-                            FileInfo fi = new FileInfo(path);
-                            string fn = Path.GetFileNameWithoutExtension(fi.Name);
-                            string src = $"{fi.DirectoryName}\\{fn}.wem";
+                            FileInfo fileInfo = new FileInfo(path);
+                            string fileName = Path.GetFileNameWithoutExtension(fileInfo.Name);
+                            string src = $"{fileInfo.DirectoryName}\\{fileName}.wem";
 
                             if (!File.Exists(src))
                             {
-                                if (fn != "TISHINA")
+                                if (fileName != "TISHINA")
                                 {
-                                    listBox2.Items.Add($"НЕ НАЙДЕН: {src}");
+                                    Log($"НЕ НАЙДЕН: {src}");
                                     return;
                                 }
                                 string appDirectory = AppDomain.CurrentDomain.BaseDirectory;
@@ -886,39 +913,43 @@ namespace SoundModBuilder
                                 if (File.Exists(src))
                                 {
                                     File.Copy(src, $"{ModDir}\\TISHINA.wem", true);
-                                    listBox2.Items.Add($"Скопирован: {src}");
+                                    Log($"Скопирован: {src}");
                                 }
                                 else
                                 {
-                                    listBox2.Items.Add($"НЕ НАЙДЕН: {src}");
+                                    Log($"НЕ НАЙДЕН: {src}");
+                                    return;
                                 }
                             }
                             else
                             {
-                                File.Copy(src, $"{ModDir}\\{fn}.wem", true);
-                                listBox2.Items.Add($"Скопирован: {src}");
+                                File.Copy(src, $"{ModDir}\\{fileName}.wem", true);
+                                Log($"Скопирован: {src}");
                             }
                             files_count++;
                         });
                         if (files_count == 0)
                         {
-                            listBox2.Items.Add($"ОШИБКА: не найдены файлы для события '{state.ReadRu}'.");
+                            Log($"ОШИБКА: не найдены файлы для события '{state.ReadRu}'.");
                         }
                     });
                 });
             }
             else
             {
+                if (!CheckPaths(true)) return;
+
                 // generate Source.xml
                 if (!GenerateSourceXML())
                 {
+                    Log("Ошибка создания Source.xml");
                     SetStatusText(0, "Ошибка создания Source.xml");
                     return;
                 }
 
                 // convert wav to wem
-                listBox2.Items.Add("=================");
-                var progress = new Progress<string>(s => listBox2.Items.Add(s));
+                Log("=================");
+                var progress = new Progress<string>(s => Log(s));
                 await Task.Run(() => ConvertAndCopy(progress,
                     $"\"{Properties.Settings.Default.WwiseProject}\" -ConvertExternalSources \"{prj.SrcPath}\\Windows\\Sources.xml\" -ExternalSourcesOutput \"{prj.SrcPath}\" -verbose",
                     $"/c copy /b \"{prj.SrcPath}\\Windows\\*.wem\" \"{ModDir}\"",
@@ -927,20 +958,21 @@ namespace SoundModBuilder
             }
 
             // generate mod.xml
-            listBox2.Items.Add("Создаём mod.xml");
+            Log("=================");
+            Log("Создаём mod.xml");
             if (prj.GenerateModXML(ModDir))
             {
-                listBox2.Items.Add("=================");
-                listBox2.Items.Add("Готово.");
+                Log("=================");
+                Log("Готово.");
                 SetStatusText(0, "Готово");
             }
             else
             {
-                listBox2.Items.Add("Ошибка создания mod.xml");
+                Log("Ошибка создания mod.xml");
                 SetStatusText(0, "Ошибка сборки");
             }
 
-            listBox2.TopIndex = listBox2.Items.Count - 1;
+            listBoxLog.TopIndex = listBoxLog.Items.Count - 1;
             AdjustSplitterDistance(true);
         }
 
@@ -959,22 +991,10 @@ namespace SoundModBuilder
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            if (Properties.Settings.Default.WindowLocation != Point.Empty) Location = Properties.Settings.Default.WindowLocation;
+            Location = Properties.Settings.Default.WindowLocation;
             Size = Properties.Settings.Default.WindowSize;
-
-            bool TryLoadProject(string path)
-            {
-                if (!File.Exists(path)) return false;
-                if (!prj.Load(path)) return false;
-                OnProjectLoad();
-                return true;
-            }
-
-            if (!TryLoadProject(Properties.Settings.Default.LastProject))
-            {
-                string[] fullArgs = Environment.GetCommandLineArgs();
-                if (fullArgs.Length > 1) TryLoadProject(fullArgs[1]);
-            }
+            var LastProjectPath = Properties.Settings.Default.LastProject;
+            if (File.Exists(LastProjectPath) && prj.Load(LastProjectPath)) OnProjectLoad();
             UpdateTheme();
         }
 
@@ -1004,17 +1024,17 @@ namespace SoundModBuilder
                 ErrorMsgBox("Папка мода не существует.");
         }
 
-        private void Button1_Click(object sender, EventArgs e)
+        private void ButtonBack_Click(object sender, EventArgs e)
         {
             if (webBrowser1.CanGoBack) webBrowser1.GoBack();
         }
 
-        private void Button2_Click(object sender, EventArgs e)
+        private void ButtonForward_Click(object sender, EventArgs e)
         {
             if (webBrowser1.CanGoForward) webBrowser1.GoForward();
         }
 
-        private void Button3_Click(object sender, EventArgs e)
+        private void ButtonUp_Click(object sender, EventArgs e)
         {
             Uri uri = webBrowser1.Url;
             if (uri is null) return;
@@ -1022,7 +1042,7 @@ namespace SoundModBuilder
             WebBrowser_Navigate(parent?.FullName);
         }
 
-        private void Button4_Click(object sender, EventArgs e)
+        private void ButtonGetDirectory_Click(object sender, EventArgs e)
         {
             FolderBrowserDialog dialog = new FolderBrowserDialog()
             {
@@ -1037,7 +1057,7 @@ namespace SoundModBuilder
             }
         }
 
-        private void Button5_Click(object sender, EventArgs e)
+        private void ButtonHome_Click(object sender, EventArgs e)
         {
             WebBrowser_Navigate(prj.SrcPath);
         }
@@ -1060,26 +1080,26 @@ namespace SoundModBuilder
                 {
                     case Keys.Alt | Keys.Left:
                         {
-                            button1.PerformClick();
+                            buttonBack.PerformClick();
                             webBrowser1.Focus();
                             return true;
                         }
                     case Keys.Alt | Keys.Right:
                         {
-                            button2.PerformClick();
+                            buttonForward.PerformClick();
                             webBrowser1.Focus();
                             return true;
                         }
                     case Keys.Back:
                     case Keys.Alt | Keys.Up:
                         {
-                            button3.PerformClick();
+                            buttonUp.PerformClick();
                             webBrowser1.Focus();
                             return true;
                         }
                     case Keys.Alt | Keys.Down:
                         {
-                            button5.PerformClick();
+                            buttonHome.PerformClick();
                             webBrowser1.Focus();
                             return true;
                         }
@@ -1089,7 +1109,7 @@ namespace SoundModBuilder
             return base.ProcessCmdKey(ref msg, keyData);
         }
 
-        private void ListBox1_DrawItem(object sender, DrawItemEventArgs e)
+        private void ListBoxEvents_DrawItem(object sender, DrawItemEventArgs e)
         {
             if ((e.State & DrawItemState.Focus) != DrawItemState.Focus &&
                 (e.State & DrawItemState.Selected) == DrawItemState.Selected)
@@ -1107,7 +1127,7 @@ namespace SoundModBuilder
                 ? Properties.Settings.Default.ColorBackEvtListItem
                 : Properties.Settings.Default.ColorBackEvtListItemEmpty;
             g.FillRectangle(new SolidBrush(ColorBack), e.Bounds);
-            g.DrawString(listBox1.Items[e.Index].ToString(),
+            g.DrawString(listBoxEvents.Items[e.Index].ToString(),
                 e.Font,
                ((e.State & DrawItemState.Focus) == DrawItemState.Focus) ? Brushes.Blue : Brushes.Black,
                 e.Bounds);
@@ -1116,13 +1136,15 @@ namespace SoundModBuilder
 
         private void CopyList(string dest, List<string> list)
         {
-            foreach (MKEvent evt in prj.EventsSFX)
-                foreach (MKState p in evt.Paths)
-                    if (p.ReadRu == dest)
-                    {
-                        p.FileList = p.FileList.Union(list).ToList();
-                        return;
-                    }
+            foreach (var p in from MKEvent evt in prj.EventsSFX
+                              from MKState p in evt.Paths
+                              where p.ReadRu == dest
+                              select p)
+            {
+                p.FileList = p.FileList.Union(list).ToList();
+                p.FileList.Sort();
+                return;
+            }
         }
 
         // [ИСХ] -> [ВХ]
@@ -1135,7 +1157,7 @@ namespace SoundModBuilder
                         CopyList(p.ReadRu.Replace("[ИСХ]", "[ВХ]"), p.FileList);
             ProjectChanged = true;
             UpdateEventsList();
-            ListBox2_Update();
+            ListBoxEvents_Update();
         }
 
         private static void ErrorMsgBox(string msg)
@@ -1172,18 +1194,19 @@ namespace SoundModBuilder
             string ConvertPath = textBox1.Text;
             if (!Directory.Exists(ConvertPath)) return;
             var WemFiles = Directory.EnumerateFiles(ConvertPath, "*.wem");
-            int max_counter = WemFiles.ToArray().Length;
+            int max_counter = WemFiles.Count();
             if (max_counter == 0) return;
             int counter = 0;
 
-            listBox2.Items.Clear();
+            listBoxLog.Items.Clear();
+            buttonLog.PerformClick();
             string msg_state = "конвертация";
-            var progress_work = new Progress<string>(s => listBox2.Items.Add(s));
+            var progress_work = new Progress<string>(s => Log(s));
             var progress_complete = new MethodInvoker(delegate
             {
-                label2.Text = $"WEM -> OGG: {msg_state} {++counter * 100 / max_counter}%";
+                LogProgress($"WEM -> OGG: {msg_state} {++counter * 100 / max_counter}%");
             });
-            // List<Task> tasks = new List<Task>();
+
             foreach (var path in WemFiles)
             {
                 await Task.Run(() => RunConverter(progress_work,
@@ -1216,8 +1239,9 @@ namespace SoundModBuilder
                             Task.WaitAll(tasks.ToArray());
                             if (remove_tmp_ogg) DeleteFilesByMask("*.ogg");
                         }*/
-            label2.Text = "WEM -> OGG: выполнено.";
-            listBox2.TopIndex = listBox2.Items.Count - 1;
+            LogProgress("WEM -> OGG: выполнено.");
+            Log("Готово.");
+            listBoxLog.TopIndex = listBoxLog.Items.Count - 1;
             AdjustSplitterDistance();
         }
 
@@ -1232,10 +1256,11 @@ namespace SoundModBuilder
             int max_counter = Files.ToArray().Length;
             if (max_counter == 0) return;
 
-            listBox2.Items.Clear();
-            var progress_work = new Progress<string>(s => listBox2.Items.Add(s));
+            listBoxLog.Items.Clear();
+            buttonLog.PerformClick();
+            var progress_work = new Progress<string>(s => Log(s));
             int counter = 0;
-            var progress_complete = new MethodInvoker(delegate { label2.Text = $"WEM -> WAV: {++counter * 100 / max_counter}%"; });
+            var progress_complete = new MethodInvoker(delegate { LogProgress($"WEM -> WAV: {++counter * 100 / max_counter}%"); });
             foreach (var path in Files)
             {
                 await Task.Run(() => RunConverter(progress_work, vgmstream,
@@ -1243,8 +1268,9 @@ namespace SoundModBuilder
                     .ContinueWith(_ => Invoke(progress_complete));
             }
 
-            label2.Text = $"WEM -> WAV: выполнено.";
-            listBox2.TopIndex = listBox2.Items.Count - 1;
+            LogProgress($"WEM -> WAV: выполнено.");
+            Log("Готово.");
+            listBoxLog.TopIndex = listBoxLog.Items.Count - 1;
             AdjustSplitterDistance();
         }
 
@@ -1263,18 +1289,19 @@ namespace SoundModBuilder
             if (MessageBox.Show($"Удалить все {mask} файлы из текущей папки?", "Удаление файлов",
                 MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
             {
+                listBoxLog.Items.Clear();
+                buttonLog.PerformClick();
                 string dir = textBox1.Text;
-                label2.Text = $"Удаление файлов {mask}";
-                listBox2.Items.Clear();
+                Log($"Удаление файлов {mask}");
                 if (Directory.Exists(dir))
                     foreach (var path in Directory.EnumerateFiles(dir, mask))
                     {
-                        listBox2.Items.Add(path);
+                        Log(path);
                         await Task.Run(() => { File.Delete(path); });
                     }
-                listBox2.Items.Add("Выполнено.");
-                listBox2.TopIndex = listBox2.Items.Count - 1;
-                AdjustSplitterDistance();
+                Log("Выполнено.");
+                buttonLog.PerformClick();
+                listBoxLog.TopIndex = listBoxLog.Items.Count - 1;
             }
         }
 
@@ -1293,14 +1320,36 @@ namespace SoundModBuilder
             if (!force && !Properties.Settings.Default.SplitterAutoSize) return;
             int maxlen = 0;
             Font font = new Font("Microsoft Sans Serif", 8);
-            foreach (var itm in listBox2.Items)
+            foreach (var itm in listBoxFiles.Visible ? listBoxFiles.Items : listBoxLog.Items)
             {
                 int strlen = TextRenderer.MeasureText(itm.ToString(), font).Width;
                 if (maxlen < strlen) maxlen = strlen;
             }
             if (maxlen < 10) return;
             if (maxlen < 390) maxlen = 390;
-            splitContainer1.SplitterDistance = maxlen + 10;
+            maxlen += 10;
+            if (splitContainer1.SplitterDistance < maxlen)
+                splitContainer1.SplitterDistance = maxlen;
+        }
+
+        public string ItemNamebyCommanderID(string commID)
+        {
+            if (commID == "") return "";
+            foreach (var commander in CommanderList)
+            {
+                if (commander.ID == commID) return commander.CBItemName();
+            }
+            return $"unknown ({commID})";
+        }
+
+        public string CommanderIDbyItemName(string value, string defvalue)
+        {
+            if (value == "") return "";
+            foreach (var commander in CommanderList)
+            {
+                if (commander.CBItemName() == value) return commander.ID;
+            }
+            return defvalue;
         }
 
         private void Import_ToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1322,7 +1371,7 @@ namespace SoundModBuilder
             XmlElement xRoot = xDoc.DocumentElement;
 
             // commanders 
-            List<string> cmdIds_list = new List<string>();
+            List<string> list_CommanderIDS = new List<string>();
             foreach (XmlNode xnode in xRoot.SelectSingleNode("AudioModification").SelectNodes("ExternalEvent"))
             {
                 var xcont = xnode.SelectSingleNode("Container");
@@ -1333,21 +1382,21 @@ namespace SoundModBuilder
                     {
                         var node = xpath["StateList"]?["State"];
                         if (node?["Name"]?.InnerText == "CrewName")
-                            cmdIds_list.Add(node["Value"]?.InnerText);
+                            list_CommanderIDS.Add(node["Value"]?.InnerText);
                     }
                     break;
                 }
             }
 
-            if (cmdIds_list.Count == 1)
+            if (list_CommanderIDS.Count == 1)
             {
-                prj.CommanderID = cmdIds_list[0];
+                prj.CommanderID = list_CommanderIDS[0];
             }
-            else if (cmdIds_list.Count > 1)
+            else if (list_CommanderIDS.Count > 1)
             {
-                ChooseCommanderForm cf = new ChooseCommanderForm(cmdIds_list);
+                ChooseCommanderForm cf = new ChooseCommanderForm() { Items = list_CommanderIDS, parent = this };
                 cf.ShowDialog(this);
-                prj.CommanderID = cf.Result;
+                prj.CommanderID = cf.CommanderID;
             }
             else
             {
@@ -1386,7 +1435,7 @@ namespace SoundModBuilder
                     var mkState = pEvt.Paths.Find(stl =>
                     {
                         var _check = new Dictionary<string, string>();
-                        if (extid == "VVO_Pilots_Status") _check["Plane_Type"] = "Torpedo";
+                        //if (extid == "VVO_Pilots_Status") _check["Plane_Type"] = "Torpedo";
                         stl.StateList.ForEach(st => _check[st.Name] = st.Value);
                         return _check.All(pair => _nv.TryGetValue(pair.Key, out string value) && value == pair.Value);
                     });
@@ -1400,9 +1449,9 @@ namespace SoundModBuilder
                             if (!mkState.FileList.Contains(fn))
                             {
                                 mkState.FileList.Add(fn);
-                                mkState.FileList.Sort();
                             }
                         }
+                        mkState.FileList.Sort();
                     }
                 }
             }
@@ -1410,7 +1459,15 @@ namespace SoundModBuilder
             WebBrowser_Navigate(prj.SrcPath);
             UpdateStrip();
             UpdateEventsList();
-            ListBox2_Update();
+            ListBoxEvents_Update();
+            string item = ItemNamebyCommanderID(prj.CommanderID);
+            if (item.Length == 0)
+            {
+                string mod_name = xRoot.SelectSingleNode("AudioModification").SelectSingleNode("Name").InnerText;
+                Log($"Импортирован мод {mod_name}.");
+            }
+            else
+                Log($"Импортирован мод {item}.");
         }
 
         internal void UpdateTheme()
@@ -1492,7 +1549,7 @@ namespace SoundModBuilder
         {
             using (SolidBrush brush = new SolidBrush(SystemColors.ActiveBorder))
             {
-                int pos = listBox2.Location.Y;
+                int pos = listBoxFiles.Location.Y;
                 Rectangle rect = new Rectangle(splitContainer1.SplitterDistance, pos, 2, splitContainer1.Height - pos - 5);
                 pe.Graphics.FillRectangle(brush, rect);
             }
@@ -1511,7 +1568,7 @@ namespace SoundModBuilder
                 });
             });
             UpdateEventsList();
-            ListBox2_Update();
+            ListBoxEvents_Update();
             ProjectChanged = true;
         }
 
@@ -1529,19 +1586,247 @@ namespace SoundModBuilder
         private void CheckNewVersionToolStripMenuItem_Click(object sender, EventArgs e)
         {
             AppUpdater Updater = new AppUpdater();
-            Updater.UpdateConfigs();
             if (!Updater.Check())
             {
                 MessageBox.Show("Вы используете последнюю версию программы.",
                     "Обновление", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                return;
             }
-            if (MessageBox.Show("Доступна новая версия. Обновить программу?",
+            else if (MessageBox.Show("Доступна новая версия. Обновить программу?",
                 "Обновление", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
                 CheckProjectChanges();
                 Updater.Run();
             }
+        }
+
+        private void InitCommandersList()
+        {
+            int PeekLong(byte[] fs, int offs)
+            {
+                return (fs[3 + offs] << 24) + (fs[2 + offs] << 16) + (fs[1 + offs] << 8) + fs[0 + offs];
+            }
+
+            string PeekString(byte[] fs, int offs, int len)
+            {
+                if (len == 0) return string.Empty;
+                return Encoding.UTF8.GetString(fs, offs, len);
+            }
+
+            Commander GetCommanderByID(string ID)
+            {
+                foreach (var item in CommanderList)
+                {
+                    if (item.ID == ID) return item;
+                }
+                return null;
+            }
+
+            Commander GetCommanderByName(string name)
+            {
+                foreach (var item in CommanderList)
+                {
+                    if (item.Name == name) return item;
+                }
+                return null;
+            }
+
+            string mods_path = $@"{Properties.Settings.Default.GamePath}\bin\{Properties.Settings.Default.GameVer}\res\banks\mod.xml";
+            if (!File.Exists(mods_path))
+            {
+                ErrorMsgBox($"Файл '{mods_path}' не найден.");
+                return;
+            }
+            XmlDocument xDoc = new XmlDocument();
+            xDoc.Load(mods_path);
+            XmlElement xRoot = xDoc.DocumentElement;
+            foreach (XmlNode xnode in xRoot.SelectSingleNode("states").ChildNodes) // event
+            {
+                if ("CrewName" == xnode.Attributes["name"].Value)
+                {
+                    foreach (XmlNode xnode_value in xnode.SelectSingleNode("values").ChildNodes)
+                    {
+                        string name = xnode_value.Attributes["name"].Value;
+                        if (name != "Unknown")
+                        {
+                            if (GetCommanderByID(name) == null) CommanderList.Add(new Commander { ID = name, Name = $"IDS_{name.ToUpper()}" });
+                        }
+                    }
+                    break;
+                }
+            }
+
+            // reading mo
+            string global_mo = $@"{Properties.Settings.Default.GamePath}\bin\{Properties.Settings.Default.GameVer}\res\texts\ru\LC_MESSAGES\global.mo";
+            if (!File.Exists(global_mo))
+            {
+                Log($"! Файл '{global_mo}' не найден.");
+                return;
+            }
+
+            var content = File.ReadAllBytes(global_mo);
+            int magic = PeekLong(content, 0);
+            var version = PeekLong(content, 4);
+            var numbers = PeekLong(content, 8);
+            var offset = PeekLong(content, 12);
+            var translated = PeekLong(content, 16);
+            for (int i = 0; i < numbers; i++)
+            {
+                // origin len
+                int ol = PeekLong(content, offset);
+                // origin offset
+                int oo = PeekLong(content, offset + 4);
+                offset += 8;
+                string msg = PeekString(content, oo, ol); // IDS_NAME
+
+                // translated len
+                int tl = PeekLong(content, translated);
+                // translated offset
+                int to = PeekLong(content, translated + 4);
+                translated += 8;
+                string tmsg = PeekString(content, to, tl);
+                var cm = GetCommanderByName(msg);
+                if (cm != null)
+                {
+                    cm.Name_RU = tmsg;
+                }
+            }
+
+            // sort commanders list
+            CommanderList.Sort(delegate (Commander a, Commander b)
+            {
+                var matcha = Regex.IsMatch(a.Name_RU, @"\p{IsCyrillic}");
+                var matchb = Regex.IsMatch(b.Name_RU, @"\p{IsCyrillic}");
+                if (matcha && !matchb) return -1;
+                if (matchb && !matcha) return 1;
+                return a.Name_RU.CompareTo(b.Name_RU);
+            });
+        }
+
+        private void ButtonFiles_Click(object sender, EventArgs e)
+        {
+            listBoxLog.Hide();
+            listBoxFiles.Show();
+            listBoxFiles.Focus();
+        }
+
+        private void ButtonLog_Click(object sender, EventArgs e)
+        {
+            listBoxFiles.Hide();
+            listBoxLog.Show();
+            listBoxLog.Focus();
+        }
+
+        private void OpenSourceDirToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (Directory.Exists(prj.SrcPath))
+                Process.Start(new ProcessStartInfo()
+                {
+                    FileName = prj.SrcPath,
+                    UseShellExecute = true,
+                    Verb = "open"
+                });
+        }
+
+        private bool CheckPaths(bool verb)
+        {
+            listBoxLog.Items.Clear();
+            buttonLog.PerformClick();
+            Log("Проверка существования путей...");
+
+            List<string> flist = new List<string>();
+            foreach (var path in from MKEvent evt in prj.EventsSFX
+                                 from MKState p in evt.Paths
+                                 from string path in p.FileList
+                                 select path)
+            {
+                if (!flist.Contains(path) && !File.Exists(path))
+                {
+                    flist.Add(path);
+                    if (verb) Log($"! Не найден {path}");
+                }
+            }
+            if (flist.Count() == 0)
+            {
+                Log("OK.");
+                return true;
+            }
+            else
+            {
+                Log($"! Не найдено файлов: {flist.Count()}.");
+                return false;
+            }
+        }
+
+        private void CheckToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            CheckPaths(true);
+        }
+
+        private void CopyPilotsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (prj.ModName.Length == 0) return;
+            foreach (MKEvent evt in prj.EventsSFX)
+                foreach (MKState p in evt.Paths)
+                {
+                    if (p.FileList.Count == 0) continue;
+                    if (p.ReadRu.Contains("Торпедоносец") &&
+                        (p.Name == "Pilots_Airborne" || p.Name == "Pilots_Atpos" ||
+                        p.Name == "Pilots_Destroy" || p.Name == "Pilots_Engage" ||
+                        p.Name == "Pilots_Land" || p.Name == "Pilots_Ready" ||
+                        p.Name == "Pilots_Under_Attack"))
+                    {
+                        CopyList(p.ReadRu.Replace("Торпедоносец", "Бомбардировщик"), p.FileList);
+                        CopyList(p.ReadRu.Replace("Торпедоносец", "Истребитель"), p.FileList);
+                        continue;
+                    }
+                    if (p.ReadRu == "Катапультный истребитель возвращается")
+                    {
+                        CopyList("Пилоты (Кат. истребитель): Возвращаюсь", p.FileList);
+                        continue;
+                    }
+                    if (p.ReadRu == "Катапультный истребитель уничтожен")
+                    {
+                        CopyList("Пилоты (Кат. истребитель): Уничтожен", p.FileList);
+                        continue;
+                    }
+                    if (p.ReadRu == "Корректировщик возвращается")
+                    {
+                        CopyList("Пилоты (Корректировщик): Возвращаюсь", p.FileList);
+                        continue;
+                    }
+                    if (p.ReadRu == "Корректировщик уничтожен")
+                    {
+                        CopyList("Пилоты (Корректировщик): Уничтожен", p.FileList);
+                        continue;
+                    }
+                }
+            ProjectChanged = true;
+            UpdateEventsList();
+            ListBoxEvents_Update();
+        }
+
+        private void ListBoxLog_DrawItem(object sender, DrawItemEventArgs e)
+        {
+            string text = (e.Index == -1) ? "" : listBoxLog.Items[e.Index].ToString();
+            if ((e.State & DrawItemState.Focus) != DrawItemState.Focus &&
+                (e.State & DrawItemState.Selected) == DrawItemState.Selected)
+                e = new DrawItemEventArgs(e.Graphics,
+                                           e.Font,
+                                           e.Bounds,
+                                           e.Index,
+                                           e.State ^ (DrawItemState.Selected | DrawItemState.Focus),
+                                           e.ForeColor,
+                                           e.BackColor);
+
+            e.DrawBackground();
+            Graphics g = e.Graphics;
+            g.FillRectangle(new SolidBrush(e.BackColor), e.Bounds);
+            g.DrawString(text,
+                e.Font,
+                text.StartsWith("! ") ? Brushes.Red :
+                (((e.State & DrawItemState.Focus) == DrawItemState.Focus) ? Brushes.WhiteSmoke : new SolidBrush(GetForeColor())),
+                e.Bounds);
+            e.DrawFocusRectangle();
         }
     }
 }

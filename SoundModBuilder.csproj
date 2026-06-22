@@ -120,9 +120,7 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="ProjectSettingsForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="ProjectSettingsForm.cs" />
     <Compile Include="ProjectSettingsForm.Designer.cs">
       <DependentUpon>ProjectSettingsForm.cs</DependentUpon>
     </Compile>

@@ -6,29 +6,33 @@ namespace SoundModBuilder
 {
     public partial class ChooseCommanderForm : Form
     {
-        public ChooseCommanderForm(List<string> items)
+        public List<string> Items;
+        public Form1 parent;
+        public string CommanderID = string.Empty;
+
+        public ChooseCommanderForm()
         {
             InitializeComponent();
-            Items = items;
         }
-
-        public List<string> Items;
-        public string Result;
 
         private void ChooseCommanderForm_Load(object sender, EventArgs e)
         {
-            comboBox1.Items.AddRange(Items.ToArray());
+            foreach (string CommID in Items)
+            {
+                comboBox1.Items.Add(parent.ItemNamebyCommanderID(CommID));
+                if (CommanderID.Length == 0) CommanderID = CommID;
+            }
             comboBox1.SelectedIndex = 0;
         }
 
-        private void Button1_Click(object sender, EventArgs e)
+        private void ButtonOK_Click(object sender, EventArgs e)
         {
             Close();
         }
 
         private void ComboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            Result = comboBox1.Text;
+            CommanderID = parent.CommanderIDbyItemName(comboBox1.Text, CommanderID);
         }
     }
 
