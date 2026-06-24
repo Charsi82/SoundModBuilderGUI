@@ -706,61 +706,61 @@
     <value>CTRL+B</value>
   </data>
   <data name="BuildToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>303, 22</value>
+    <value>234, 22</value>
   </data>
   <data name="BuildToolStripMenuItem.Text" xml:space="preserve">
     <value>Собрать</value>
   </data>
   <data name="ProjectOptionsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>303, 22</value>
+    <value>234, 22</value>
   </data>
   <data name="ProjectOptionsToolStripMenuItem.Text" xml:space="preserve">
     <value>Н&amp;астройки...</value>
   </data>
   <data name="CheckToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>303, 22</value>
+    <value>234, 22</value>
   </data>
   <data name="CheckToolStripMenuItem.Text" xml:space="preserve">
     <value>Проверить пути</value>
   </data>
   <data name="toolStripSeparator2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>300, 6</value>
+    <value>231, 6</value>
   </data>
   <data name="CopyMessagesToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>303, 22</value>
+    <value>234, 22</value>
   </data>
   <data name="CopyMessagesToolStripMenuItem.Text" xml:space="preserve">
     <value>Копировать  ИСХ -&gt; ВХ</value>
   </data>
   <data name="copyPilotsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>303, 22</value>
+    <value>234, 22</value>
   </data>
   <data name="copyPilotsToolStripMenuItem.Text" xml:space="preserve">
-    <value>Копировать П:Торп -&gt; П:Бобры + П:Истр</value>
+    <value>Копировать озвучку пилотов</value>
   </data>
   <data name="addSilenceToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>303, 22</value>
+    <value>234, 22</value>
   </data>
   <data name="addSilenceToolStripMenuItem.Text" xml:space="preserve">
     <value>Заглушить неиспользуемые</value>
   </data>
   <data name="CleanToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>303, 22</value>
+    <value>234, 22</value>
   </data>
   <data name="CleanToolStripMenuItem.Text" xml:space="preserve">
     <value>Оч&amp;истить</value>
   </data>
   <data name="toolStripSeparator1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>300, 6</value>
+    <value>231, 6</value>
   </data>
   <data name="openSourceDirToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>303, 22</value>
+    <value>234, 22</value>
   </data>
   <data name="openSourceDirToolStripMenuItem.Text" xml:space="preserve">
     <value>Открыть папку проекта</value>
   </data>
   <data name="OpenResultDirToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>303, 22</value>
+    <value>234, 22</value>
   </data>
   <data name="OpenResultDirToolStripMenuItem.Text" xml:space="preserve">
     <value>Открыть папку мода</value>
