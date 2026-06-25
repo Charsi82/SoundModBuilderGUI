@@ -208,7 +208,7 @@ namespace SoundModBuilder
             internal VOProject()
             {
                 SrcPath = "";
-                ModName = "";
+                ModName = "Безымянный";
                 ModDir = "";
                 CommanderID = "";
                 PrjPath = "";
@@ -1405,37 +1405,33 @@ namespace SoundModBuilder
 
             foreach (XmlNode xnode in xRoot.SelectSingleNode("AudioModification").SelectNodes("ExternalEvent"))
             {
-                var xcont = xnode.SelectSingleNode("Container");
+                XmlNode xcont = xnode.SelectSingleNode("Container");
                 string extid = xcont.SelectSingleNode("ExternalId").InnerText;
 
                 foreach (XmlNode xpath in xcont.SelectNodes("Path"))
                 {
                     var pEvt = prj.EventsSFX.Find(evt => (evt.ExtId == extid));
-                    if (pEvt == null) continue;
+                    if (pEvt == null)
+                    {
+                        //Log($"! DBG: {extid} event not found");
+                        continue;
+                    }
                     XmlNode xStateList = xpath.SelectSingleNode("StateList");
+
                     var _nv = new Dictionary<string, string>();
                     bool _br = false;
                     foreach (XmlNode xState in xStateList.SelectNodes("State"))
                     {
                         var name = xState.SelectSingleNode("Name").InnerText;
                         var value = xState.SelectSingleNode("Value").InnerText;
-                        if (name == "CrewName")
-                        {
-                            if (value != prj.CommanderID) _br = true;
-                            break;
-                        }
                         _nv[name] = value;
+                        if (name == "CrewName" && value != prj.CommanderID) _br = true;
                     }
+                    if (_br) continue;
 
-                    if (_br)
-                    {
-                        continue;
-                    }
-
-                    var mkState = pEvt.Paths.Find(stl =>
+                    MKState mkState = pEvt.Paths.Find(stl =>
                     {
                         var _check = new Dictionary<string, string>();
-                        //if (extid == "VVO_Pilots_Status") _check["Plane_Type"] = "Torpedo";
                         stl.StateList.ForEach(st => _check[st.Name] = st.Value);
                         return _check.All(pair => _nv.TryGetValue(pair.Key, out string value) && value == pair.Value);
                     });
@@ -1459,7 +1455,9 @@ namespace SoundModBuilder
             WebBrowser_Navigate(prj.SrcPath);
             UpdateStrip();
             UpdateEventsList();
+            if (listBoxEvents.SelectedIndex == -1) listBoxEvents.SelectedIndex = 0;
             ListBoxEvents_Update();
+            buttonFiles.PerformClick();
             string item = ItemNamebyCommanderID(prj.CommanderID);
             if (item.Length == 0)
             {
@@ -1706,14 +1704,14 @@ namespace SoundModBuilder
         {
             listBoxLog.Hide();
             listBoxFiles.Show();
-            listBoxFiles.Focus();
+            buttonFiles.Focus();
         }
 
         private void ButtonLog_Click(object sender, EventArgs e)
         {
             listBoxFiles.Hide();
             listBoxLog.Show();
-            listBoxLog.Focus();
+            buttonLog.Focus();
         }
 
         private void OpenSourceDirToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1807,7 +1805,6 @@ namespace SoundModBuilder
 
         private void ListBoxLog_DrawItem(object sender, DrawItemEventArgs e)
         {
-            string text = (e.Index == -1) ? "" : listBoxLog.Items[e.Index].ToString();
             if ((e.State & DrawItemState.Focus) != DrawItemState.Focus &&
                 (e.State & DrawItemState.Selected) == DrawItemState.Selected)
                 e = new DrawItemEventArgs(e.Graphics,
@@ -1821,6 +1818,7 @@ namespace SoundModBuilder
             e.DrawBackground();
             Graphics g = e.Graphics;
             g.FillRectangle(new SolidBrush(e.BackColor), e.Bounds);
+            string text = e.Index == -1 ? "" : listBoxLog.Items[e.Index].ToString();
             g.DrawString(text,
                 e.Font,
                 text.StartsWith("! ") ? Brushes.Red :

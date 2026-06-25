@@ -212,7 +212,7 @@ namespace SoundModBuilder
             // listBoxEvents
             // 
             resources.ApplyResources(this.listBoxEvents, "listBoxEvents");
-            this.listBoxEvents.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.listBoxEvents.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
             this.listBoxEvents.FormattingEnabled = true;
             this.listBoxEvents.Name = "listBoxEvents";
             this.listBoxEvents.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.ListBoxEvents_DrawItem);
